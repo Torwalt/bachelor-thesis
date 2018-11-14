@@ -1,0 +1,296 @@
+\documentclass[12pt,a4paper,twoside]{scrartcl}
+\usepackage{fancyhdr} %für Kopf- und Fußzeilen
+\usepackage[utf8x]{inputenc} %Zeichenkodierung
+\usepackage[english]{babel} %Sprache (ngerman für Deutsch)
+\usepackage{graphicx} %für Bilder
+\usepackage[printonlyused, withpage]{acronym} %für die Abkürzungsliste
+\usepackage{caption}
+\usepackage{calc}
+\usepackage{hhline}
+\usepackage{multirow} 
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{enumitem} %Anpassbare Enumerates/Itemizes
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{pdfpages}
+\usepackage{placeins}
+
+
+%Kreiert Links von der Table of Content zu Kapiteln (ohne optische Hervorhebung)
+\usepackage[pdftex,pdfborder={0 0 0},plainpages=false]{hyperref}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=3cm,includeheadfoot]{geometry}
+\usepackage{url}
+\usepackage{float}
+
+%set check and cross mark
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\newcommand{\para}[1]{\noindent{\textbf{#1}}}
+
+\newcommand{\TODO}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\TODOP}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\TODOX}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\NOTE}[1]{\textcolor{blue}{\textbf{NOTE}: #1}}
+\newcommand{\DONEX}[1]{\textcolor{blue}{#1}}
+
+%import time.sty for time charts
+\usetikzlibrary{arrows}
+
+%set XML language
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+% Set title color
+\definecolor{titlecolor}{RGB}{0,0,0}
+%\titleformat*{\section}{\normalfont\Large\bfseries\color{titlecolor}}
+%\titleformat*{\subsection}{\normalfont\large\bfseries\color{titlecolor}}
+%\titleformat*{\subsubsection}{\normalfont\normalsize\bfseries\color{titlecolor}}
+
+\clubpenalty = 10000 % verhindert "Schusterjungen" (Einzelzeile unten)
+\widowpenalty = 10000 \displaywidowpenalty = 10000 % verhindert "Hurenkinder" (Einzelzeile oben)
+ 
+\newcommand{\student}{Firstname Lastname}	%Hier Name eintragen
+\newcommand{\kurs}{}					%Hier Kurs eintragen
+\newcommand{\lokation}{Berlin}		%Hier „Heimat“-Lokation eintragen
+\newcommand{\matrikel}{0123456}		%Hier Matrikelnummer eintragen
+\newcommand{\vondatum}{DD/MM/YYYY}	%Hier Startdatum eintragen (mm/dd/yyyy)
+\newcommand{\bisdatum}{DD/MM/YYYY}	%Hier Enddatum eintragen (mm/dd/yyyy)
+\newcommand{\berichttitel}
+	{The title of the thesis}
+\newcommand{\berichtuntertitel}
+	{Here comes the subtitle}
+\newcommand{\sture}{Supervisor1/Professor}%Hier Supervisor1 eintragen
+\newcommand{\betreuer}{Supervisor2/Advisor}%Hier Supervisor2 eintragen
+\newcommand{\abgabedatum}{DD/MM/YYYY}		%Hier Abgabedatum eintragen (mm/dd/yyyy)
+
+%Add environment to mark draft sections
+\newcommand{\draftcontent}[2]{
+	{\leavevmode\color{red}\textbf{Notice: The following content, marked grey, is just a scratch/preview.}}	
+	{\leavevmode\color{red}\textit{#1 \newline}}
+	{\leavevmode\color{black!50}#2}	
+}
+\newcommand{\nocontent}[1]{
+	{\leavevmode\color{red}\textbf{Notice: Unfortunately, this part of the thesis not available yet.}}	
+	{\leavevmode\color{red}\textit{#1 \newline}}
+}
+
+%set italic text for acronyms
+\renewcommand*{\acsfont}[1]{\textit{#1}}
+\renewcommand*{\acffont}[1]{\textit{#1}}
+\renewcommand*{\acfsfont}[1]{\textit{#1}}
+
+%Reconfigure autoref
+\let\subsectionautorefname\sectionautorefname
+\let\subsubsectionautorefname\sectionautorefname
+
+\hypersetup{ 
+  pdftitle={Master Thesis - \berichttitel - \student}, %%
+  pdfauthor={\student}, %%
+  pdfsubject={\berichtuntertitel}, %%
+}
+
+%%%%
+
+\title{\berichttitel}
+\author{\student}
+\date{\abgabedatum}
+
+\newlength{\iconwidth}
+\setlength{\iconwidth}{1cm}
+
+\definecolor{boxheadcol}{gray}{.6}
+\definecolor{boxcol}{gray}{.9}
+
+\begin{document}
+
+%%%%%%%%%%% title page
+\begin{titlepage}
+ \begin{center}
+  \includegraphics*[height=3cm]{images/Logos/TUBerlin_Logo.png}
+  \linebreak
+  {\large\bf Technische Universität Berlin}\\
+   \vspace{3.5cm}
+
+  {\Large\bf Master Thesis}\\
+  \vspace{0.7cm}  
+  {\begin{onehalfspace}\Huge\bf \textsf{\berichttitel} \end{onehalfspace}}
+  \vspace{0.5cm}
+  \berichtuntertitel\\
+  %{\large \vondatum\ -- \bisdatum}\\
+  \vspace{2.5cm}
+  {\bf \student}\\
+  \vspace{0.1cm}
+  \kurs
+  \vspace{0.1cm}
+  Matriculation \#: \matrikel\\
+  \vspace{0.3cm}
+  \textbf{Supervisors:} \sture \\
+  \textbf{Advisors:} \betreuer \\  
+  \vspace{0.5cm}
+  \abgabedatum
+ \end{center}
+\end{titlepage}
+\clearpage
+\mbox{}
+\thispagestyle{empty}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%externes Deckplatt
+%\includepdf{images/Titelblatt.pdf}
+%\thispagestyle{empty}   
+%\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\lhead{}
+\chead{\rightmark}
+\rhead{}
+
+\cfoot{\small \student: \berichttitel}
+\lfoot{\ifthispageodd{}{\thepage}}
+\rfoot{\ifthispageodd{\thepage}{}}
+%\rfoot{\thepage}
+
+\fancyhfoffset{\marginparsep}
+\renewcommand{\footrulewidth}{1.0pt}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\headheight}{30pt}
+\pagenumbering{roman}
+
+%%Listing
+%\lstset{
+%	tabsize=2,
+%	language=Java,
+%	basicstyle=\small,
+%	keywordstyle=\color{blue!80!black!100},
+%	identifierstyle=,
+%	showstringspaces=false,
+%	commentstyle=\color{green!50!black!100},
+%	stringstyle=\ttfamily,
+%	breaklines=true,
+%	numbers=left,
+%	numberstyle=\tiny,
+%	numbersep=5pt,
+%	frame=single,
+%	backgroundcolor=\color{white},
+%	aboveskip=0.2cm,
+%	captionpos=b
+%}
+
+% Default settings for code listings
+ \lstset{frame=tb,
+   aboveskip=3mm,
+   belowskip=3mm,
+   showstringspaces=false,
+   columns=flexible,
+   basicstyle={\footnotesize\ttfamily},
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!50!black!100},
+   stringstyle=\color{purple},
+   frame=single,
+   breaklines=false,
+   breakatwhitespace=false,
+   tabsize=2,
+   language=java,
+   captionpos=b,
+   frame=bt
+ }
+
+\onehalfspacing
+\parindent 0pt
+\parskip 12pt
+
+%%%%%%%%%%% Declaration of Academic Honesty
+% May replace this with the declaration of your institution...
+\thispagestyle{empty}
+
+\section*{Erklärung (Declaration of Academic Honesty)}
+
+Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig und eigenhändig sowie ohne unerlaubte fremde Hilfe und ausschließlich unter Verwendung der aufgeführten Quellen und Hilfsmittel angefertigt habe.  
+
+\textit{I hereby declare to have written this thesis on my own and without forbidden help of others, using only the listed resources.}
+
+\vspace{2cm}
+\begin{tabular}{p{5cm} p{4cm} p{5cm}}\cline{1-1}\cline{3-3}
+Datum &  & \student
+\end{tabular}
+
+\clearpage
+\thispagestyle{empty}   
+\cleardoublepage
+
+%%%%%%%%%%%% inner title page
+%\includepdf{images/XXX.pdf}
+%\thispagestyle{empty}   
+%\cleardoublepage
+
+%%%%%%%%%%% table of contents
+\setcounter{page}{3}
+\begin{spacing}{0.0}
+\tableofcontents
+\end{spacing}
+\clearpage
+
+%%%%%%%%%%% list of figures, listings and tables
+
+\clearpage
+\singlespacing
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+\clearpage
+\addcontentsline{toc}{section}{List of Listings}
+\renewcommand{\lstlistlistingname}{List of Listings}
+\lstlistoflistings
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\clearpage
+
+%%%%%%%%%%% acronyms
+\section*{List of Acronyms}
+\addcontentsline{toc}{section}{Acronyms}
+\input{acronyms}
+\clearpage
+\mbox{}
+\thispagestyle{empty}
+\clearpage
+
+%%%%%%%%%%% content
+\pagenumbering{arabic}
+\interlinepenalty 1000
+\input{content}
+
+\clearpage
+\mbox{}
+\thispagestyle{empty}
+\clearpage
+
+%%%%%%%%%%% reference
+\pagenumbering{roman}
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{plain}
+\bibliography{bib}
+
+%%%%%%%%%%% appendix
+
+\include{appendix} 
+
+\end{document}
