@@ -16,22 +16,25 @@
 
 \section{Introduction}
 \label{sec:Introduction}
+% cite: ~\cite{hirzel2014catalog}
+% footnote \footnote{footnotes working fine}
+Gartner Inc. states that the number of interconnected devices will reach 20.4 billion by 2020 \footnote{Gartner Inc., R. (2017, February 7). Gartner Says 8.4 Billion Connected "Things" Will Be in Use in 2017, Up 31 Percent From 2016. Retrieved September 28, 2018, from https://www.gartner.com/en/newsroom/press-releases/2017-02-07-gartner-says-8-billion-connected-things-will-be-in-use-in-2017-up-31-percent-from-2016}.
+To gather information from those devices, we need algorithms which efficiently sample and route data from sensor nodes (i.e., devices) to data sinks. Energy expenditure will gain higher importance, especially for mobile devices such as battery-powered wearables and smartphones. Wireless Sensor Networks (WSNs) are often battery-powered and use cases span from home and health applications to the military sector~\cite{akyildiz2002wireless}. With low production costs of a node as a goal in WSNs~\cite{akyildiz2002wireless}, resource usage at the nodes is restricted. While reducing sampling frequencies leads to a higher life of a battery-powered sensor network, important changes in the observed phenomenon could be missed which reduces the quality of the data~\cite{akyildiz2002wireless}. A tradeoff between the quality of data and energy expenditure arises, thus an optimization is needed. Different methods for optimizing WSNs were presented in surveys (e.g.,~\cite{abbasi2007survey},~\cite{sivrikaya2004time},~\cite{carrano2014survey}). The proposed areas of optimization include clustering algorithms~\cite{abbasi2007survey}, time synchronization~\cite{sivrikaya2004time}, duty cycling~\cite{carrano2014survey}, topology control~\cite{li2013survey}, in-network aggregation~\cite{fasolo2007network}, data compression~\cite{srisooksai2012practical}, and general routing techniques~\cite{al2004routing}~\cite{kulkarni2011particle}~\cite{singh2015survey}~\cite{rault2014energy}. TinyDB~\cite{madden2005tinydb}, ACQUIRE~\cite{sadagopan2003acquire} and COUGAR~\cite{yao2002cougar} introduce system architectures for query processing which consist of algorithms for sampling, and routing data requested by a user through a SQL-like language.
 
-In an essay, article, or book, an introduction (also known as a prolegomenon) is a beginning section which states the purpose and goals of the following writing. This is generally followed by the body and conclusion.
 
-The introduction typically describes the scope of the document and gives the brief explanation or summary of the document. It may also explain certain elements that are important to the essay if explanations are not part of the main text. The readers can have an idea about the following text before they actually start reading it.
 
-ln technical writing, the introduction typically includes one or more standard subsections: abstract or summary, preface, acknowledgments, and foreword. Alternatively, the section labeled introduction itself may be a brief section found side-by-side with abstract, foreword, etc. (rather than containing them). In this case the set of sections that come before the body of the book are known as the front matter. When the book is divided into numbered chapters, by convention the introduction and any other front-matter sections are unnumbered and precede chapter 1.
-
-Keeping the concept of the introduction the same, different documents have different styles to introduce the written text. For example, the introduction of a Functional Specification consists of information that the whole document is yet to explain. If a Userguide is written, the introduction is about the product. In a report, the introduction gives a summary about the report contents. (Source: Wikipedia)
 
 \subsection{Motivation}
 \label{sec:motivation}
 
-Put some motivation here...
+As stated above, surveys and taxonomies were presented for different areas of sensor networks. However, during our research, we did not encounter a survey or catalog focusing on sampling algorithms in sensor networks. This thesis aims to provide a catalog for a comprehensive overview of the existing sampling algorithms for the specific use case of sensor data. For researchers as well as practitioners, a collection of sampling algorithms is a valuable starting point for finding a solution for a design problem in a sensor network. Thus, a taxonomy of the algorithms will be presented to provide a compact overview. Furthermore, algorithms which focus on areas other than sensing (like routing and topology building) in sensor networks will be presented. Combinations of said algorithms with sampling algorithms as well as combinations of sampling algorithms from different categories could inspire further research.
 
 \subsubsection{Scientific Background}
 \label{sec:Scientific Background}
+
+Different types of sensor networks, like wireless, rechargeable, or wired sensors networks exist. 
+However, some algorithms are designed for a specific type of network. For example, AdaM~\cite{trihinas2015adam} can be applied to all kinds of networks, while the algorithm presented by Santini and Romer~\cite{santini2006adaptive} is designed for wireless sensor networks. Other algorithms build upon existing architectures, for example, TiNA~\cite{sharaf2003tina} expands the TinyDB framework with a temporal coherency tolerance to prevent the transmission of slight data changes. Some sampling and filtering algorithms implemented in SNs were initially designed for special use cases and architectures. For example, an algorithm by Alippi et al.~\cite{alippi2010adaptive} was initially designed for a snow monitoring application, however, the authors argue that it is usable in other cases where the monitored phenomenon is slowly changing over time, too. Other algorithms are more general and suited for a range of applications and use cases (e.g.,~\cite{fan2013fast}~\cite{gaura2013edge})
+
 
 \clearpage
 \subsection{Contributions}
