@@ -7,6 +7,9 @@ The best way to build the document is to use the makefile.
 <code> make all </code> or just <code>make</code>
 will build the document.
 
+If on windows run: 
+<code> makefile.bat </code>
+
 ### Clean up befor commit
 You can use <code> make clean </code> to delete all build files.
 
