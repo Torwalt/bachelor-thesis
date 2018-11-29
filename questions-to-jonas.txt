@@ -1,0 +1,4 @@
+1. Benutzt du ein spezifisch Tool um Grammatikfehler in latex files anzuzeigen?
+		-	oder manuell text in word/grammarly kopieren und die Fehler per Hand korrigieren
+
+2. Ich habe "code" gefunden für das Darstellen von zwei Bildern nebeneinander. Jedoch wird das eine bild (topology-tree.jpg) nicht in der gleichen Skalierung angezeigt wie das andere, obwohl ich das bild bereits größer gemacht habe. Hast du da zufällig code den du so nutzt um eine solche Darstellung zu ermöglichen, bzw. einen Tipp wie man selbtserstellte Graphen am besten into latex bekommt? 

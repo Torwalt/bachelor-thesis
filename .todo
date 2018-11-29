@@ -1,0 +1,22 @@
+1. Scientific Background
+	-	explain what is inside a sensor node, i.e. radio unit, sensor etc. and maybe what kind of nodes there are on the market right now (just some examples)
+	- explain high level (?) use cases for sn applications, e.g. query driven, event driven
+			examples: 
+				- user queries sn like a db
+				- bird landing in nest gets detected
+				- ...
+
+2. Definitions
+	- definitions have to be added for every Section/Subsection
+		- e.g. Definitions for the taxonomy apply to every class of the taxonomy, while definitions for compressive sensing are only relevant for compressive sensing
+
+3. Synonyms
+	- think about were to explain and standardize words like Data Collection, (Data) Sampling, Data Gathering, Data Sensing (some notes are in onenote @Dictionary.synonyms) 
+	- Idea: Put it in the Overview of the taxonomy, as it is part of why I am including some algorithms and some not
+
+4. Algorithm dependecies
+	- start working on a dependency graph for every algorithm you read:
+		- look at references and how cites this alg
+		- if you find an algorithm which is already in one of the excel sheets, build a connection in a mind map tool
+
+5. Find a suitible mind map tool
