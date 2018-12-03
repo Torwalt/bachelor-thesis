@@ -13,3 +13,6 @@ document.pdf :
 
 fast :
 	pdflatex -shell-escape thesis-main.tex
+
+view :
+	evince thesis-main.pdf
