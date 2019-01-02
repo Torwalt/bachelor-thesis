@@ -174,11 +174,11 @@ found here could be used as a basis for further research.
 \label{sec:Taxonomy}
 
 In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
-devided the mass of algorithms into three sections: \ref{sec:Adaptive Sampling}
-Adaptive Sampling, Compressive Sampling and Data Sharing. Many different terms
-for the concept of data retrieval from sensors exist in the literature. Data
-collection, data sampling, data gathering, and data sensing could be seen as
-synonyms, however, we found they are sometimes used in different contexts.
+devided the mass of algorithms into three sections: \catI, \catII  and \catIII.
+Many different terms for the concept of data retrieval from sensors exist in
+the literature. Data collection, data sampling, data gathering, and data
+sensing could be seen as synonyms, however, we found they are sometimes used in
+different contexts.
 \par
 Data collection is often mentioned in connection with the whole process of
 acquiring data through a sensors in a \acp{SN}.
@@ -223,8 +223,10 @@ reconfiguration of the sensor sensing times is not possible. Contrary, software
 is more flexible and sampling rates and intervals can be specified online.
 \par
 We will use data collection and data gathering as synonyms and differentiate
-between data sensing and data sampling.
-
+between data sensing and data sampling. Additional synonyms are base station,
+fusion center and client station which all describe a wired station like a
+server to which information is routed and from which user queries can be
+specified to then be distributed in the network.
 % Sampling Cats - Zhao = sampling interval and sampling tasks a sampling task
 %     is alocated to a sensor node by a sink node sampling task has a time
 %     window and a sampling interval Adam - Trihinas = adaptive sampling
@@ -236,13 +238,28 @@ between data sensing and data sampling.
 
 \subsection{Overview}
 \label{sec:Overview}
-
 % Picture of taxonomy at the beginning Explain picture and explain the terms
 % e.g. model based adaptive sampling is a prediction scheme ... Reasoning
 % behind the partitioning of the algorithms maybe if a assignment of a
 % particular algorithm is not straightforward
+% explain why thesis title is about sampling algorithms and taxonomy has 
+% filtering and sampling as different categories
 
-\subsection{Adaptive Sampling}
+
+\subsection{\catI} % Sampling Algorithms
+\label{sec:\catI}
+
+The first category of our taxonomy incorporates all algorithms which primary 
+focus is on manipulating the sampling or sensing rate of one or multiple sensor
+nodes to reduce data throughoutput. 
+ % TODO find papers to cite which, e.g., use sampling and filtering
+Although there are algorithms from other categories which also may incorporate
+manipulations to the sensing/sampling rates of sensor nodes, we include
+algorithms to the Sampling Algorithms category only if the main focus of the
+work lies on sampling. 
+
+
+\subsubsection{Adaptive Sampling}
 \label{sec:Adaptive Sampling}
 
 % All required definitions for adaptive sampling
@@ -250,16 +267,37 @@ Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
 \quote{"The process of dynamically adjusting the sampling rate to the current
 metric evolution, such that when stable phases in a metric stream are detected,
 the sampling rate is reduced to ease processing and energy consumption"}.
+\par
+Although the quote is from 2015, the idea of adaptive sampling goes back to a
+paper from 2004. A technique called Backcasting was presented by Willet et
+al.~\cite{willett2004backcasting}. The key idea of the work is that a monitored
+environment exhibits correlations in time and space domains which can be
+exploited to reduce the number of required sensor nodes to deliver an accurate
+picture about the monitored environment. The authors assume that the sensor
+network is a rectangular field of uniformly distributed sensor nodes.
+Initially, a subset of the sensor nodes is chosen by the fusion center to
+provide a initial estimate of the sensed phenomenon by a recursive dyadic 
+partition.
+The fusion center recieves the sensed data and activates additional nodes to
+improve the quality of the sampling by reducing the \ac{MSE}.
 
-% idea: subsubsections for the subdivisions of the taxonomy categories. One
-% layer after the general class
-%
 
-\subsection{Compressive Sampling}
+\subsubsection{Compressive Sampling}
+\label{sec:Compressive Sampling}
 
 
-\subsection{Data Sharing}
-\label{sec:Listings}
+\subsection{\catII}
+\label{sec:\catII}
+
+\subsubsection{Model Based Schemes}
+\label{sec:Model Based Schemes}
+
+
+\subsubsection{Adaptive Filtering}
+\label{sec:Adaptive Filtering}
+
+\subsection{\catIII}
+\label{sec:\catIII}
 
 
 \section{Discussion}
