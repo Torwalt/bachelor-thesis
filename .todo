@@ -1,22 +1,44 @@
 1. Scientific Background
-	-	explain what is inside a sensor node, i.e. radio unit, sensor etc. and maybe what kind of nodes there are on the market right now (just some examples)
-	- explain high level (?) use cases for sn applications, e.g. query driven, event driven
+	-	explain what is inside a sensor node, i.e. radio unit, sensor etc. and
+	maybe what kind of nodes there are on the market right now (just some
+	examples) - explain high level (?) use cases for sn applications, e.g.
+	query driven, event driven
 			examples: 
-				- user queries sn like a db
-				- bird landing in nest gets detected
-				- ...
+				- user queries sn like a db - bird landing in nest gets
+				detected - ...
+	- an energy comparison of sensing, cpu and communication maybe interesting
+	(not extensive just some refrences) as to when which action consumes most
+	of the energy
+		-	compare maybe to other metrics such as bandwidth usage (can
+			directly translate to cost if third party cloud providers are used)
 
 2. Definitions
 	- definitions have to be added for every Section/Subsection
-		- e.g. Definitions for the taxonomy apply to every class of the taxonomy, while definitions for compressive sensing are only relevant for compressive sensing
+		- e.g. Definitions for the taxonomy apply to every class of the
+		taxonomy, while definitions for compressive sensing are only relevant
+		for compressive sensing
 
-3. Synonyms
-	- think about were to explain and standardize words like Data Collection, (Data) Sampling, Data Gathering, Data Sensing (some notes are in onenote @Dictionary.synonyms) 
-	- Idea: Put it in the Overview of the taxonomy, as it is part of why I am including some algorithms and some not
-
-4. Algorithm dependecies
+3. Algorithm dependecies
 	- start working on a dependency graph for every algorithm you read:
-		- look at references and who cites this paper
-		- if you find an algorithm which is already in one of the excel sheets, build a connection in a mind map tool
+		- look at references and who cites this paper - if you find an
+		algorithm which is already in one of the excel sheets, build a
+		connection in a mind map tool
 
-5. Find a suitable mind map tool
+4. Split up Dependency Graph into Adaptive Sampling and Model Based Schemes
+	- maybe use your third free graph for Compressive sampling
+
+5. Compressive Sampling Definiton and technical introduction
+	- look at definitions of CS in CS papers and if they reference some source 
+		for the definition
+	- maybe there is a goto paper for CS which all are referencing which can be
+	used as the source of the technical introduction
+
+6. Differentiate between sampling and sensing more => it is not a fact 
+	that communication in WSNs is the main energy consumer -	networks with
+	sensors that consume a lot of energy need algorithms 
+		which manage sensing time
+	-	 => not only sampling volume of that sensed data 
+
+7. Rewrite synonyms section to better justify "sampling algorithm catalog", 
+	i.e. why there is a filtering category and a sampling category in the
+	taxonomy

@@ -125,9 +125,12 @@ sympy-plots-for-*.tex/
 *.bak
 *.sav
 
-#temprary files
+# temoprary files
 *~
 ~*
 
 # power point
 *.pptx
+
+# editor
+.vscode
