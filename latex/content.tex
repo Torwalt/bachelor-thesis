@@ -174,14 +174,34 @@ found here could be used as a basis for further research.
 \label{sec:Taxonomy}
 
 In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
-devided the mass of algorithms into three sections: \catI, \catII  and \catIII.
-Many different terms for the concept of data retrieval from sensors exist in
-the literature. Data collection, data sampling, data gathering, and data
-sensing could be seen as synonyms, however, we found they are sometimes used in
-different contexts.
+classify algorithms into three categories: \catI (Section~\ref{sec:catI}), \catII (Section~\ref{sec:catII})  and \catIII (Section~\ref{sec:catIII}).
+%COMMENT JT: Make sure to stay with present tense. We devided=>we devide. (I rephrased the sentence above)
+
+%COMMENT JT: Extend this header such that all subsection are referenced (Manage the expectation of your reader)
+
+%COMMENT JT: I miss some description for each of these categories. I would appreciate if yu extend the paragraph above with one sentence for each cateforey. e.g., "Sampling Algorithms are all algorithms which .... In contrast, filtering algorithms ... Data sharing algorithms apply orthorgonal optimizations ...."
+
+\subsection{Terminology}
+
+%COMMENT JT: I like the idea of this section. However, it doesn't really fit my expectation of a "Taxonomy" section. I added a subsection for terminology definitions. This is just a suggestion. You should integrate  
+
+The literature related to data retrieval from sensors defines many different terms such as data collection, data sampling, data gathering, and data sensing.
+%COMMENT JT: Each of the items in the list above should have at least one reference following it. Better three references.
+Some publications use these terms as synonyms while other publications use different terms to differentiate concepts.
+In the following paragraphs, we clarify the definitions of data collection, data sampling, data gathering, and data sensing.
+%COMMENT JT: I rephrased this paragraph. Please check if you like it.
+
+%COMMENT JT: Make sure to clarify the motivation: Why is the content which follows important? Because we need to clarify the terminology in order to be precise in the following sections...
+
+%COMMENT JT: You may want to use a description environment to highlight the term you are defining in each of the following paragraphs.
+
+%Many different terms for the concept of data retrieval from sensors exist in
+%the literature. Data collection, data sampling, data gathering, and data
+%sensing could be seen as synonyms, however, we found they are sometimes used in
+%different contexts.
 \par
 Data collection is often mentioned in connection with the whole process of
-acquiring data through sensors in a \acp{SN}.
+acquiring data through sensors in \acp{SN}.
 % consider this: a query for temperature in a room is pushed down the network.
 % a sensor in that room would power up and produce a stream of data... or the
 % sensor node gets the instruction to produce data with the sensor e.g. every 3
@@ -197,6 +217,8 @@ technique, for finding the lowest cost path for sent data packages in a
 data collection to define this process. Additionally, a survey by Di Francesco
 et al.~\cite{di2011data} defines the term data collection as the process of
 getting data from a sensor node to the sink node.
+% COMMENT JT: Instead of saying "could be used" you can just say that we use it as such and other do this as well: Similar to related literature, we use the terms A and B as syn. [1,2,3]. In general, each of the definition paragraphs should end with an concluding sentence which clarifies how you use the term you defined.
+% COMMENT JT: NEVER write "could be" in research. This basically means you have no idea! In German: "Es könnte sein" => Ja was? Ist es so oder nicht? Kann es sein oder nicht?. Either it can or it cannot. The only place where you could write "could" is in the "future research" section. There you indeed make guesses.
 \par
 Data gathering on the other hand could be used as a synonym for data
 collection. Vukobratovic et al.~\cite{vukobratovic2010rateless} describe data
@@ -205,7 +227,8 @@ specific sink nodes. A sink node could be a basestation, e.g. a wired server,
 or another node in the \ac{SN} which acts as a cluster head. Other works which
 use the term data gathering in the same context are often found in the domain
 of compressive sensing
-(e.g.~\cite{cheng2013stcdg},~\cite{luo2009compressive},~\cite{wang2012data})
+~\cite{cheng2013stcdg,luo2009compressive,wang2012data}.
+%(e.g.~\cite{cheng2013stcdg},~\cite{luo2009compressive},~\cite{wang2012data})
 \par
 % cite BBQ, they argue that sensing is basically sampling. A sensor net
 % monitoring an environment, cannot reflect reality 1:1, but only a fraction of
@@ -247,7 +270,7 @@ specified to then be distributed in the network.
 
 
 \subsection{\catI} % Sampling Algorithms
-\label{sec:\catI}
+\label{sec:catI}
 
 The first category of our taxonomy incorporates all algorithms which primary 
 focus is on manipulating the sampling or sensing rate of one or multiple sensor
@@ -360,7 +383,7 @@ Lorem Ipsum
 
 
 \subsection{\catII}
-\label{sec:\catII}
+\label{sec:catII}
 
 \subsubsection{Model Based Schemes}
 \label{sec:Model Based Schemes}
@@ -370,7 +393,7 @@ Lorem Ipsum
 \label{sec:Adaptive Filtering}
 
 \subsection{\catIII}
-\label{sec:\catIII}
+\label{sec:catIII}
 
 
 \section{Discussion}
