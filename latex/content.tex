@@ -115,14 +115,11 @@ and route path finding will be discussed later in the thesis.
 
 \begin{figure}%
     \centering
-    \subfloat[Star
-    Topology]{{\includegraphics[width=5cm]{images/topology-star-no-legend.jpg}
-    }}%
+    \subfloat[Star Topology]{{\includegraphics[width=5cm]{images/topology-star-no-legend.jpg}}}%
     \qquad
-    \subfloat[Tree
-    Topology]{{\includegraphics[width=5cm]{images/topology-tree.jpg} }}%
-    \caption{Example Topologies. Inspiration taken from Reina et
-    al.~\cite{reina2013role}}% \label{fig:topologies}%
+    \subfloat[Tree Topology]{{\includegraphics[width=5cm, trim=left bottom right top, clip]{images/tree-topology.pdf}}}% 
+    \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+    \label{fig:topologies}%
 \end{figure}
 
 
@@ -174,26 +171,42 @@ found here could be used as a basis for further research.
 \label{sec:Taxonomy}
 
 In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
-classify algorithms into three categories: \catI (Section~\ref{sec:catI}), \catII (Section~\ref{sec:catII})  and \catIII (Section~\ref{sec:catIII}).
-%COMMENT JT: Make sure to stay with present tense. We devided=>we devide. (I rephrased the sentence above)
+classify algorithms into three categories: \catI (Section~\ref{sec:catI}),
+\catII (Section~\ref{sec:catII})  and \catIII (Section~\ref{sec:catIII}).
+%COMMENT JT: Make sure to stay with present tense. We devided=>we devide. (I
+%rephrased the sentence above)
 
-%COMMENT JT: Extend this header such that all subsection are referenced (Manage the expectation of your reader)
+%COMMENT JT: Extend this header such that all subsection are referenced (Manage
+%the expectation of your reader)
 
-%COMMENT JT: I miss some description for each of these categories. I would appreciate if yu extend the paragraph above with one sentence for each cateforey. e.g., "Sampling Algorithms are all algorithms which .... In contrast, filtering algorithms ... Data sharing algorithms apply orthorgonal optimizations ...."
+%COMMENT JT: I miss some description for each of these categories. I would
+%appreciate if yu extend the paragraph above with one sentence for each
+%cateforey. e.g., "Sampling Algorithms are all algorithms which .... In
+%contrast, filtering algorithms ... Data sharing algorithms apply orthorgonal
+%optimizations ...."
 
 \subsection{Terminology}
 
-%COMMENT JT: I like the idea of this section. However, it doesn't really fit my expectation of a "Taxonomy" section. I added a subsection for terminology definitions. This is just a suggestion. You should integrate  
+%COMMENT JT: I like the idea of this section. However, it doesn't really fit my
+%expectation of a "Taxonomy" section. I added a subsection for terminology
+%definitions. This is just a suggestion. You should integrate  
 
-The literature related to data retrieval from sensors defines many different terms such as data collection, data sampling, data gathering, and data sensing.
-%COMMENT JT: Each of the items in the list above should have at least one reference following it. Better three references.
-Some publications use these terms as synonyms while other publications use different terms to differentiate concepts.
-In the following paragraphs, we clarify the definitions of data collection, data sampling, data gathering, and data sensing.
+The literature related to data retrieval from sensors defines many different
+terms such as data collection, data sampling, data gathering, and data sensing.
+%COMMENT JT: Each of the items in the list above should have at least one
+%reference following it. Better three references.
+Some publications use these terms as synonyms while other publications use
+different terms to differentiate concepts. In the following paragraphs, we
+clarify the definitions of data collection, data sampling, data gathering, and
+data sensing.
 %COMMENT JT: I rephrased this paragraph. Please check if you like it.
 
-%COMMENT JT: Make sure to clarify the motivation: Why is the content which follows important? Because we need to clarify the terminology in order to be precise in the following sections...
+%COMMENT JT: Make sure to clarify the motivation: Why is the content which
+%follows important? Because we need to clarify the terminology in order to be
+%precise in the following sections...
 
-%COMMENT JT: You may want to use a description environment to highlight the term you are defining in each of the following paragraphs.
+%COMMENT JT: You may want to use a description environment to highlight the
+%term you are defining in each of the following paragraphs.
 
 %Many different terms for the concept of data retrieval from sensors exist in
 %the literature. Data collection, data sampling, data gathering, and data
@@ -217,8 +230,15 @@ technique, for finding the lowest cost path for sent data packages in a
 data collection to define this process. Additionally, a survey by Di Francesco
 et al.~\cite{di2011data} defines the term data collection as the process of
 getting data from a sensor node to the sink node.
-% COMMENT JT: Instead of saying "could be used" you can just say that we use it as such and other do this as well: Similar to related literature, we use the terms A and B as syn. [1,2,3]. In general, each of the definition paragraphs should end with an concluding sentence which clarifies how you use the term you defined.
-% COMMENT JT: NEVER write "could be" in research. This basically means you have no idea! In German: "Es könnte sein" => Ja was? Ist es so oder nicht? Kann es sein oder nicht?. Either it can or it cannot. The only place where you could write "could" is in the "future research" section. There you indeed make guesses.
+% COMMENT JT: Instead of saying "could be used" you can just say that we use it
+% as such and other do this as well: Similar to related literature, we use the
+% terms A and B as syn. [1,2,3]. In general, each of the definition paragraphs
+% should end with an concluding sentence which clarifies how you use the term
+% you defined. COMMENT JT: NEVER write "could be" in research. This basically
+% means you have no idea! In German: "Es könnte sein" => Ja was? Ist es so oder
+% nicht? Kann es sein oder nicht?. Either it can or it cannot. The only place
+% where you could write "could" is in the "future research" section. There you
+% indeed make guesses.
 \par
 Data gathering on the other hand could be used as a synonym for data
 collection. Vukobratovic et al.~\cite{vukobratovic2010rateless} describe data
@@ -227,7 +247,8 @@ specific sink nodes. A sink node could be a basestation, e.g. a wired server,
 or another node in the \ac{SN} which acts as a cluster head. Other works which
 use the term data gathering in the same context are often found in the domain
 of compressive sensing~\cite{cheng2013stcdg,luo2009compressive,wang2012data}.
-%COMMENT JT: Why? Does it have a special meaning to them? (Remember that the paragraph needs a concluding sentence)
+%COMMENT JT: Why? Does it have a special meaning to them? (Remember that the
+%paragraph needs a concluding sentence)
 %(e.g.~\cite{cheng2013stcdg},~\cite{luo2009compressive},~\cite{wang2012data})
 \par
 % cite BBQ, they argue that sensing is basically sampling. A sensor net
@@ -235,7 +256,9 @@ of compressive sensing~\cite{cheng2013stcdg,luo2009compressive,wang2012data}.
 % it at descreet points in time.
 The definitons for data sampling and data sensing are also unclear in the
 literature.
-%The statement above is very strong. You basically say that noone defined data sampling properly. Better say that the definitions are inconsistent. This is less offensive.
+%The statement above is very strong. You basically say that noone defined data
+%sampling properly. Better say that the definitions are inconsistent. This is
+%less offensive.
 Zhao et al.~\cite{zhao2016cats} employ sampling in the context of
 sink nodes assigning sampling tasks, which consist of a time window and a
 sampling interval, to sensor nodes. Trihinas et al.~\cite{trihinas2015adam}
@@ -246,11 +269,16 @@ software taking samples form the data generated by the sensor unit. The
 distinction is important as the authors point out, that generally, an online
 reconfiguration of the sensor sensing times is not possible. Contrary, software
 is more flexible and sampling rates and intervals can be specified online.
-%COMMENT JT: There's is often a confision between sampling (i.e. reading) from sensors and computing smaller samples (example data) from a huge badge of data (i.e. reservoir sampling). It would be good to clarify the difference here and to point out that we are NOT dealing with the latter one in this thesis.
+%COMMENT JT: There's is often a confision between sampling (i.e. reading) from
+%sensors and computing smaller samples (example data) from a huge badge of data
+%(i.e. reservoir sampling). It would be good to clarify the difference here and
+%to point out that we are NOT dealing with the latter one in this thesis.
 \par
 We will use data collection and data gathering as synonyms and differentiate
 between data sensing and data sampling.
-%I would make the below part a separate paragraph because above this comment you talk about algorithms  (i.e. software) and below  this comment you, out of a sudden, talk about devices, servers (i.e. hardware).
+%I would make the below part a separate paragraph because above this comment
+%you talk about algorithms  (i.e. software) and below  this comment you, out of
+%a sudden, talk about devices, servers (i.e. hardware).
 Additional synonyms are base station,
 fusion center and client station which all describe a wired station like a
 server to which information is routed and from which user queries can be
@@ -279,9 +307,12 @@ specified to then be distributed in the network.
 
 The first category of our taxonomy incorporates all algorithms which primary 
 focus is on manipulating the sampling or sensing rate of one or multiple sensor
-nodes to reduce data throughoutput. 
+nodes to reduce sensor load.
  % TODO find papers to cite which, e.g., use sampling and filtering
- % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired that someone what's to reduce "throughput". Maybe replace it by saying sth. like "reduce network utilization", "reduce sensor load"...
+ 
+ % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired
+ % that someone what's to reduce "throughput". Maybe replace it by saying sth.
+ % like "reduce network utilization", "reduce sensor load"...
 Although there are algorithms from other categories which also may incorporate
 manipulations to the sensing/sampling rates of sensor nodes, we include
 algorithms to the Sampling Algorithms category only if the main focus of the
@@ -302,7 +333,8 @@ Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
     the sampling rate is reduced to ease processing and energy consumption."
 \end{quote}
 
-%COMMENT JT: I recommend to start a new line after each sentence in the source file. This makes it easier to find a sentence from the PDF in the sources.
+%COMMENT JT: I recommend to start a new line after each sentence in the source
+%file. This makes it easier to find a sentence from the PDF in the sources.
 
 \par
 % maybe remove backcasting from taxonomy
@@ -327,7 +359,9 @@ cycling the position of cluster head would be implemented. Altough the
 algorithm does not manipulate the sampling rates of individual sensor nodes it
 is still one of the first algorithms to adaptively change the sensing tasks of
 nodes based on the dynamics of the observed phenomenon.
+
 \par
+
 Another technique, also from 2004, was published by Jain et
 al.~\cite{jain2004adaptive}. The authors main contribution is an algorithm to
 change the sampling rate of individual sensor nodes in a stream sensor network
@@ -359,7 +393,9 @@ algorithm is to optimize bandwidth usage in the network, thus this technique is
 more suitable for wired \acp{SN} and less for \acp{WSN} as the communication
 overhead is high and communication consumes a major amount of energy in
 most sensor nodes~\cite{raghunathan2002energy}.
+
 \par
+
 A techinque designed initially for a glacier monitoring application by Padhi et
 al. \ac{USAC}~\cite{padhy2006utility} is an example of an adaptive sampling
 scheme for a \ac{WSN}. The algorithm uses a linear regression model at each
@@ -372,7 +408,20 @@ set by the user. If the value does not lie in the \ac{CI} then the sensor node
 raises its sampling rate to $ f_{max} $ to capture a supposed change in the
 dynamic of the observed phenomenon. The experiments tested the algorithm
 against the older deployed protocoll in the glacier monitoring application
-\textit{GLACSWEB}. The tests were conducted in a simulated environment using
+\textit{GLACSWEB}. In the \textit{GLACSWEB} protocol, sensor nodes send their
+data directly to the sink node. This technique is energy unefficient as the
+authors state that 
+
+\begin{quotation}
+    "(...) the power required to transmit data from one
+    node to another is proportional to the square of the distance
+    between the nodes (...)."
+\end{quotation}
+
+Additionally, \textit{GLACSWEB} has a static sensing rate which the authors
+argue, induces unnecessary sampling.
+
+The tests were conducted in a simulated environment using
 historical data from the application. The authors tested different network
 topologies, numbers of sensor nodes in a network and number of changes in the
 dynamic of the data. The experiments resulted in \ac{USAC} outperforming the
@@ -380,14 +429,25 @@ older algorithm in every test. The efficiency increase, which is defined by the
 authors as
 
 \begin{quotation}
-    "The value of the data gained over the energy consumed) of USAC relative to
+    "The value of the data gained over the energy consumed of USAC relative to
     GLACSWEB in each case."
 \end{quotation}
 
-was, i.a. 470\% when distributing sensor nodes randomly around a center base station.
+
+was, i.a. 470\% when distributing sensor nodes randomly around a center base
+station.
 \par
 
-Lorem Ipsum 
+\acp{RSN} combine the perpetual operation lifetime of wired \acp{SN} and the
+flexibility of \acp{WSN}. However, \acp{RSN} introduce new challanges for
+designing data collection algorithms. A paper from Srbinovski et
+al.~\cite{srbinovski2016energy} presents an adaptive sampling algorithm for
+\acp{RSN} with energy hungry sensors. The authors point out, that contrary to a
+common assumption that communication consumes most of the energy in sensor
+nodes (e.g. \cite{santini200communication}), the sensor unit can be the main
+energy consumer~\cite{boyle2012energy}. 
+
+
 \subsubsection{Compressive Sampling}
 \label{sec:Compressive Sampling}
 
@@ -422,7 +482,26 @@ Lorem Ipsum
 
 \subsection{Combination of Algorithms}
 \label{sec:Listings}
+% I decided to include Adam and Admin as an example of combination of
+% algorithms as it is a framework which has filtering and sampling techniques
+% additionally, in the experiments the authors compared their framework i.a.
+% against L-SIP which is a model based scheme
+A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides a
+framework for finding a sampling rate which optimizes the tradeoff between
+energy consumption and quality of data. The framework was implemented in java
+with no external dependencies. The algorithm estimates a metric stream $$ M $$
+to reduce the number of sampling periods when the metric stream does not
+fluctuate and vice versa. A sampling period $$ T_i $$ is computed by estimating
+the metric stream evolution. The authors use a \ac{PEWMA} to produce an
+estimated metric stream $$ M' $$. The \ac{PEWMA} is a Variation of \ac{EWMA}
+which provides a one-step ahead estimation. The authors state that \ac{PEWMA}
+is more robust against abrunt transient changes in the metric evoultion than
+\ac{EWMA}.
 
+When $$ M' $$ differs from $$ M $$ by a user specified imprecision value $$
+gamma $$, then $$ T_i $$ is increased to a maximum sampling period $$ T_{max}
+$$. Otherwise $$ T_i $$ is decreased to a minimal sampling period $$ T_{min}
+$$. The algorithm was tested against \ac{EWMA}, L-SIP and FAST. L-SIP is a  
 
 \section{Conclusion}
 \label{sec:Conclusion}

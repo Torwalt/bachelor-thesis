@@ -58,10 +58,10 @@
     people are the "sensor nodes"
 - **CITABLE** Multihop vs Singlehop
   - As a result, the total energy spent by transmitting data directly to the
-    centre via a single hop is more than the energy spent when the data is
-    relayed via successive intermediaries to the centre
-- disadvantages of multihop (as stated by the auhtors):
-  - opportunity costs for transmitting sensor nodes 
+    center via a single hop is more than the energy spent when the data is
+    relayed via successive intermediaries to the center
+- disadvantages of multihop (as stated by the authors):
+  - opportunity costs for transmitting sensor nodes
     - they could be sensing at that time but they need to transmit
       - personal remark: isn't this dependent on the sensor node hardware?
   - transferring nodes expend energy and have to be in a listening mode
