@@ -1,38 +1,43 @@
-TODO
-1. Definitions
-    - definitions have to be added for every Section/Subsection
-        - e.g. Definitions for the taxonomy apply to every class of the
-        taxonomy, while definitions for compressive sensing are only relevant
-        for compressive sensing
-    - look at definitions of CS in CS papers and if they reference some source 
-        for the definition
-    - maybe there is a goto paper for CS which all are referencing which can be
-    used as the source of the technical introduction
+TODO for next push
 
-2. Algorithm dependecies
-    - start working on a dependency graph for every algorithm you read:
-        - look at references and who cites this paper - if you find an
-        algorithm which is already in one of the excel sheets, build a
-        connection in a mind map tool
+1. 3-4 Algorithms in every category, finish Discussion
 
-3. Split up Dependency Graph into Adaptive Sampling and Model Based Schemes
-    - maybe use your third free graph for Compressive sampling
+2. a. Rewrite synonyms section to better justify "sampling algorithm catalog", 
+      i.e. why there is a filtering category and a sampling category in the
+      taxonomy
+   b. Rewrite sensing and sampling part, make destinction between
+      usecases/sensors: 
+        - Sensors can be turned on or off 
+        - Sensors produce a continuous data stream which is sampled by some algorithm
 
-4. Differentiate between sampling and sensing more => it is not a fact 
-    that communication in WSNs is the main energy consumer -	networks with
-    sensors that consume a lot of energy need algorithms 
-        which manage sensing time
-        => not only sampling volume of that sensed data 
+3. Write an outlook (e.g. in Overview of the taxonomy) which sums up the
+categories and why we devided the algorithms that way
 
-5. Rewrite synonyms section to better justify "sampling algorithm catalog", 
-    i.e. why there is a filtering category and a sampling category in the
-    taxonomy
+4. Picture of the Taxonomy
 
-6. Fix Graph Visualizations
+5. Implement the change requests of Jonas
 
-7. Distinguish work from "Energy management in wireless sensor networks with
+
+General TODO
+
+1. Fix Graph Visualizations
+
+2. Distinguish work from "Energy management in wireless sensor networks with
 energy-hungry sensors"
     - the paper has a taxonomy of Adaptive Sensing strategies
+
+3. Expand on advantages/disadvantages, use cases, and maybe problem alg tries
+to solve 
+
+4. Maybe include some query processing engines for sensor networks if there are
+newer ones on the level of tinyDB
+
+5. Add maybe a prelimenary section or expand the terminology section with some
+information on different use cases/ types of sensor networks (can be added into
+the "hardware" part), i.e. networks for continuous monitoring of some
+phenomenon, networks for answering user queries (however, a user query could be
+also an instruction to report readings over a long interval)
+
 
 Backup Ideas:
 

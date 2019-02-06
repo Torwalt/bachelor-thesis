@@ -13,8 +13,10 @@
 ## Basics of Algorithm
 
 - nodes sense phenomenon and send sensed values to base station
-- base station will respond with an adapted sensing rate if it detects a change in the frequency of the signal
-- the node will adapts it's sampling frequency to that value according to some constraints (like it's own power level)
+- base station will respond with an adapted sensing rate if it detects a change
+  in the frequency of the signal
+- the node will adapts it's sampling frequency to that value according to some
+  constraints (like it's own power level)
 - cycles of a sensor node:
   - sleeping
   - listening for base station

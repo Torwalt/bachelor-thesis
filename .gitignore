@@ -14,6 +14,8 @@
 # *.ps
 # *.eps
 *main.pdf
+*.pdf
+*.PDF
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -83,6 +85,9 @@ acs-*.bib
 
 # listings
 *.lol
+
+# latexindent
+*latexindent*
 
 # makeidx
 *.idx
