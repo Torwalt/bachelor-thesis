@@ -48,7 +48,7 @@ techniques~\cite{al2004routing}~\cite{kulkarni2011particle}~\cite{singh2015surve
 TinyDB~\cite{madden2005tinydb}, ACQUIRE~\cite{sadagopan2003acquire} and
 COUGAR~\cite{yao2002cougar} introduce system architectures for query processing
 which consist of algorithms for sampling, and routing data requested by a user
-through a SQL-like language.
+through a \ac{SQL} like language.
 
 
 \subsection{Motivation}
@@ -113,14 +113,14 @@ outsourcing this task to the basestation could induce a major communication
 overhead with additional energy expenditure. Techniques on topology building
 and route path finding will be discussed later in the thesis.
 
-\begin{figure}%
-    \centering
-    \subfloat[Star Topology]{{\includegraphics[width=5cm]{images/topology-star-no-legend.jpg}}}%
-    \qquad
-    \subfloat[Tree Topology]{{\includegraphics[width=5cm, trim=left bottom right top, clip]{images/tree-topology.pdf}}}% 
-    \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
-    \label{fig:topologies}%
-\end{figure}
+% \begin{figure}%
+%     \centering
+%     \subfloat[Star Topology]{{\includegraphics[width=5cm]{images/topology-star-no-legend.jpg}}}%
+%     \qquad
+%     \subfloat[Tree Topology]{{\includegraphics[width=5cm, trim=left bottom right top, clip]{images/tree-topology.pdf}}}% 
+%     \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+%     \label{fig:topologies}%
+% \end{figure}
 
 
 \FloatBarrier
@@ -153,8 +153,11 @@ relevant information as:
 	\item Experimental results of the algorithm and how it compares to others
 	\item Use case(s) (if any)
 	\item Advantages and limitations of the algorithm the authors discuss
-	\item Compatibility of the algorithms with other techniques
-\end{itemize}   
+	% \item Compatibility of the algorithms with other techniques
+\end{itemize}
+
+The compatability of algorithms will be discussed in an extra section
+\ref{subsec:Combination of Algorithms}
 
 
 \para{Section \ref{sec:Discussion}.} In section \ref{sec:Discussion}, we review
@@ -276,9 +279,11 @@ is more flexible and sampling rates and intervals can be specified online.
 \par
 We will use data collection and data gathering as synonyms and differentiate
 between data sensing and data sampling.
+
 %I would make the below part a separate paragraph because above this comment
 %you talk about algorithms  (i.e. software) and below  this comment you, out of
 %a sudden, talk about devices, servers (i.e. hardware).
+
 Additional synonyms are base station,
 fusion center and client station which all describe a wired station like a
 server to which information is routed and from which user queries can be
@@ -301,24 +306,35 @@ specified to then be distributed in the network.
 % explain why thesis title is about sampling algorithms and taxonomy has 
 % filtering and sampling as different categories
 
+% Distinguish sampling algorithms, filtering algorithms and data sharing from
+% each other
 
 \subsection{\catI} % Sampling Algorithms
 \label{sec:catI}
 
 The first category of our taxonomy incorporates all algorithms which primary 
 focus is on manipulating the sampling or sensing rate of one or multiple sensor
-nodes to reduce sensor load.
- % TODO find papers to cite which, e.g., use sampling and filtering
+nodes to reduce network utilization.
  
  % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired
  % that someone what's to reduce "throughput". Maybe replace it by saying sth.
  % like "reduce network utilization", "reduce sensor load"...
 Although there are algorithms from other categories which also may incorporate
-manipulations to the sensing/sampling rates of sensor nodes, we include
-algorithms to the Sampling Algorithms category only if the main focus of the
-work lies on sampling.
+manipulations to the sensing/sampling rates of sensor nodes
+(e.g.~\cite{trihinas2015adam}), we include algorithms to the Sampling Algorithms
+category only if the main focus of the work lies on sampling rate manipulation. % maybe rewrite that
 % COMMENT JT: It would be good to have concrete examples here.
 
+In out research we found adaptive sampling and compressive sampling to be good
+sub classifications for sampling algorithms. Both types of algorithms target
+sampling rates of sensor nodes to reduce network traffic. Adaptive sampling
+algorithms employ schemes to dynamically react to changes in the behaviour of
+an observed phenomenon, by manipulating sensing rates of sensor nodes.
+Compressive sampling utilizes findings from the field of signal processing, to
+sample signals, i.e. data streams from an observed phenomenon, below the
+typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
+the original signal can be reconstructed at sink node or basestation with very
+high accuracy.
 % COMMENT JT: Please add some outlook/summary for the following subsections.
 
 \subsubsection{Adaptive Sampling}
@@ -329,8 +345,9 @@ Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
 
 \begin{quote}
     "The process of dynamically adjusting the sampling rate to the current
-    metric evolution, such that when stable phases in a metric stream are detected,
-    the sampling rate is reduced to ease processing and energy consumption."
+    metric evolution, such that when stable phases in a metric stream are
+    detected, the sampling rate is reduced to ease processing and energy
+    consumption."
 \end{quote}
 
 %COMMENT JT: I recommend to start a new line after each sentence in the source
@@ -367,36 +384,36 @@ al.~\cite{jain2004adaptive}. The authors main contribution is an algorithm to
 change the sampling rate of individual sensor nodes in a stream sensor network
 based on the importance of the observed data. An important event could be a
 camera observing non-standard driving behaviour of a car, e.g. driving in a
-zigzag course or a temperature spike in a data center. Locally, kalman filters
-predict sensed values. They are then compared against the actual sensed values.
-The values are stored in a sliding window locally. An estimation error is
-computed over the sliding window. The estimation error indicates a changing
-dynamic of a observed phenomenon. After each taken sample, a sensor node
-adjusts its \ac{SI} i.e. the time interval between two consecutive samples. If
-the desired \ac{SI} lies in the \ac{SIR}, the sensor node can adjust its
-\ac{SI} locally. Otherwise the sensor node has to request a new \ac{SI} from
-the server. The server keeps a metric of avaliable communication resources
-which gets updated after a request to change a \ac{SI} is accepted. The
-requests are stored in a job queue. To approve a \ac{SI} a linear optimization
-problem has to be solved. The authors evaluated their approach on synthetic
-data generated by a spatio-temporal data generator. Tested metrics where the
-mean fractional estimation error $ \eta $, the proportion of messages exchanged
-between the source and the server and the number of values sensed by the source
-nodes \textit{m}. The adaptive sampling algorithm outperformed the alternative
-uniform sampling algorithm almost in every test. Tests were done, i.a using
-different numbers of sensor nodes and sliding window sizes. The authors
-indicate, that the algorithm is not applicabble to multi-hop sensor network,
-i.e. a sensor node has to have a direct connection to the server. Furthermore,
-both the sliding window and the \ac{SIR} have to be chosen by the user. Also,
-the authors state that the message overhead is high. The main goal of the
-algorithm is to optimize bandwidth usage in the network, thus this technique is
-more suitable for wired \acp{SN} and less for \acp{WSN} as the communication
-overhead is high and communication consumes a major amount of energy in
-most sensor nodes~\cite{raghunathan2002energy}.
+zigzag course or a temperature spike in a data center. At sensor node level,
+kalman filters predict sensed values. They are then compared against the actual
+sensed values. The values are stored in a sliding window locally. An estimation
+error is computed over the sliding window. The estimation error indicates a
+changing dynamic of a observed phenomenon. After each taken sample, a sensor
+node adjusts its \ac{SI} i.e. the time interval between two consecutive
+samples. If the desired \ac{SI} lies in the \ac{SIR}, the sensor node can
+adjust its \ac{SI} locally. Otherwise the sensor node has to request a new
+\ac{SI} from the server. The server keeps a metric of avaliable communication
+resources which gets updated after a request to change a \ac{SI} is accepted.
+The requests are stored in a job queue. To approve a \ac{SI} a linear
+optimization problem has to be solved. The authors evaluated their approach on
+synthetic data generated by a spatio-temporal data generator. Tested metrics
+where the mean fractional estimation error $ \eta $, the proportion of messages
+exchanged between the source and the server and the number of values sensed by
+the source nodes \textit{m}. The adaptive sampling algorithm outperformed the
+alternative uniform sampling algorithm almost in every test. Tests were done,
+i.a using different numbers of sensor nodes and sliding window sizes. The
+authors indicate, that the algorithm is not applicabble to multi-hop sensor
+networks, i.e. a sensor node has to have a direct connection to the server.
+Furthermore, both the sliding window and the \ac{SIR} have to be chosen by the
+user. Also, the authors state that the message overhead is high. The main goal
+of the algorithm is to optimize bandwidth usage in the network, thus this
+technique is more suitable for wired \acp{SN} and less for \acp{WSN} as the
+communication overhead is high and communication consumes a major amount of
+energy in most sensor nodes~\cite{raghunathan2002energy}.
 
 \par
 
-A techinque designed initially for a glacier monitoring application by Padhi et
+A technique designed initially for a glacier monitoring application by Padhi et
 al. \ac{USAC}~\cite{padhy2006utility} is an example of an adaptive sampling
 scheme for a \ac{WSN}. The algorithm uses a linear regression model at each
 sensor node to capture phase shifts of the observed phenomenon as fast as
@@ -444,20 +461,491 @@ designing data collection algorithms. A paper from Srbinovski et
 al.~\cite{srbinovski2016energy} presents an adaptive sampling algorithm for
 \acp{RSN} with energy hungry sensors. The authors point out, that contrary to a
 common assumption that communication consumes most of the energy in sensor
-nodes (e.g. \cite{santini200communication}), the sensor unit can be the main
-energy consumer~\cite{boyle2012energy}. 
+nodes (e.g.~\cite{santini2006adaptive}), the sensor unit can be the main energy
+consumer~\cite{boyle2012energy}. The authors contribute an \ac{EASA} for
+perpetually operating \acp{RSN} which builds upon the \ac{ASA} by Alippi et
+al.~\cite{alippi2007adaptive}. The \ac{ASA} algorithm leverages the Nyquist
+Theorem $$ F_N > 2 * F_{max} $$ for finding the optimal (minimum) sampling rate
+$ F_N $. To estimate the maximum frequency in the power spectrum $ F_{max} $, a
+\ac{FFT} is used on the first $ W $ samples of the process. A \ac{CI} can be
+defined to capture changes in the dynamic of the process. The algorithm is run
+on the base station due to computational complexity, thus some communication
+overhead is present. \ac{EASA} expands \ac{ASA} with energy awareness, i.e.
+adjusting optimal sampling frequency of a sensor node based on current and
+critical battery level, and rate of energy saving. When the battery level drops
+below the user defined critical value $ m $, the sampling rate deviates from the
+optimal \ac{ASA} sampling rate. This may lead to the signal not capturing the
+singal fully as the nyquist theorem is violated. The authors argue that a
+potential loss in data quality is the cost of staying continuously in the
+network. The authors tested \ac{EASA} extensively on data from two deployments.
 
+\begin{enumerate}
+    \item A custom, windpowered deployment for measuring wind speed
+    \item An off-the-shelf solar powered deployment for measuring $ CO_2 $ in a beehive
+\end{enumerate}
+
+\ac{EASA} was tested with different saving rates against \ac{ASA} and
+addtionally on the second deployment against a fixed rate. All tests were done
+in a simulated environment. In both delployments, \ac{ASA} and \ac{EASA} have
+the same sampling rate when the battery level is above $ m $. \ac{ASA} can
+deliver a high data quality, as the sampling rate is always optimal. \ac{EASA}
+on the other hand, stablelizes in the first deployment the energy levels of the
+sensor node after 36 days of operation at $ 60\% $ with an $ m $ of $ 1/3 $.
+With \acp{ASA} the energy levels are at $ 20\% $. In the second deployment,
+\ac{ASA} gets outperformed slightly in energy consumption by \ac{EASA}. The
+energy levels with the fixed sampling rate are depleted after 13 days.
 
 \subsubsection{Compressive Sampling}
 \label{sec:Compressive Sampling}
 
+\ac{CS} is a relative new sampling paradigm which was first
+introduced by Donoho et al.~\cite{Donoho06compressedsensing} in 2006. 
+Mahmudimanesh et al.~\cite{mahmudimanesh2010reordering} describe \ac{CS} as:
 
-\subsection{\catII}
+\begin{quotation}
+    \ac{CS} states that it is possible to reconstruct a discrete signal from a set of
+    randomly chosen values selected from a vector computed by a linear transform
+    of the discrete signal vector.
+\end{quotation}
+
+Candés et al.~\cite{candes2008introduction} summarize the main principles of
+\ac{CS} as sparsity and incoherence. A signal is sparse when "[it] contains
+only a small number of non-zero elements compared to its
+dimension"~\cite{elzanati2015collaborative}. Candés et al. define incoherence
+as when a sample of a sparse signal has an "extremely dense" represention in
+some domain $ \Psi $~\cite{candes2008introduction}. Luo et
+al.~\cite{luo2009compressive} give an example of a signal being sparse in
+\ac{DCT} domain in Fig.~\ref{fig:sparsesignal}.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{images/example-signal-sparse.png}
+  \captionof{figure}{A sparse signal in the DCT domain}
+  \label{fig:sparsesignal}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth, height=5.2cm]{images/grid-topology-luo.png}
+  \captionof{figure}{A grid topology~\cite{luo2009compressive}}
+  \label{fig:grid topology}
+\end{minipage}
+\end{figure}
+
+% CDG
+% make a different introduction if you dont find a paper which could intrduce cdg
+Compressive sampling methods were designed for large scale, multihop sensor
+networks, aswell. Luo et al.~\cite{luo2009compressive} developed a \ac{CDG}
+algorithm for large scale sensor networks. The goal of the algorithm is to
+deacrease energy expenditure and distribute energy consumption evenly across
+all sensor nodes to maximize the lifetime of the network. This is achieved by
+reducing the datatraffic in a network by compressing data readings at each hop.
+This would lead to $ M $ messages arriving at the sink from $ N $ sensor nodes,
+where $ M << N $. The sink broadcasts a random seed to the network with which
+each sensor node can generate, together with its own identificator, a local
+seed. Sensor nodes then use the local seed to generate a random coefficient $
+\phi_i $ which they transmit together with their sensor reading $ d_i $ to
+their parent node. Parent nodes receive readings from their child nodes and sum
+the input with their own $ d $ and $ \phi $. Therefore, every sensor node
+transmits only one value. This ensures the sink node receives $ M $ weighted
+sums $ y $, which consist of a matrix of the random coefficients, $ \Phi $ and
+all sensor readings \textbf{d}:
+
+$$
+\begin{pmatrix}
+    y_1 \\
+    y_2 \\
+    \vdots \\
+    y_M
+\end{pmatrix}
+=
+\begin{pmatrix}
+    \phi_{11} & \phi_{12} & \dotsb & \phi_{1N}\\
+    \phi_{21} & \phi_{22} & \dotsb & \phi_{2N}\\
+    \vdots & \vdots & \vdots & \vdots\\
+    \phi_{M1} & \phi_{M2} & \dotsb & \phi_{MN}\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+    d_1 \\
+    d_2 \\
+    \vdots \\
+    d_N
+\end{pmatrix}
+$$
+
+The random matrix $ \Phi $ is not transmitted because the sink can compute the
+matrix if it knows the identificators of the sensor nodes. The original
+sensor readings \textbf{d} can be reconstructed at the sink by solving:
+
+$$
+\displaystyle{\min_{x\in R^N} \ ||x||_{l_1}}  \ \ \   s.t.  \ \  y = \Phi \textbf{d} , \ \ 
+\textbf{d}  = \Psi x
+$$
+
+$ \Psi $ is the domain in which \textbf{d} can be represented by $ K << N
+$ coefficients and $ x $ is the vector of coefficients.
+
+The authors evaluated \ac{CDG} against a baseline transmission scheme (all
+nodes transmit as soon as readings are aquired) with the ns-2 simulation tool.
+Additionally, testing was done on two real life datasets to evalutate the
+reconstuction capability. For the simulated environment, the authors created
+two synthetic sensor networks. The first is a network with a chain topology,
+with 1000 sensor nodes spaced 10 meters apart from each other and with sink
+nodes located at each extreme of the chain. The second set-up was a grid-like
+routing tree with 1089 sensor nodes and a sink node in the center of the
+network, e.g. Fig.~\ref{fig:grid topology}. The authors varied in their testing
+runs the signal input intervals and observed the package loss and output
+interval change. \ac{CDG} outperformed the baseline scheme in both topologies
+managing input intervals 5 times and 2.3 times smaller than the baseline scheme
+in the chain and grid topologies respectively. Additionally, \ac{CDG} achieved
+a packet loss of near zero in both topologies, while the baseline scheme had
+package loss rates of 5\% and 20\% in the chain and grid topologies
+respectively.
+
+The real life datasets consist of measurements collected in the Pacific Ocean
+by a single moving device and a sensor network in a datacenter. The authors
+argue that the Pacific Ocean dataset has the same properties as data collected
+by a sensor network. The authors found the Pacific Ocean data to be sparse in
+wavelet domain. \ac{CDG} can reconstruct the initial 1000 datapoints from 40
+datapoints with $ > 98\% $ precision. The datapoints are the 40 highest
+coefficients in the wavelet domain of the data. The authors did not find a
+sparse representation of the datacenter dataset as the data exhibit little
+spatial correlation. Instead they opted for reorganizing the dataset by sorting
+the temperature values in ascending order at a moment $ t_0 $. The result is
+sparse in the wavelet domain and the original signal can be reconstructed.
+
+% \begin{figure}[h]
+% \includegraphics[width=8cm]{images/grid-topology-luo.png}
+% \caption{A grid topology~\cite{luo2009compressive}}
+% \label{fig:grid topology}
+% \centering
+% \end{figure}
+
+\par
+
+One paper by Cheng et al.~\cite{cheng2010efficient} builds upon the low rank
+feature of a matrix. The authors point to discoveries proving that a matrix
+formed from spatial and temporal correlated data is approximately low rank and
+can be recovered from a subset of the data. % Do I have to cite the literature the authors refer to?
+
+With the \ac{EDCA} sensor nodes sample at a fixed rate and send their sensed
+values to a cetral sink in a multi-hop scheme. However, the authors point out
+that missing values, i.e. no values in some time slots, can be recovered with
+low error. The focus of the algorithm lies on the recovery of a low rank
+% Therefore, the sampling rate could be made dynamic to further increase efficiency.
+matrix. The authors use the nuclear norm to solve the rank minimization problem
+
+$$
+minimize \ rank(X), \ s.t. \ A(\cdot)=B
+$$
+
+where $ X $ is the matrix arriving at the sink and $ A(\cdot) $ is an operator
+representing the incompleteness of the matrix. Because the problem is NP-hard,
+the authors use a heuristic and shift the problem to a convex optimization
+problem
+
+$$
+minimize \ || \ A(LR^T) - B \ ||^2_F + || \ L \ ||^2_F \ + || \ R \ ||^2_F
+$$
+
+where $ X $ is deconstructed with \ac{SVD} into $ X = U \Sigma V^T $ and $ L =
+U\Sigma^{1/2}; \ R = V\Sigma^{1/2}$. The problem is solved using a method by
+Zhang et al.~\cite{zhang2009spatio}.
+
+Testing was done using a publicly availiable dataset of temperature
+measurements by sensor nodes from the berekeley Research Laboratory and a
+synthetic dataset. With the real world data, the authors tested the accuracy of
+\ac{EDCA} while using different sampling ratios for the 54 sensor nodes. The
+authors could only observe small recovery errors. With a sampling ratio of 0.2,
+i.e. every fifth sensed value is transmitted, the standard deviation $ \sigma $
+was $ < 0.15°C $. % Reread that, as in stcdg, edca does not perform that well
+With the synthetic data set, the authors compared \ac{EDCA}
+with a naive scheme, in which all sensed data points are sent to the sink, on
+network lifetime. The lifetime of a sensor network is defined by the authors as
+"the time duration of the first sensor node which runs out of power". The
+lifetime ratio is defined as $ (1/M_{max}) / (1/M_0) $ where $ M_{max} $ is
+"the maximum power wasted [...] on every simulation using \ac{EDCA} and $ M_0 $
+the power wasted by the naive scheme. The authors found the lifetime ratio to
+be 5 when having a sampling ratio of 0.2, increasing the lifetime of a network
+fivefold in comparison to the naive scheme.
+
+
+\par
+
+% stcdg
+Another paper by Cheng et al.~\cite{cheng2013stcdg} expands \ac{EDCA} and
+introduces a \ac{STCDG} algorithm. Similiar to \ac{EDCA}, \ac{STCDG} exploits
+the low rank feature and the short-term stability of data gathered through a
+\ac{SN}. The authors argue, that, unlike \ac{CDG}, \ac{STCDG} is more flexible
+and does not have to be customized for a specific \ac{SN}. This comes from the
+fact, that with \ac{CDG}, the domain in which the data is sparse has to be
+known in advance. Additionally \ac{CDG} utilizes only the sparsity of data,
+requiring the full dataset to be reordered if the data is not sparse.
+
+The authors deployed an own sensor network in a residential building. They used
+the data to analyze short-term stability and low rank of spatially and
+temporally correlated data. The authors found the data to have a good low-rank
+approximation and short-term stability. Short-term stability is defined by the
+authors as the difference between adjacent gaps of sensor readings, with gaps
+being the time between two adjacent sensor readings. So the difference is
+defined as 
+
+$$
+dif(n,t) = X(n,t + 1) + X(n,t - 1) - 2X(n, t); \ \ where  \ \ 1 <= n <= N  \ \ and  \ \ 2 <= t <= T - 1
+$$
+
+thus, if $ dif(n, t) $ is small then sensor readings at node n around timeslot
+t are stable.
+
+The authors expanded their optimization problem formulation to include a tuning
+parameter $ \zeta $ to tradeoff fitting the algorithm to the data and achieving
+low rank. With the short term stability added into the optimization problem, as
+the difference for all data points in the original matrix $ X $, $
+||(LR^T)S^T||^2_F $ the optimization problem is now
+
+$$
+minimize \ ||(LR^T).*Q-B||^2_F + \zeta(||L||^2_F + ||R||^2_F) + \eta ||(LR^T)S^T||^2_F
+$$
+
+Another extentsion of \ac{STCDG} is the handling of empty columns. Empty
+columns may appear at the sink when the sampling ratio is low or the packet
+loss rate is high. The authors point out that such cases can lead to very high
+recovery errors. Therefore, the algorithm ignores empty columns first and
+recovers the original matrix. The empty columns are seperately filled using the
+short-term stability feature. Additionally, abnormal values sensed by sensor
+nodes are transmitted independant of the set sampling ratio.
+
+The authors tested \ac{STCDG} against \ac{EDCA} and \ac{CDG} on 3 different
+datasets in terms of recovery error, power consumption and network capacity.
+The used datasets were the berekeley Research Laboratory sensor data, a
+synthetic trace generated with the ns-2 tool, and the residential building data
+gathered by the authors. Specifically, the authors subdivided the laboratory
+and residential building data sets into singular sensed phenomena, namely light
+and temperature. \ac{NMAE} was used to measure the recovery performance of the
+algorithms. The researchers found that the algorithms have critical sampling
+ratios, which if surpassed, lead to a high \ac{NMAE}. \ac{STCDG} perfomed
+better than the other algorithms, having low \ac{NMAE} (sub 0.1) with low
+sampling ratios (0.1 - 0.2). \ac{CDG} perfomed worst of all. The authors argue
+that the sparsity feature is not always present in real life data sets. The
+performance of all algorithms dropped on datasets with lower temporal/spatial
+correlation and fewer sensor nodes (24 and 54 sensor nodes in the residential
+building and laboratory datasets respectively). The authors argue that \ac{CDG}
+is outperformed at high sampling ratios by a centralized exact scheme, which,
+like the naive scheme in the previous work of Cheng et
+al.~\cite{cheng2013stcdg}, sends all sensor readings at every timeslot to the
+sink. \ac{STCDG} and \ac{EDCA} have both the same energy consumption.
+
+% Some general thoughts on disadvantages in compressed sampling. Beside the
+% obvious assumptions of data or a signal being sparse in a domain or having
+% short-term stability or other features, the above mentioned algorithms (CDG,
+% EDCA, STCDG) do not offer a (smart) way of dealing with outliers. STCDG just
+% sends those values to the sink. Furthermore, sensing/sampling costs are not
+% included in power consumption analysis
+
+\subsection{\catII} % Filtering algorithms
 \label{sec:catII}
+
+The first category of our taxonomy incorporates all algorithms which primary 
+focus is on manipulating the sampling or sensing rate of one or multiple sensor
+nodes to reduce network utilization.
+ 
+ % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired
+ % that someone what's to reduce "throughput". Maybe replace it by saying sth.
+ % like "reduce network utilization", "reduce sensor load"...
+Although there are algorithms from other categories which also may incorporate
+manipulations to the sensing/sampling rates of sensor nodes
+(e.g.~\cite{trihinas2015adam}), we include algorithms to the Sampling Algorithms
+category only if the main focus of the work lies on sampling rate manipulation. % maybe rewrite that
+% COMMENT JT: It would be good to have concrete examples here.
+
+In out research we found adaptive sampling and compressive sampling to be good
+sub classifications for sampling algorithms. Both types of algorithms target
+sampling rates of sensor nodes to reduce network traffic. Adaptive sampling
+algorithms employ schemes to dynamically react to changes in the behaviour of
+an observed phenomenon, by manipulating sensing rates of sensor nodes.
+Compressive sampling utilizes findings from the field of signal processing, to
+sample signals, i.e. data streams from an observed phenomenon, below the
+typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
+the original signal can be reconstructed at sink node or basestation with very
+high accuracy.
+
+The second category of our taxonomy contains algorithms which primary focus
+lies in reducing data sent through the network after it is sampled. The
+subclassifications deal with filtering sensed values due to predicting them at,
+e.g. a sink node and with % here adaptive filtering summary
+% introduction or outlook to that category after writing the subsubsection parts
 
 \subsubsection{Model Based Schemes}
 \label{sec:Model Based Schemes}
 
+We categorize algorithms into model based schemes if they use a prediction
+model to enrich delivered sensor data at a sink or replace data transmission
+altogether. One of the earlier examples of a model driven data gathering
+technique is the well cited work of Deshpande et al.\cite{deshpande2004model}.
+The authors present \textit{BBQ} (or Barbie-Q) a model query system in which
+user's queries to a sensor network are answered, until some error threshold,
+with a prediction model. Only if the prediction is not accurate enough, actual
+sensed values are transmitted through the network. \textit{BBQ} is a query
+processing engine, capable to process user queries similiar to \ac{SQL}. The
+researchers make a general point in favour of model based schemes to answer
+user queries. The authors argue that besides easing the communication load on
+the network, statistical models can also, i.a. identify faulty sensors and fill
+holes the network by extrapolating missing data. The authors use a timevarying
+multivariate Guassian model, however they point put that their framework is
+model agnostic. In \textit{BBQ}, a model is constructed (or trained) using
+historical data, therefore some initial sensed values need to be collected in
+order to initialize the model. Afterwards, users can query the network, e.g.
+ask for the temperature sensed by a group of sensors with an error margin and a
+confidence interval. \textit{BBQ} then tries to answer the query, minimzing the
+amount of sensor nodes asked. Based on the underlying model, the system builds
+an observation plan which specifies how and in which order sensor nodes are
+queried. The "how" refers to the model choosing another attribute to query
+instead. The reason behind this is that some attributes, like temperature and
+voltage, are highly correlated. The authors show, that the correlation can be
+leveraged by the model, as voltage is sometimes cheaper to sample than
+temperature. Additionally, spatial and temporal correlations are leveraged by
+the model to reduce the number of sensors queried.
+
+The authors evaluated their system by comparing \textit{BBQ} with
+TinyDB~\cite{madden2005tinydb} and Approximate-Caching on two datasets
+collected by a small amount of sensors (11 and 54 each). TinyDB sensornet
+querying system in which the readings of sensor nodes are send and aggregated
+on the way to the sink. With Approximate-Caching, sensor nodes send their
+sensed values to a sink only if they differ from the previous sent values by
+some user defined margin $ \epsilon $. So in comparison, TinyDB reports always
+the exact values asked for in a user query, while  Approximate-Caching is
+tweakable with error bounds and \textit{BBQ} is additionally configurable with
+\acp{CI}. Therefore, the acquisition costs of TinyDB were constant while
+\textit{BBQ} outperformed the other algorithms on high error margins ($
+\epsilon = 1 $) with acquisition costs being an order-of-magnitude lower than
+those of Approximate-Caching. As the authors themeselves point out,
+\textit{BBQ} is not suitable for anomaly detection, as for such a task constant
+sensor sampling is required.
+\par
+Chu et al. tackle, i.a., this problem, in their work~\cite{chu2006approximate}.
+The presented algorithm, \textit{Ken} targets \textit{SELECT *} queries in
+which all values are requested from all sensor nodes. No data reduction takes
+place and such queries are thus expensive regarding energy consumption through
+communication. \textit{Ken} operates using a prediction model which is
+synchronized at the sink and at sensor nodes. Users query the sensor network
+with frequency and error interval arguments, e.g. values from all sensor nodes
+every f seconds with an error margin of $ \pm\epsilon $. A sensor node collects
+values and checks if the sink node is able to predict the collected values
+correctly within $ \pm\epsilon $. If the values lie within the interval, the
+sensor node suppresses its reading. In the other case, the sensor node pushes
+its values down the network to the sink node which in turn forwards the
+readings to the base station. The models at the sink node use the new values to
+\textit{resynchronize} its model with the model at the sensor nodes. In a
+multihop \ac{SN}, additional compression based on spatial correlation can take
+place at different hops. To enable compression based on spatial correlation,
+the authors propose a clustering scheme in which there are multiple sink nodes
+which communicate with the base station. This reduces communication overhead,
+as sensor readings do not have to be stored in one central place in the
+network. Each sink node maintains a synchronized prediciton model with its
+child nodes. Additionally, the basestation maintains synchronized prediciton
+models with the sink nodes. Such a structure is depicted in
+Fig.~\ref{fig:cluster Chu}. To find such clustering groups, the authors, i.a.,
+present a heuristic approach, in which sensor nodes are assigned to a sink node
+by its data reduction factor, i.e. a performance indicator for the prediciton
+model. The authors evaluated their approach on two real world datasets with
+small, fixed amount of sensors (one with 11 and the other with 49 sensors).
+\textit{Ken} was tested with the clustering technique and with an average
+model, in which predictions are made with the average of all sensed values and
+no clusters are build. The authors came to the conclusion, that \textit{Ken}
+performs better with the clustering scheme, when the communication costs to the
+basestation are many times higher than to a neighbor. This advantage recedes if
+there are a lot of outliers which the model cannot predict.
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{images/ken-clustering.png}
+\caption{Example of a \ac{SN} with clusters by Chu et al.~\cite{chu2006approximate}}
+\label{fig:cluster Chu}
+\centering
+\end{figure}
+
+\par
+Gedik et al. point out in their work, that \textit{Ken} is uneffective when the
+observed phenomenon changes unpredictably over time~\cite{gedik2007asap}. In
+such cases, the prediction model has to be adapted or reconstructed, which
+introduces high communication overhead if the model is constructed centrally at
+the basestation. Additionally, the authors of \textit{Ken} did not take the
+extra energy expenditure of clusterheads/sinknodes have, compared to regular
+sensor nodes, into account. Gedik et al. address these issues in their
+algorithm, \textit{ASAP}. The algorithm organizes sensor nodes into clusters.
+Clusterization is done periodically, i.e. every $ \tau_c $ seconds. This
+enables a rotation of cluster heads, preventing a premature poweroutage of a
+sensor node. The selection of cluster heads is done inside the network. Each
+sensor node computes a probability of it becoming a cluster head, based on a
+user set desired fraction of sensor nodes becoming cluster heads ($ f_c $) and
+the node's relative energy level to neighboring nodes. Nodes which did not
+become cluster heads choose their cluster head by an attraction factor, a
+combination of the hop distance to the cluster head and a weighted data
+similiarity with the readings of the cluster head and the sensor node, $ \alpha
+$. After clusters are constructed, cluster heads further division its clusters
+into subclusters, of size $ \beta $, based on correlations between each sensor
+node in the cluster. Initially, sensed values of \textit{all} sensor nodes in a
+cluster have to be collected at the cluster head. This is repeated every $
+\tau_f $ seconds to update correlations and adapt to changing dynamics in the
+observed phenomenon. The cluster head selects the fraction $ \sigma $ of nodes
+to act as samplers in a subcluster, based on the remaining energy of each
+sensor node. Only the sampler nodes and the cluster head sense the environment
+(with a sampling rate of $ \tau_d $) and communicate their sensed values to the
+base station. Additionally, cluster heads compute, for each subcluster, a data
+mean vector and a covariance matrix which they send to the basestation as model
+parameters. The basestation receives the sensed values from the sampler nodes
+and predicts the values for the other nodes.
+
+Experiments were used to test messaging cost, network performance, energy
+consumption and data quality. Centralized Exact and extreme variations of
+\textit{ASAP} were used to compare the algorithm. The variations were a local
+approach, in which predictions happens at the cluster heads and predicted
+values are sent to the base station, and a central approach in which all
+predictions are carried out at the basestation and values of all sensor nodes
+for updating the model are also sent to the basestation. The authors found
+\textit{ASAP} outperfoming the other algorithms in the number of messages sent
+and the per node energy consumption, while alternating, i.a., $ \sigma $. The
+authors also studied the trade-off between the prediction error and network
+lifetime, observing high liftime improvements (90 \% longer lifetime in
+comparison to centrelized exact) if user defined absolute error thresholds are
+at around 1.
+
+The authors point out that their algorithm is best suited for environment
+monitoring, as anomaly detection is not fesiable due to only a subset of
+sensors sensing at a time. Also, users should allow some prediciton error to
+effectively utilize the algorithm. All parameters described above can be set by
+the user, however, the authors suggest a configuration in their paper which
+minimizes overhead.
+\par
+
+A similiar paper by Jiang et al. was published in
+2011~\cite{jiang2011prediction}. They make the point, that the computational
+overhead generated by prediction schemes may outweigh the energy savings
+achieved by predicting a value at a sink rather than sending it through the
+network. The algorithm utilizes clustering and duty cycling to increase energy
+savings. Specifically, a sensor network is divided into clusters. Sensor nodes
+which are not cluster heads, are either asleep or awake and sensing the
+environment. Sensor nodes hold a history of predicted or sensed data points,
+while cluster heads have a history of the values from all sensor nodes in their
+cluster. Based on the historical data, an autoregressive model can be trained
+to predict data locally at sensor nodes and at cluster heads. Cluster heads
+issue prediction bans to sensor nodes if a local prediction is less
+energy-efficient than communicating the values to the cluster head. If no ban
+is issued and the predicted value lies in the user specified error bound, the
+sensor node does not send anything and updates its local, historical data with
+the predicted value. Else, the affected sensor node sends sampled data to the
+cluster head and updates the local historical data with the sampled data. The
+authors point out that in applications with data loss, acknowledgement messages
+can be sent from sensor nodes to cluster heads, to counteract message failure.
+% Evaluation
+The authors evaluated their approach on synthetic dataset by variing the ratio
+of transmission energy consumption and prediction energy consumption. They
+compared their algorithm with and without the prediction ban feature and came
+to the conclusion, that additional energy savings can be achieved when
+prediction cost is high compared to communication cost. The authors point out
+that their algorithm is not focussed on cluster creation. Algorithms like
+\textit{ASAP} can be used to create clusters and cycle cluster heads.
 
 \subsubsection{Adaptive Filtering}
 \label{sec:Adaptive Filtering}
@@ -489,24 +977,18 @@ energy consumer~\cite{boyle2012energy}.
 A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides a
 framework for finding a sampling rate which optimizes the tradeoff between
 energy consumption and quality of data. The framework was implemented in java
-with no external dependencies. The algorithm estimates a metric stream $$ M $$
+with no external dependencies. The algorithm estimates a metric stream $ M $
 to reduce the number of sampling periods when the metric stream does not
-fluctuate and vice versa. A sampling period $$ T_i $$ is computed by estimating
+fluctuate and vice versa. A sampling period $ T_i $ is computed by estimating
 the metric stream evolution. The authors use a \ac{PEWMA} to produce an
-estimated metric stream $$ M' $$. The \ac{PEWMA} is a Variation of \ac{EWMA}
+estimated metric stream $ M' $. The \ac{PEWMA} is a Variation of \ac{EWMA}
 which provides a one-step ahead estimation. The authors state that \ac{PEWMA}
 is more robust against abrunt transient changes in the metric evoultion than
 \ac{EWMA}.
 
-When $$ M' $$ differs from $$ M $$ by a user specified imprecision value $$
-gamma $$, then $$ T_i $$ is increased to a maximum sampling period $$ T_{max}
-$$. Otherwise $$ T_i $$ is decreased to a minimal sampling period $$ T_{min}
-$$. The algorithm was tested against \ac{EWMA}, L-SIP and FAST. L-SIP is a  
+When $ M' $ differs from $ M $ by a user specified imprecision value $
+gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}
+$. Otherwise $ T_i $ is decreased to a minimal sampling period $ T_{min}
+$. The algorithm was tested against \ac{EWMA}, L-SIP and FAST. L-SIP is a  
 
 \section{Conclusion}
-\label{sec:Conclusion}
-
-
-\section{References}
-\label{sec:References}
-
