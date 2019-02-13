@@ -19,17 +19,14 @@
 \section{Introduction}
 \label{sec:Introduction}
 Gartner Inc. states that the number of interconnected devices will reach 20.4
-billion by 2020 \footnote{Gartner Inc., R. (2017, February 7). Gartner Says 8.4
-Billion Connected "Things" Will Be in Use in 2017, Up 31 Percent From
-2016.Retrieved September 28, 2018, from
-https://www.gartner.com/en/newsroom/press-releases/2017-02-07-gartner-says-8-billion-connected-things-will-be-in-use-in-2017-up-31-percent-from-2016}.
-To gather information from those devices, we need algorithms which efficiently
-sample and route data from sensor nodes (i.e., devices) to data sinks. Energy
-expenditure will gain higher importance, especially for mobile devices such as
-battery-powered wearables and smartphones. A \ac{WSN} is often battery-powered
-and use cases span from home and health applications to the military
-sector~\cite{akyildiz2002wireless}. With low production costs of a node as a
-goal in \acp{WSN}~\cite{akyildiz2002wireless}, resource usage at the nodes is
+billion by 2020~\cite{gartner} To gather information from those devices, we
+need algorithms which efficiently sample and route data from sensor nodes
+(i.e., devices) to data sinks. Energy expenditure will gain higher importance,
+especially for mobile devices such as battery-powered wearables and
+smartphones. A \ac{WSN} is often battery-powered and use cases span from home
+and health applications to the military sector~\cite{akyildiz2002wireless}.
+With low production costs of a node as a goal in
+\acp{WSN}~\cite{akyildiz2002wireless}, resource usage at the nodes is
 restricted. While reducing sampling frequencies leads to a higher life of a
 battery-powered sensor network, important changes in the observed phenomenon
 could be missed which reduces the quality of the
@@ -37,18 +34,19 @@ data~\cite{akyildiz2002wireless}. A tradeoff between the quality of data and
 energy expenditure arises, thus an optimization is needed. 
 \par
 Different methods for optimizing \acp{WSN} were presented in surveys
-(e.g.,~\cite{abbasi2007survey},~\cite{sivrikaya2004time},~\cite{carrano2014survey}).
-The proposed areas of optimization include clustering
+(e.g.,~\cite{abbasi2007survey, sivrikaya2004time, carrano2014survey}). The
+proposed areas of optimization include clustering
 algorithms~\cite{abbasi2007survey}, time
 synchronization~\cite{sivrikaya2004time}, duty
 cycling~\cite{carrano2014survey}, topology control~\cite{li2013survey},
 in-network aggregation~\cite{fasolo2007network}, data
 compression~\cite{srisooksai2012practical}, and general routing
-techniques~\cite{al2004routing}~\cite{kulkarni2011particle}~\cite{singh2015survey}~\cite{rault2014energy}.
-TinyDB~\cite{madden2005tinydb}, ACQUIRE~\cite{sadagopan2003acquire} and
-COUGAR~\cite{yao2002cougar} introduce system architectures for query processing
-which consist of algorithms for sampling, and routing data requested by a user
-through a \ac{SQL} like language.
+techniques~\cite{al2004routing, kulkarni2011particle, singh2015survey,
+rault2014energy}. TinyDB~\cite{madden2005tinydb},
+ACQUIRE~\cite{sadagopan2003acquire} and COUGAR~\cite{yao2002cougar} introduce
+system architectures for query processing which consist of algorithms for
+sampling, and routing data requested by a user through a \ac{SQL} like
+language.
 
 
 \subsection{Motivation}
@@ -62,7 +60,7 @@ algorithms for the specific use case of sensor data. For researchers as well as
 practitioners, a collection of sampling algorithms is a valuable starting point
 for finding a solution for a design problem in a sensor network. 
 \par
-Thus, a taxonomy of the algorithms will be presented to provide a compact
+Therefore, a taxonomy of the algorithms will be presented to provide a compact
 overview. Furthermore, algorithms which focus on areas other than sensing (like
 routing and topology building) in sensor networks will be presented.
 Combinations of said algorithms with sampling algorithms as well as
@@ -75,32 +73,29 @@ further research.
 
 Different types of \acp{SN}, like \acp{WSN}, \acp{RSN}, or wired \acp{SN}
 exist. While all of them are used to monitor a phenomenon, like the temperature
-in a room \footnote{Madden, S. et al. 2004. Intel Lab Data. [ONLINE] Available
-at: http://db.csail.mit.edu/labdata/labdata.html. [Accessed 29 November 2018].}
-or the behaviour of wildlife~\cite{bennett2011cranetracker} performance
-indicators vary in their significance. Intuitively, wired \acp{SN} do not
-consider energy expenditure as the primary concern. \acp{RSN} have a way to
-collect energy from the environment they are stationed at, through, e.g. solar
-and wind or more exotic variants like vibration \footnote{Perpetuum. 2018.
-Technology. [ONLINE] Available at: https://perpetuum.com/technology/. [Accessed
-29 November 2018].}. To enable perpetual data collection in \acp{RSN},
-techniques for allocating sensing tasks to sensors while handling the non
-linear emission of, e.g. solar and wind is crucial~\cite{liu2011perpetual}.
-\acp{WSN} often have a limited energy source at their disposal, making
-management of energy expenditure a top priority to increase network lifetime.
-As Cheng et al. state in their work~\cite{cheng2013stcdg} network lifetime is
-often defined in \acp{WSN} as the lifetime of the first node to run out of
-energy. 
+in a room~\cite{labdata} or the behaviour of
+wildlife~\cite{bennett2011cranetracker}, performance indicators vary in their
+significance. Intuitively, wired \acp{SN} do not consider energy expenditure as
+the primary concern. \acp{RSN} have a way to collect energy from the
+environment they are stationed at, through, e.g. solar and wind or more exotic
+variants like vibration~\cite{perpetuum}. To enable perpetual data collection
+in \acp{RSN}, techniques for allocating sensing tasks to sensors while handling
+the non linear emission of, e.g. solar and wind is
+crucial~\cite{liu2011perpetual}. \acp{WSN} often have a limited energy source
+at their disposal, making management of energy expenditure a top priority to
+increase network lifetime. As Cheng et al. state in their
+work~\cite{cheng2013stcdg} network lifetime is often defined in \acp{WSN} as
+the lifetime of the first node to run out of energy. 
 \par
 \acp{WSN} and \acp{RSN} are often designed with some nodes sensing the
 phenomenon and one or more sink nodes wich transfer the sensed data to a
 central base station. Based on the type of topology, e.g. a simple star
-structure\ref{fig:topologies}, sensed data is forwarded to the sink node
-directly, i.e. in a one-hop manner. More complex topologies, e.g. tree
-\ref{fig:topologies} or connected star structures, often require to relay
-sensed data through intermediary nodes to a sink node in a multi-hop fashion,
-as direct communication paths between sensing and sink nodes are not always
-possible~\cite{romer2004design}. 
+structure (Fig.~\ref{fig:Star Topology}), sensed data is forwarded to the sink
+node directly, i.e. in a one-hop manner. More complex topologies, e.g. tree
+(Fig.~\ref{fig:Tree Topology}) or connected star structures, often require to
+relay sensed data through intermediary nodes to a sink node in a multi-hop
+fashion, as direct communication paths between sensing and sink nodes are not
+always possible~\cite{romer2004design}. 
 \par
 In more complex topologies with a lot of intermediary nodes, finding the
 optimal routing path from sensor node to the sink is not trivial. With
@@ -113,15 +108,21 @@ outsourcing this task to the basestation could induce a major communication
 overhead with additional energy expenditure. Techniques on topology building
 and route path finding will be discussed later in the thesis.
 
-% \begin{figure}%
-%     \centering
-%     \subfloat[Star Topology]{{\includegraphics[width=5cm]{images/topology-star-no-legend.jpg}}}%
-%     \qquad
-%     \subfloat[Tree Topology]{{\includegraphics[width=5cm, trim=left bottom right top, clip]{images/tree-topology.pdf}}}% 
-%     \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
-%     \label{fig:topologies}%
-% \end{figure}
-
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{images/star-structure.pdf}
+  \captionof{figure}{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+  \label{fig:Star Topology}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{images/tree-structure.pdf}
+  \captionof{figure}{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+  \label{fig:Tree Topology}
+\end{minipage}
+\end{figure}
 
 \FloatBarrier
 
@@ -156,10 +157,6 @@ relevant information as:
 	% \item Compatibility of the algorithms with other techniques
 \end{itemize}
 
-The compatability of algorithms will be discussed in an extra section
-\ref{subsec:Combination of Algorithms}
-
-
 \para{Section \ref{sec:Discussion}.} In section \ref{sec:Discussion}, we review
 algorithms not covered in the taxonomy from areas other than sampling, e.g.
 topology building and routing. This section is split into two subsections. The
@@ -174,65 +171,79 @@ found here could be used as a basis for further research.
 \label{sec:Taxonomy}
 
 In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
-classify algorithms into three categories: \catI (Section~\ref{sec:catI}),
-\catII (Section~\ref{sec:catII})  and \catIII (Section~\ref{sec:catIII}).
-%COMMENT JT: Make sure to stay with present tense. We devided=>we devide. (I
-%rephrased the sentence above)
-
-%COMMENT JT: Extend this header such that all subsection are referenced (Manage
-%the expectation of your reader)
-
-%COMMENT JT: I miss some description for each of these categories. I would
-%appreciate if yu extend the paragraph above with one sentence for each
-%cateforey. e.g., "Sampling Algorithms are all algorithms which .... In
-%contrast, filtering algorithms ... Data sharing algorithms apply orthorgonal
-%optimizations ...."
+classify algorithms into two categories: \catI (Section~\ref{sec:catI}) and
+\catII (Section~\ref{sec:catII}). %  and \catIII (Section~\ref{sec:catIII}).
+\catI are all algorithms which goal it is to prevent the \textit{sampling}
+of redundant data. This is achieved at sensor node level, manipulating the
+sampling rate to capture all relevant information from a data stream produced
+by a sensor. In contrast, \catII focus on suppressing already sampled data by
+utilizing spatial and temporal correlations between nodes' sampled values. We
+decided to include \catII into the taxonomy, as filtering and sampling both
+take place at the sensor node level and are applied before data is sent further
+down the network.  % Think about other points.
 
 \subsection{Terminology}
 
-%COMMENT JT: I like the idea of this section. However, it doesn't really fit my
-%expectation of a "Taxonomy" section. I added a subsection for terminology
-%definitions. This is just a suggestion. You should integrate  
-
 The literature related to data retrieval from sensors defines many different
-terms such as data collection, data sampling, data gathering, and data sensing.
-%COMMENT JT: Each of the items in the list above should have at least one
-%reference following it. Better three references.
+terms such as data collection (e.g.~\cite{laiymani2013adaptive, liu2007energy,
+wang2012adaptive}), data sampling (e.g.~\cite{willett2004backcasting,
+jain2004adaptive, szczytowski2010asample}), data gathering
+(e.g.~\cite{wang2012data, luo2009compressive, zhang2016data}), and data sensing
+(e.g.~\cite{padhy2006utility, mahmudimanesh2012balanced, duarte2005joint}).
 Some publications use these terms as synonyms while other publications use
 different terms to differentiate concepts. In the following paragraphs, we
 clarify the definitions of data collection, data sampling, data gathering, and
-data sensing.
-%COMMENT JT: I rephrased this paragraph. Please check if you like it.
+data sensing. We include this subsection, because we need to clarify the
+terminology in order to be precise in the following sections.
 
-%COMMENT JT: Make sure to clarify the motivation: Why is the content which
-%follows important? Because we need to clarify the terminology in order to be
-%precise in the following sections...
+\begin{description}
+    \item[Data collection and data gathering] 
+        Data collection is often mentioned in connection with the whole process
+        of acquiring data through sensors in \acp{SN}. A data stream produced
+        by a sensor sensing a phenomenon is sampled by an sampling algorithm.
+        The data is then routed through the network to the destination. The
+        work of Yao et al.~\cite{yao2015edal} contributes, i.a., a technique,
+        for finding the lowest cost path for sent data packages in a \acp{WSN}
+        while additionally employing compressive sampling. The authors use data
+        collection to define this process. Additionally, a survey by Di
+        Francesco et al.~\cite{di2011data} defines the term data collection as
+        the process of getting data from a sensor node to the sink node.
+        Vukobratovic et al.~\cite{vukobratovic2010rateless} describe data
+        gathering as the process of collecting sensed data from sensor nodes at
+        specific sink nodes. A sink node could be a basestation, e.g. a wired
+        server, or another node in the \ac{SN} which acts as a gateway into the
+        network and can route data to a server. We will use data gathering and
+        data collection as synonyms as they both describe the whole process of
+        acquiring data at sensor nodes and routing them to a base station.
 
-%COMMENT JT: You may want to use a description environment to highlight the
-%term you are defining in each of the following paragraphs.
+    \item[Data sensing and data sampling ] 
+        The definitons for data sampling and data sensing are also inconsistent
+        in the literature. Zhao et al.~\cite{zhao2016cats} employ sampling in
+        the context of sink nodes assigning sampling tasks, which consist of a
+        time window and a sampling interval, to sensor nodes. Trihinas et
+        al.~\cite{trihinas2015adam} also do not differentiate between sampling
+        and sensing.  Aquino et al.~\cite{aquino2014musa} on the other hand,
+        discern sensing as the process of a preconfigured sensor unit measuring
+        a physical phenomenon and sampling as the software taking samples form
+        the data generated by the sensor unit. The distinction is important as
+        the authors point out, that generally, an online reconfiguration of the
+        sensor sensing times is not possible. Contrary, software is more
+        flexible and sampling rates and intervals can be specified online.
+        However, Deshpande et al.~\cite{deshpande2004model} argue, that a
+        sensor can only provide \textit{samples} of an observed, continuous
+        phenomenon. Therefore, additional sampling by an algorithm would be
+        interpreted as filtering. To stay consistent with our differentiation
+        between sampling and filtering, we will not distinguish sampling and
+        sensing unless a presented work makes the distinction, e.g. an
+        off-the-shelf sensor unit has a fixed sensing rate and can only be
+        turned on or off. In such cases, the sampling is done on the data
+        stream. Because sensor nodes have only limited
+        memory~\cite{akyildiz2002wireless}, only \textit{samples} of the data
+        stream would be stored at each point in time, on which additional
+        filtering would be applied. This differs from reservoir sampling, ...
+\end{description}
 
-%Many different terms for the concept of data retrieval from sensors exist in
-%the literature. Data collection, data sampling, data gathering, and data
-%sensing could be seen as synonyms, however, we found they are sometimes used in
-%different contexts.
 \par
-Data collection is often mentioned in connection with the whole process of
-acquiring data through sensors in \acp{SN}.
-% consider this: a query for temperature in a room is pushed down the network.
-% a sensor in that room would power up and produce a stream of data... or the
-% sensor node gets the instruction to produce data with the sensor e.g. every 3
-% sec for 18 sec so sensing would only apply to the process of getting digital
-% data via a sensor while sampling could mean the same in context of sampling
-% the "real values" of a happend event. Sampling could also mean getting a
-% subset of data from multiple sensors.
-A data stream produced by a sensor sensing a phenomenon is sampled by an
-sampling algorithm. The data is then routed through the network to the
-destination. The work of Yao et al.~\cite{yao2015edal} contributes, i.a., a
-technique, for finding the lowest cost path for sent data packages in a
-\acp{WSN} while additionally employing compressive sampling. The authors use
-data collection to define this process. Additionally, a survey by Di Francesco
-et al.~\cite{di2011data} defines the term data collection as the process of
-getting data from a sensor node to the sink node.
 % COMMENT JT: Instead of saying "could be used" you can just say that we use it
 % as such and other do this as well: Similar to related literature, we use the
 % terms A and B as syn. [1,2,3]. In general, each of the definition paragraphs
@@ -242,60 +253,18 @@ getting data from a sensor node to the sink node.
 % nicht? Kann es sein oder nicht?. Either it can or it cannot. The only place
 % where you could write "could" is in the "future research" section. There you
 % indeed make guesses.
-\par
-Data gathering on the other hand could be used as a synonym for data
-collection. Vukobratovic et al.~\cite{vukobratovic2010rateless} describe data
-gathering as the process of collecting sensed data from sensor nodes at
-specific sink nodes. A sink node could be a basestation, e.g. a wired server,
-or another node in the \ac{SN} which acts as a cluster head. Other works which
-use the term data gathering in the same context are often found in the domain
-of compressive sensing~\cite{cheng2013stcdg,luo2009compressive,wang2012data}.
-%COMMENT JT: Why? Does it have a special meaning to them? (Remember that the
-%paragraph needs a concluding sentence)
-%(e.g.~\cite{cheng2013stcdg},~\cite{luo2009compressive},~\cite{wang2012data})
-\par
-% cite BBQ, they argue that sensing is basically sampling. A sensor net
-% monitoring an environment, cannot reflect reality 1:1, but only a fraction of
-% it at descreet points in time.
-The definitons for data sampling and data sensing are also unclear in the
-literature.
-%The statement above is very strong. You basically say that noone defined data
-%sampling properly. Better say that the definitions are inconsistent. This is
-%less offensive.
-Zhao et al.~\cite{zhao2016cats} employ sampling in the context of
-sink nodes assigning sampling tasks, which consist of a time window and a
-sampling interval, to sensor nodes. Trihinas et al.~\cite{trihinas2015adam}
-also do not differentiate between sampling and sensing. Aquino et
-al.~\cite{aquino2014musa} on the other hand, discern sensing as the process of
-a preconfigured sensor unit measuring a physical phenomenon and sampling as the
-software taking samples form the data generated by the sensor unit. The
-distinction is important as the authors point out, that generally, an online
-reconfiguration of the sensor sensing times is not possible. Contrary, software
-is more flexible and sampling rates and intervals can be specified online.
 %COMMENT JT: There's is often a confision between sampling (i.e. reading) from
 %sensors and computing smaller samples (example data) from a huge badge of data
 %(i.e. reservoir sampling). It would be good to clarify the difference here and
 %to point out that we are NOT dealing with the latter one in this thesis.
 \par
-We will use data collection and data gathering as synonyms and differentiate
-between data sensing and data sampling.
-
 %I would make the below part a separate paragraph because above this comment
 %you talk about algorithms  (i.e. software) and below  this comment you, out of
 %a sudden, talk about devices, servers (i.e. hardware).
-
-Additional synonyms are base station,
-fusion center and client station which all describe a wired station like a
-server to which information is routed and from which user queries can be
-specified to then be distributed in the network.
-% Sampling Cats - Zhao = sampling interval and sampling tasks a sampling task
-%     is alocated to a sensor node by a sink node sampling task has a time
-%     window and a sampling interval Adam - Trihinas = adaptive sampling
-%     techniques and sampling rate sampling == sensing data with sensors Musa -
-%     Aquio = a distinction is made between sampling and sensing sensing =
-%     device (sensor) is configured to take regular samples over time sampling
-%     = software takes samples from data produced by sensor software is more
-%     flexible while sensor sensing generally cannot be reconfigured online
+Additional synonyms we encountered are base station, fusion center and client
+station which all describe a wired station like a server to which information
+is routed and from which user queries can be specified to then be distributed
+in the network.
 
 \subsection{Overview}
 \label{sec:Overview}
@@ -312,18 +281,13 @@ specified to then be distributed in the network.
 \subsection{\catI} % Sampling Algorithms
 \label{sec:catI}
 
-The first category of our taxonomy incorporates all algorithms which primary 
+The first category of our taxonomy incorporates all algorithms which primary
 focus is on manipulating the sampling or sensing rate of one or multiple sensor
-nodes to reduce network utilization.
- 
- % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired
- % that someone what's to reduce "throughput". Maybe replace it by saying sth.
- % like "reduce network utilization", "reduce sensor load"...
-Although there are algorithms from other categories which also may incorporate
-manipulations to the sensing/sampling rates of sensor nodes
-(e.g.~\cite{trihinas2015adam}), we include algorithms to the Sampling Algorithms
-category only if the main focus of the work lies on sampling rate manipulation. % maybe rewrite that
-% COMMENT JT: It would be good to have concrete examples here.
+nodes to reduce network utilization. Although there are algorithms from other
+categories which also may incorporate manipulations to the sensing/sampling
+rates of sensor nodes (e.g.~\cite{trihinas2015adam, jain2004adaptive}), we
+include algorithms to the Sampling Algorithms category only if the main focus
+of the work lies on sampling rate manipulation. % maybe rewrite that
 
 In out research we found adaptive sampling and compressive sampling to be good
 sub classifications for sampling algorithms. Both types of algorithms target
@@ -335,7 +299,6 @@ sample signals, i.e. data streams from an observed phenomenon, below the
 typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
 the original signal can be reconstructed at sink node or basestation with very
 high accuracy.
-% COMMENT JT: Please add some outlook/summary for the following subsections.
 
 \subsubsection{Adaptive Sampling}
 \label{sec:Adaptive Sampling}
@@ -350,13 +313,9 @@ Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
     consumption."
 \end{quote}
 
-%COMMENT JT: I recommend to start a new line after each sentence in the source
-%file. This makes it easier to find a sentence from the PDF in the sources.
-
 \par
-% maybe remove backcasting from taxonomy
 Although the quote is from 2015, the idea of adaptive sampling goes back to the
-2000s. One technique called Backcasting was presented by Willet et
+2000s. One technique called \textit{Backcasting} was presented by Willet et
 al.~\cite{willett2004backcasting}. The key idea of the work is that a monitored
 environment exhibits correlations in time and space domains which can be
 exploited to reduce the number of required sensor nodes to deliver an accurate
@@ -370,12 +329,13 @@ and vice versa. The fusion center recieves the sensed data and activates
 additional nodes to improve the quality of the sampling by reducing the
 \ac{MSE}. The authors evaluate their approach theoretically and come to the
 conlusion, that a \ac{WSN} with 10000 sensors and energy to operate
-continuously for a year, would operate for 10 years when using Backcasting. The
-authors point out that network lifetime could be improved if mechanisms for
-cycling the position of cluster head would be implemented. Altough the
-algorithm does not manipulate the sampling rates of individual sensor nodes it
-is still one of the first algorithms to adaptively change the sensing tasks of
-nodes based on the dynamics of the observed phenomenon.
+continuously for a year, would operate for 10 years when using
+\textit{Backcasting}. The authors point out that network lifetime could be
+improved if mechanisms for cycling the position of cluster head would be
+implemented. Altough the algorithm does not manipulate the sampling rates of
+individual sensor nodes it is still one of the first algorithms to adaptively
+change the sensing tasks of nodes based on the dynamics of the observed
+phenomenon.
 
 \par
 
@@ -628,7 +588,7 @@ sparse in the wavelet domain and the original signal can be reconstructed.
 One paper by Cheng et al.~\cite{cheng2010efficient} builds upon the low rank
 feature of a matrix. The authors point to discoveries proving that a matrix
 formed from spatial and temporal correlated data is approximately low rank and
-can be recovered from a subset of the data. % Do I have to cite the literature the authors refer to?
+can be recovered from a subset of the data. % QUESTION Do I have to cite the literature the authors refer to?
 
 With the \ac{EDCA} sensor nodes sample at a fixed rate and send their sensed
 values to a cetral sink in a multi-hop scheme. However, the authors point out
@@ -737,44 +697,22 @@ like the naive scheme in the previous work of Cheng et
 al.~\cite{cheng2013stcdg}, sends all sensor readings at every timeslot to the
 sink. \ac{STCDG} and \ac{EDCA} have both the same energy consumption.
 
-% Some general thoughts on disadvantages in compressed sampling. Beside the
-% obvious assumptions of data or a signal being sparse in a domain or having
-% short-term stability or other features, the above mentioned algorithms (CDG,
-% EDCA, STCDG) do not offer a (smart) way of dealing with outliers. STCDG just
-% sends those values to the sink. Furthermore, sensing/sampling costs are not
-% included in power consumption analysis
 
 \subsection{\catII} % Filtering algorithms
 \label{sec:catII}
 
-The first category of our taxonomy incorporates all algorithms which primary 
-focus is on manipulating the sampling or sensing rate of one or multiple sensor
-nodes to reduce network utilization.
- 
- % COMMENT JT: "throughput" usually has a psitive annotation. It feels weired
- % that someone what's to reduce "throughput". Maybe replace it by saying sth.
- % like "reduce network utilization", "reduce sensor load"...
-Although there are algorithms from other categories which also may incorporate
-manipulations to the sensing/sampling rates of sensor nodes
-(e.g.~\cite{trihinas2015adam}), we include algorithms to the Sampling Algorithms
-category only if the main focus of the work lies on sampling rate manipulation. % maybe rewrite that
-% COMMENT JT: It would be good to have concrete examples here.
-
-In out research we found adaptive sampling and compressive sampling to be good
-sub classifications for sampling algorithms. Both types of algorithms target
-sampling rates of sensor nodes to reduce network traffic. Adaptive sampling
-algorithms employ schemes to dynamically react to changes in the behaviour of
-an observed phenomenon, by manipulating sensing rates of sensor nodes.
-Compressive sampling utilizes findings from the field of signal processing, to
-sample signals, i.e. data streams from an observed phenomenon, below the
-typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
-the original signal can be reconstructed at sink node or basestation with very
-high accuracy.
-
 The second category of our taxonomy contains algorithms which primary focus
 lies in reducing data sent through the network after it is sampled. The
-subclassifications deal with filtering sensed values due to predicting them at,
-e.g. a sink node and with % here adaptive filtering summary
+subclassifications deal with adaptive filtering and prediction based schemes.
+Prediction based schemes focus on using probabilistic models to suppress sensor
+readings if the readings can be predicted with acceptable accuracy at another
+sensor node or sink. The algorithms presented include additional schemes, e.g.
+clustering, to further reduce communication between nodes without reducing
+prediction accuracy under some threshold. Adaptive filtering algorithms include
+techniques to suppress sensed values based on temporal and spatial correlations
+in the network.
+
+% here adaptive filtering summary
 % introduction or outlook to that category after writing the subsubsection parts
 
 \subsubsection{Model Based Schemes}
@@ -810,7 +748,7 @@ the model to reduce the number of sensors queried.
 
 The authors evaluated their system by comparing \textit{BBQ} with
 TinyDB~\cite{madden2005tinydb} and Approximate-Caching on two datasets
-collected by a small amount of sensors (11 and 54 each). TinyDB sensornet
+collected by a small amount of sensors (11 and 54 each). TinyDB is a sensornet
 querying system in which the readings of sensor nodes are send and aggregated
 on the way to the sink. With Approximate-Caching, sensor nodes send their
 sensed values to a sink only if they differ from the previous sent values by
@@ -908,7 +846,7 @@ for updating the model are also sent to the basestation. The authors found
 and the per node energy consumption, while alternating, i.a., $ \sigma $. The
 authors also studied the trade-off between the prediction error and network
 lifetime, observing high liftime improvements (90 \% longer lifetime in
-comparison to centrelized exact) if user defined absolute error thresholds are
+comparison to centralized exact) if user defined absolute error thresholds are
 at around 1.
 
 The authors point out that their algorithm is best suited for environment
@@ -948,28 +886,176 @@ that their algorithm is not focussed on cluster creation. Algorithms like
 \textit{ASAP} can be used to create clusters and cycle cluster heads.
 
 \subsubsection{Adaptive Filtering}
+
+% Possible delimitation to model based schemes: Rich Spatio-temporal models are
+% often not fesiable to run on energy constraint nodes source: Energy-Efﬁcient
+% Data Aggregation Techniques for Exploiting Spatio-Temporal Correlations in
+% Wireless Sensor Networks
 \label{sec:Adaptive Filtering}
 
-\subsection{\catIII}
-\label{sec:catIII}
+The first algorithm we would like to present in this category is a work from
+2004 by Meng et al.~\cite{meng2004event}. Their approach focusses on in-network
+spatial and temporal correlation based message suppression, based on Contour
+Mapping. The authors describe Contour Mapping as a general technique in which
+data points in a diagram are connected with each other based on some
+similiarities. The factor similiarity can be controlled by a step size. The
+authors use this technique to contruct Contour Maps in sensor networks, so that
+not all sensor nodes with similiar readings have to send data. The suppression
+is done locally at every sensor, while sink nodes interpolate suppressed
+readings of sensor nodes. For that, sensor nodes sample their sensor every $
+\tau $ seconds, while $ \tau $ is between $ \tau_{min} $ and $ \tau_{max} $.
+The sampling interval is based on the magnitude of the sensed value so an
+initial randomness factor is given. This is necessary as some nodes will report
+their readings first, while neighboring nodes listen for those readings. A
+sensor node which has heard the values of its neighbors, decides, based on the
+distance of its own data to the average of the neighbors data $ \delta $ if it
+transmits its own data. Additionally, a sensor node may compare sampled values
+to $ m $ previous sampled values and based on the same threshold $ \delta $
+suppress or send its reading. The sink nodes know the geographical location of
+the sensor nodes and know which nodes (silent nodes) surpressed its readings.
+Thereby, the missing values of the silent nodes can be interpolated by
+averaging the readings of nearby sensor nodes. Additional smoothing can be done
+on the data by incorporating the values of neighbors that are more than one hop
+away from a silent node as weighted averages.
 
+The authors tested, i.a., the accuracy and and energy consumption of the
+approach in a simulated environment, with 528 nodes from which only 92 sent
+readings to the sink in the course of the experiment. The maximum error did not
+exceed 10, i.e. the distance between the value assigned to a silent node by the
+sink and the actual value. With introduction of network lossiness, 17 reading
+out of 92 are dropped on the way to the sink. In that case the maximum error
+was 20. Energy savings were compared against a centralized exact scheme on
+transmitting data, listening for neighbors data and receiving data. The
+algorithm achieved energy savings in each category of $ \approx88\% $ over
+centralized exact. 
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{images/contour-map.jpg}
+\caption{Example of a contour map taken from the German Weather Agency (Deutscher Wetter Dienst)~\cite{dwd}}
+\label{fig:contour map}
+\centering
+\end{figure}
+
+Another algorithm, which leverages contour mapping to generate maps of
+environmental phenomenons, is a paper by Solis et
+al.~\cite{solis2005efficient}. Similiar to the work of Meng et al., the
+algorithm suppresses the reporting of readings at nodes which are in the same
+isocluster, i.e. there is no isoline between them. An example is given in
+Fig.~\ref{fig:contour map}. The space between isolines is dependant on the
+application. Less space equals a higher data resolution, as more potential
+isolines are between nodes, at the expense of energy, as more readings are
+communicated. Readings are scheduled from the farthest leaf nodes (in the case
+of a tree topology) to the sink node, which makes additional energy
+conservation through shutting down the radio, possible. The authors indicate
+that additional temporal suppression is applicabble, as sensor nodes may only
+report a reading if that reading changed the isocluster. The authors evaluated
+their approach in a simulated environment against multiple other approaches,
+e.g. an aggregation scheme, in which data is aggregated at parent nodes into
+groups and the averages of the groups are sent further down the network. The
+other schemes were a centralized exact approach with and without additional
+temporal suppression. The authors found their approach outperfoming the other
+algorithms in energy savings and accuracy when constructing contour maps from
+sensor readings.
+
+A paper by Silberstein et al.~\cite{silberstein2006constraint} presents a
+technique, \textit{Conch}, with which redundant reporting can be reduced even
+further compared to the two previous presented schemes. The authors argue that
+both algorithms do not leverage the relative differences of sensor nodes
+values, i.e. when two sensor nodes differ significantly in their readings, but
+one reading can always be infered from the other one, no values should be sent.
+In \textit{Conch} a sensor node in a network has a set of sensor nodes from
+which it receives updates (updaters) and a set of nodes to which it sends
+updates to (reporters). A sensor node broadcasts its sensed values to to the
+reporters if its new sensed values differs from the old sensed value by some
+margin. When a sensor node receives a value from an updater node, it computes
+the difference to its own sensed value. If no value is received, the sensor
+node assumes no change has taken place. The basestation monitors all
+differences between sensor nodes (called edges by the authors), so in the
+initialization all reporters send their edges to the basestation. Some nodes
+are monitored directly and route their sensed values to the basestation. At
+every timestep, which derives from a user set sampling frequency, the
+basestation receives updated differences from reporting nodes and sensed values
+from directly monitored nodes. This enables the basestation to compute the
+value of every sensor node at any timestep, if every node can be reached from a
+directly monitored node and the corresponding edges. The authors emphasize that
+\textit{Conch} is a monitoring algorithm; routing schemes are still used to
+route a report from a sensor node to the basestation efficiently. The algorithm
+is flexible as the authors present ways to build \textit{Conch plans}, i.e.
+monitoring topologies, to focus on minimizing energy consumption or increase
+sensor node and message failure resilience. The authors tested their algorithm
+in different simulated environments against multiple algorithms, i.a. the
+scheme by Meng et al.~\cite{meng2004event}. The authors tested the performance
+of \textit{Conch} on, i.a. \acp{SN} with different sensor node densities,
+predictable increases of the observed value and outlier detection.
+\textit{Conch} outperforms all other schemes in terms of energy consumption at
+every test and only the scheme of Meng et al. exhibits similiar energy
+consumption levels with increasing sensor density.
+
+% EAST. Algorithm basics. Uses a clustering algorithm in which the sensing area
+% is devided dynamically into cells. Cells consist of a coordinator (cluster
+% head), member and representative sensor nodes. Member nodes do not send their
+% data, representative nodes send their sampled values to the coordinator only
+% if 
+
+
+% \subsection{\catIII}
+% \label{sec:catIII}
 
 \section{Discussion}
 \label{sec:Discussion}
 
+In this section we will present additional algorithms from the area of
+routing~\ref{sec:Routing} and topology building~\ref{sec:Topology Building}. We
+will also present possible combinations of algorithms which could inspire
+further reseach in this area~\ref{sec:Combination of Algorithms}.
 
 \subsection{Other Algorithms}
-\label{sec:Listings}
+\label{sec:Other Algorithms}
+
+We decided to include routing and taxonomy building as additional classes of
+algorithms in \acp{SN}, because all of the schemes described in the taxonomy
+use (e.g.~\cite{padhy2006utility}) or presume
+(e.g.~\cite{silberstein2006constraint}) some routing and topology building
+scheme. Routing schemes are relevant for large scale multihop sensor networks,
+as data is not sent directly from a sensor node to the sink, but routed through
+some intermediary sensor nodes. This is because sending messages directly does
+not scale well with increasing number of sensor nodes in terms of energy
+expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
+in \acp{SN} in which sensor nodes may fail or additional aggregation has to
+take place during hops, is not trivial. Topology building 
+
+% Introduce the following subsections and why we chose to include routing and
+% topology building algorithms into the paper but not into the taxonomy. E.g.
+% Many of the algorithms in the taxonomy use or presume routing and topology
+% building algorithms. Mainly from an energy consumption point of view, tree
+% topologies in which nodes closer to the sink/basestation have more child
+% nodes (i.e. connections to other sensor for which they route the information
+% further up the network) need some kind of aggregation mechanisms, or such
+% nodes run out of energy faster than other nodes. This will lead to
+% connectivity issues, as the sink node / base station looses connections or to
+% even more energy expenditure, as sensor nodes which are further away from the
+% sink have to be used as gateways. This could be bypassed by using more
+% powerful nodes closer to the sink/base station, however, this would make
+% deployment scenarios more expensive and less flexible.
+
+% Maybe put routing and topology building into one subcategory as they both
+% deal with inter node connectivity and communication. Topology building is
+% often only an initial challange and once a sensor network is deployed, a
+% topology is set. But, clustering can be seen as a topology building scheme,
+% too. % Routing however plays an important role especially after some nodes
+% die etc.
 
 \subsubsection{Routing}
-\label{sec:Listings}
+\label{sec:Routing}
+
+As Al-Karaki et al. point out in their survey on routing algorithms, 
 
 \subsubsection{Topology Building}
-\label{sec:Listings}
+\label{sec:Topology Building}
 
 
 \subsection{Combination of Algorithms}
-\label{sec:Listings}
+\label{sec:Combination of Algorithms}
 % I decided to include Adam and Admin as an example of combination of
 % algorithms as it is a framework which has filtering and sampling techniques
 % additionally, in the experiments the authors compared their framework i.a.
@@ -987,8 +1073,25 @@ is more robust against abrunt transient changes in the metric evoultion than
 \ac{EWMA}.
 
 When $ M' $ differs from $ M $ by a user specified imprecision value $
-gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}
+\gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}
 $. Otherwise $ T_i $ is decreased to a minimal sampling period $ T_{min}
 $. The algorithm was tested against \ac{EWMA}, L-SIP and FAST. L-SIP is a  
 
+
+
+% Further Possible combinations: 
+
+% The authors of \textit{Conch} argue that their in-network suppression
+% algorithm can be integrated into model based schemes such as the one
+% of~\cite{jain2004adaptive}. \textit{Backcasting} can be combined with the
+% cluster head cycling algorithm of ASAP. EDAL combines routing techniques with
+% compressive sampling.
+
 \section{Conclusion}
+
+% Some general thoughts on disadvantages in compressed sampling. Beside the
+% obvious assumptions of data or a signal being sparse in a domain or having
+% short-term stability or other features, the above mentioned algorithms (CDG,
+% EDCA, STCDG) do not offer a (smart) way of dealing with outliers. STCDG just
+% sends those values to the sink. Furthermore, sensing/sampling costs are not
+% included in power consumption analysis

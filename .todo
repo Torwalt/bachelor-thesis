@@ -12,6 +12,7 @@ TODO for next push
 
 3. Write an outlook (e.g. in Overview of the taxonomy) which sums up the
 categories and why we devided the algorithms that way
+    - differentiate the categories better from each other
 
 4. Picture of the Taxonomy
 
@@ -38,6 +39,11 @@ the "hardware" part), i.e. networks for continuous monitoring of some
 phenomenon, networks for answering user queries (however, a user query could be
 also an instruction to report readings over a long interval)
 
+6. Maybe add after each subsection a comparison table of the algorithms you
+presented. Comparisons can be made on use case, additional techniques leveraged
+(e.g. clustering algorithms)...
+    - however, real in depth comparisons wont be possible as it is only a high
+    level overview
 
 Backup Ideas:
 
