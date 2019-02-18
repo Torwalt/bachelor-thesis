@@ -62,7 +62,7 @@ for finding a solution for a design problem in a sensor network.
 \par
 Therefore, a taxonomy of the algorithms will be presented to provide a compact
 overview. Furthermore, algorithms which focus on areas other than sensing (like
-routing and topology building) in sensor networks will be presented.
+routing and topology control) in sensor networks will be presented.
 Combinations of said algorithms with sampling algorithms as well as
 combinations of sampling algorithms from different categories could inspire
 further research.
@@ -104,24 +104,42 @@ route increases, as nodes have multiple neighbors from which to choose the next
 transmission step. Solving such a problem locally, i.e. nodes compute the next
 best step, with additional contraints, e.g. minimizing energy expenditure and
 meet quality of data thresholds can be an unfeasible task. On the other hand,
-outsourcing this task to the basestation could induce a major communication
-overhead with additional energy expenditure. Techniques on topology building
+outsourcing this task to the base station could induce a major communication
+overhead with additional energy expenditure. Techniques on topology control
 and route path finding will be discussed later in the thesis.
 
+% \begin{figure}
+% \centering
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{images/star-structure.pdf}
+%   \caption{(a)}
+%   \label{fig:Star Topology}
+% \end{minipage}%
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=\linewidth]{images/tree-structure.pdf}
+%   \captionof{figure}{(a)}
+%   \label{fig:Tree Topology}
+% \end{minipage}
+% \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+% \end{figure}
+
 \begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=\linewidth]{images/star-structure.pdf}
-  \captionof{figure}{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+  \includegraphics[width=.8\linewidth]{images/star-structure.pdf}
+  \caption{}
   \label{fig:Star Topology}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=\linewidth]{images/tree-structure.pdf}
-  \captionof{figure}{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+  \includegraphics[width=.8\linewidth]{images/tree-structure.pdf}
+  \caption{}
   \label{fig:Tree Topology}
-\end{minipage}
+\end{subfigure}
+\caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
+\label{fig:fig}
 \end{figure}
 
 \FloatBarrier
@@ -159,7 +177,7 @@ relevant information as:
 
 \para{Section \ref{sec:Discussion}.} In section \ref{sec:Discussion}, we review
 algorithms not covered in the taxonomy from areas other than sampling, e.g.
-topology building and routing. This section is split into two subsections. The
+topology control and routing. This section is split into two subsections. The
 first subsection presents those algorithms and their relevant information. The
 definiton of relevant information for those algorithms does not change. In the
 second section we discuss possible combinations of different sampling
@@ -181,6 +199,12 @@ utilizing spatial and temporal correlations between nodes' sampled values. We
 decided to include \catII into the taxonomy, as filtering and sampling both
 take place at the sensor node level and are applied before data is sent further
 down the network.  % Think about other points.
+
+% IDEA: Talk about other ways, the algorithms could be classified. E.g.: Use
+% case -> Tata et al. talk about how sensor network applications can be used
+% for interval monitoring, i.e. report temperature in a room every hour or
+% event monitoring, i.e. a bird lands in a nest, cars are counted in a traffic
+% jam when one occurs, etc.
 
 \subsection{Terminology}
 
@@ -210,7 +234,7 @@ terminology in order to be precise in the following sections.
         the process of getting data from a sensor node to the sink node.
         Vukobratovic et al.~\cite{vukobratovic2010rateless} describe data
         gathering as the process of collecting sensed data from sensor nodes at
-        specific sink nodes. A sink node could be a basestation, e.g. a wired
+        specific sink nodes. A sink node could be a base station, e.g. a wired
         server, or another node in the \ac{SN} which acts as a gateway into the
         network and can route data to a server. We will use data gathering and
         data collection as synonyms as they both describe the whole process of
@@ -297,7 +321,7 @@ an observed phenomenon, by manipulating sensing rates of sensor nodes.
 Compressive sampling utilizes findings from the field of signal processing, to
 sample signals, i.e. data streams from an observed phenomenon, below the
 typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
-the original signal can be reconstructed at sink node or basestation with very
+the original signal can be reconstructed at sink node or base station with very
 high accuracy.
 
 \subsubsection{Adaptive Sampling}
@@ -455,6 +479,10 @@ With \acp{ASA} the energy levels are at $ 20\% $. In the second deployment,
 \ac{ASA} gets outperformed slightly in energy consumption by \ac{EASA}. The
 energy levels with the fixed sampling rate are depleted after 13 days.
 
+% Adaptive Monitoring by Tata and MEGAhed. Goal: Determine metrics which should
+% be monitored and the frequencies with which they should be monitored. 
+
+
 \subsubsection{Compressive Sampling}
 \label{sec:Compressive Sampling}
 
@@ -588,13 +616,14 @@ sparse in the wavelet domain and the original signal can be reconstructed.
 One paper by Cheng et al.~\cite{cheng2010efficient} builds upon the low rank
 feature of a matrix. The authors point to discoveries proving that a matrix
 formed from spatial and temporal correlated data is approximately low rank and
-can be recovered from a subset of the data. % QUESTION Do I have to cite the literature the authors refer to?
-
-With the \ac{EDCA} sensor nodes sample at a fixed rate and send their sensed
-values to a cetral sink in a multi-hop scheme. However, the authors point out
-that missing values, i.e. no values in some time slots, can be recovered with
-low error. The focus of the algorithm lies on the recovery of a low rank
-% Therefore, the sampling rate could be made dynamic to further increase efficiency.
+can be recovered from a subset of the data~\cite{vuran2004spatio,
+candes2009exact}. With the \ac{EDCA} sensor nodes sample at a fixed rate and
+send their sensed values to a cetral sink in a multi-hop scheme. However, the
+authors point out that missing values, i.e. no values in some time slots, can
+be recovered with low error. The focus of the algorithm lies on the recovery of
+a low rank
+% Therefore, the sampling rate could be made dynamic to further increase
+% efficiency.
 matrix. The authors use the nuclear norm to solve the rank minimization problem
 
 $$
@@ -782,7 +811,7 @@ the authors propose a clustering scheme in which there are multiple sink nodes
 which communicate with the base station. This reduces communication overhead,
 as sensor readings do not have to be stored in one central place in the
 network. Each sink node maintains a synchronized prediciton model with its
-child nodes. Additionally, the basestation maintains synchronized prediciton
+child nodes. Additionally, the base station maintains synchronized prediciton
 models with the sink nodes. Such a structure is depicted in
 Fig.~\ref{fig:cluster Chu}. To find such clustering groups, the authors, i.a.,
 present a heuristic approach, in which sensor nodes are assigned to a sink node
@@ -793,11 +822,11 @@ small, fixed amount of sensors (one with 11 and the other with 49 sensors).
 model, in which predictions are made with the average of all sensed values and
 no clusters are build. The authors came to the conclusion, that \textit{Ken}
 performs better with the clustering scheme, when the communication costs to the
-basestation are many times higher than to a neighbor. This advantage recedes if
+base station are many times higher than to a neighbor. This advantage recedes if
 there are a lot of outliers which the model cannot predict.
 
 \begin{figure}[h]
-\includegraphics[width=8cm]{images/ken-clustering.png}
+\includegraphics[width=\linewidth]{images/ken-clustering.png}
 \caption{Example of a \ac{SN} with clusters by Chu et al.~\cite{chu2006approximate}}
 \label{fig:cluster Chu}
 \centering
@@ -808,7 +837,7 @@ Gedik et al. point out in their work, that \textit{Ken} is uneffective when the
 observed phenomenon changes unpredictably over time~\cite{gedik2007asap}. In
 such cases, the prediction model has to be adapted or reconstructed, which
 introduces high communication overhead if the model is constructed centrally at
-the basestation. Additionally, the authors of \textit{Ken} did not take the
+the base station. Additionally, the authors of \textit{Ken} did not take the
 extra energy expenditure of clusterheads/sinknodes have, compared to regular
 sensor nodes, into account. Gedik et al. address these issues in their
 algorithm, \textit{ASAP}. The algorithm organizes sensor nodes into clusters.
@@ -831,8 +860,8 @@ to act as samplers in a subcluster, based on the remaining energy of each
 sensor node. Only the sampler nodes and the cluster head sense the environment
 (with a sampling rate of $ \tau_d $) and communicate their sensed values to the
 base station. Additionally, cluster heads compute, for each subcluster, a data
-mean vector and a covariance matrix which they send to the basestation as model
-parameters. The basestation receives the sensed values from the sampler nodes
+mean vector and a covariance matrix which they send to the base station as model
+parameters. The base station receives the sensed values from the sampler nodes
 and predicts the values for the other nodes.
 
 Experiments were used to test messaging cost, network performance, energy
@@ -840,8 +869,8 @@ consumption and data quality. Centralized Exact and extreme variations of
 \textit{ASAP} were used to compare the algorithm. The variations were a local
 approach, in which predictions happens at the cluster heads and predicted
 values are sent to the base station, and a central approach in which all
-predictions are carried out at the basestation and values of all sensor nodes
-for updating the model are also sent to the basestation. The authors found
+predictions are carried out at the base station and values of all sensor nodes
+for updating the model are also sent to the base station. The authors found
 \textit{ASAP} outperfoming the other algorithms in the number of messages sent
 and the per node energy consumption, while alternating, i.a., $ \sigma $. The
 authors also studied the trade-off between the prediction error and network
@@ -930,7 +959,7 @@ algorithm achieved energy savings in each category of $ \approx88\% $ over
 centralized exact. 
 
 \begin{figure}[h]
-\includegraphics[width=8cm]{images/contour-map.jpg}
+\includegraphics[width=\linewidth]{images/contour-map.jpg}
 \caption{Example of a contour map taken from the German Weather Agency (Deutscher Wetter Dienst)~\cite{dwd}}
 \label{fig:contour map}
 \centering
@@ -969,17 +998,17 @@ updates to (reporters). A sensor node broadcasts its sensed values to to the
 reporters if its new sensed values differs from the old sensed value by some
 margin. When a sensor node receives a value from an updater node, it computes
 the difference to its own sensed value. If no value is received, the sensor
-node assumes no change has taken place. The basestation monitors all
+node assumes no change has taken place. The base station monitors all
 differences between sensor nodes (called edges by the authors), so in the
-initialization all reporters send their edges to the basestation. Some nodes
-are monitored directly and route their sensed values to the basestation. At
+initialization all reporters send their edges to the base station. Some nodes
+are monitored directly and route their sensed values to the base station. At
 every timestep, which derives from a user set sampling frequency, the
-basestation receives updated differences from reporting nodes and sensed values
-from directly monitored nodes. This enables the basestation to compute the
+base station receives updated differences from reporting nodes and sensed values
+from directly monitored nodes. This enables the base station to compute the
 value of every sensor node at any timestep, if every node can be reached from a
 directly monitored node and the corresponding edges. The authors emphasize that
 \textit{Conch} is a monitoring algorithm; routing schemes are still used to
-route a report from a sensor node to the basestation efficiently. The algorithm
+route a report from a sensor node to the base station efficiently. The algorithm
 is flexible as the authors present ways to build \textit{Conch plans}, i.e.
 monitoring topologies, to focus on minimizing energy consumption or increase
 sensor node and message failure resilience. The authors tested their algorithm
@@ -1005,54 +1034,200 @@ consumption levels with increasing sensor density.
 \label{sec:Discussion}
 
 In this section we will present additional algorithms from the area of
-routing~\ref{sec:Routing} and topology building~\ref{sec:Topology Building}. We
+routing~\ref{sec:Routing} and topology control~\ref{sec:Topology Control}. We
 will also present possible combinations of algorithms which could inspire
 further reseach in this area~\ref{sec:Combination of Algorithms}.
 
 \subsection{Other Algorithms}
 \label{sec:Other Algorithms}
 
-We decided to include routing and taxonomy building as additional classes of
+We decided to include routing and topology control as additional classes of
 algorithms in \acp{SN}, because all of the schemes described in the taxonomy
 use (e.g.~\cite{padhy2006utility}) or presume
-(e.g.~\cite{silberstein2006constraint}) some routing and topology building
-scheme. Routing schemes are relevant for large scale multihop sensor networks,
-as data is not sent directly from a sensor node to the sink, but routed through
-some intermediary sensor nodes. This is because sending messages directly does
-not scale well with increasing number of sensor nodes in terms of energy
-expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
-in \acp{SN} in which sensor nodes may fail or additional aggregation has to
-take place during hops, is not trivial. Topology building 
+(e.g.~\cite{silberstein2006constraint}) some routing and topology control
+scheme. There already exist multiple exhaustive surveys on topology
+control~\cite{aziz2013survey, li2013survey} and routing~\cite{al2004routing,
+pantazis2013energy, singh2010routing}. We will nevertheless show some examples
+of routing and topology control algorithms ...
 
-% Introduce the following subsections and why we chose to include routing and
-% topology building algorithms into the paper but not into the taxonomy. E.g.
-% Many of the algorithms in the taxonomy use or presume routing and topology
-% building algorithms. Mainly from an energy consumption point of view, tree
-% topologies in which nodes closer to the sink/basestation have more child
-% nodes (i.e. connections to other sensor for which they route the information
-% further up the network) need some kind of aggregation mechanisms, or such
-% nodes run out of energy faster than other nodes. This will lead to
-% connectivity issues, as the sink node / base station looses connections or to
-% even more energy expenditure, as sensor nodes which are further away from the
-% sink have to be used as gateways. This could be bypassed by using more
-% powerful nodes closer to the sink/base station, however, this would make
-% deployment scenarios more expensive and less flexible.
+% Ideas: Introduce the following subsections and why we chose to include
+% routing and topology building algorithms into the paper but not into the
+% taxonomy. E.g. Many of the algorithms in the taxonomy use or presume routing
+% and topology building algorithms. Mainly from an energy consumption point of
+% view, tree topologies in which nodes closer to the sink/base station have more
+% child nodes (i.e. connections to other sensor for which they route the
+% information further up the network) need some kind of aggregation mechanisms,
+% or such nodes run out of energy faster than other nodes (if you need to cite
+% then~\cite{li2013survey}). This will lead to connectivity issues, as the sink
+% node / base station looses connections or to even more energy expenditure, as
+% sensor nodes which are further away from the sink have to be used as
+% gateways. This could be bypassed by using more powerful nodes closer to the
+% sink/base station, however, this would make deployment scenarios more
+% expensive and less flexible. Li et al.: The authors distinguish between
+% static, mobile and hybrid sensor networks. We focus in our work on static
+% sensor networks, but want to point out, that mobile sensor networks are an
+% interesting and emerging field. Mobile Sensor networks introduce new
+% challanges like ever changing topology and connectivity, ..., but they also
+% bring new opportunities, like covering a field with less mobile sensors than
+% static ones, embedded sensors in cars... Connectivity algorithms play an
+% important role in mobile networks, as new sensor nodes can replace dead
+% sensor nodes to retain the coverage level in a sensor network.
 
+% Alternatives:
 % Maybe put routing and topology building into one subcategory as they both
 % deal with inter node connectivity and communication. Topology building is
 % often only an initial challange and once a sensor network is deployed, a
 % topology is set. But, clustering can be seen as a topology building scheme,
-% too. % Routing however plays an important role especially after some nodes
+% too. Routing however plays an important role especially after some nodes
 % die etc.
 
 \subsubsection{Routing}
 \label{sec:Routing}
 
-As Al-Karaki et al. point out in their survey on routing algorithms, 
+Routing schemes define how data is communicated in a network. In a survey from
+2004 on routing protocols, Al-Karaki et al.~\cite{al2004routing} classify
+routing into network protocols and routing criteria. Network protocols define,
+how communication between nodes in a sensor network is structured. With flat
+network routing, all nodes have the same task in the network, mainly sensing
+and forwarding data. Hierarchical network routing incorporates schemes, in
+which the sensor network is divided into clusters. We described such a scheme
+in our taxonomy with \textit{ASAP}~\cite{gedik2007asap}. In location based
+routing, sensor nodes are typically equiped with a GPS
+module~\cite{xu2001geography} or can infer their own position on based on the
+strength of incoming signals, if a GPS module is too
+expensive~\cite{hu2004localization}. Location based routing is especially
+useful in mobile sensor networks, in which nodes change their position in the
+sensing field frequently and therefore change their
+neighbors~\cite{hu2004localization}. A work py Zou et al.~\cite{zou2004pager}
+introduces a \textit{stateless} location-based routing algorithm for mobile
+sensor networks, i.e. sensor nodes do not have to save past routing paths. The
+algorithm uses greedy forwarding to rout sensed data to the next node on the
+shortest path to the base station~\cite{stojmenovic2001loop}. However, sensor
+nodes can sometimes be the closest node to the base station in their local
+topology, even though there exists a shorter path and thus routing can fail,
+e.g. Fig.~\ref{fig:shadow nodes}. To handle such cases, the authors define a
+scheme which idenfies such nodes. Sensor nodes assign cost variables to
+themselves, based on the cost variables of its neighbors. This ensures that
+every sensor node has a neighbor with a lower cost variable than itself, which
+enables a high-cost-to-low-cost routing if greedy routing fails. 
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{images/pager-shadow-nodes.pdf}
+\caption{Example of a topology where greedy routing can fail. Sensor node A is
+the closest node to the base station in its local topology~\cite{zou2004pager}.}
+\label{fig:shadow nodes}
+\centering
+\end{figure}
+
+Pantazis et al. extend the work of Al-Karaki et al. in their survey on routing
+protocols~\cite{pantazis2013energy}, with, i.a., Mobile Agent-based protocols.
+Such protocols use mobile agents to visit sensor nodes and perform some tasks,
+thus making the \ac{SN} more flexible. % Now present an algorithm
+
+Singh et al.~\cite{singh2010routing} additionally define single-path and
+multi-path routing. With single-path routing, sensor nodes send their sensed
+values on the shortest path to the base station. With multi-path routing on the
+other hand, sensor nodes divide their sensed data and send it with the
+\textit{k} shortest paths to the base station. % Now present an algorithm
+
+are relevant for large scale multihop sensor networks,
+as data is not sent directly from a sensor node to the sink, but routed through
+some intermediary sensor nodes. This is because sending messages directly does
+not scale well with increasing number of sensor nodes in terms of energy
+expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
+in \acp{SN} in which sensor nodes may fail or additional aggregation has to
+take place during hops, is not trivial.
+
+% Insights Al-Karaki et al.: Different node deployment options: Manual and
+% random. With manual placement, routing paths can be planned, while random
+% deployment requires routing paths to be formed ad hoc. The authors define
+% routing protocols similiar to Aziz et al. and Li et al. defining topology
+% building protocols. The authors include in network aggregation in their
+% routing taxonomy. A lot of routing algorithms presented in the survey, deal
+% with the diffusion of user queries; mainly based on directed diffusion.
+% Clustering is also included in the survey, which is kind of a topology
+% building technique. Their work deals with network structure and protocol
+% operation. Network structure deals with how routes are found, i.e. flat
+% routing -> sensor nodes send their values to the next neighbor/parent,
+% hierarchical network routing -> sensor nodes are grouped into clusters,
+% location based routing -> sensor nodes can identify their own coordinates and
+% the coordinates of other nodes, which is especially useful in mobile sensor
+% networks, as sensor nodes change their location. Protocol operation deals
+% with on which premise routes are build, i.e. the route with the highes
+% quality of service is found or a query optimizer decides how to best execute
+% an imperative user statement.
+
+% Insights Singh et al.: The categorization of routing protocols is similiar to
+% Al-Karaki et al. They define single-path routing and multi-path routing.
+% Single path -> a sensor node sends its data to the sink via the shortest
+% route. Multi-path -> A sensor node finds the k shortest paths to the sink
+% node and divides its data to "tax" the paths evenly. Maybe take some pictures
+% from the paper.
+
+% Insights Pantazis et al.: The paper extends the taxonomy presented by
+% Al-Karaki et al. The paper is really long with a lot of sources. The authors
+% have a subcategory, "Topology Based", in their taxonomy. So this basically
+% set the nail in the coffin of making two distinct categories here. The
+% authors Topology category deals with the location of the nodes.
 
 \subsubsection{Topology Building}
 \label{sec:Topology Building}
 
+% Insights Aziz et al.: There are a lot of definitions of network
+% liftime~\cite{aziz2013survey}. Aziz et al. include algorithms in their work
+% for a survey on topology building routing algorithms. So it is possible, that
+% topology building (or topology control) and routing are the same. The authors
+% say that topology building can be done through varying transmission power to,
+% i.e. not communicating to a sink directly, but sending it to other nodes in a
+% multihop fashion. Li et al. also present this problem as finding the minimum
+% transmission power with which connectivity is still warranted. Additionally,
+% sensor nodes can have different and dynamic transmission power settings or
+% can be configured to all have the same transmission power setting. Another
+% technique the authors bring up is basically duty cycling, i.e. putting a
+% sensor node into sleep, idle, listening, transmit mode. The third technique
+% is clustering. The fourth technique is a hybrid technique which utilizes some
+% sort of clustering algorithm and schemes from the previous techniques.
+
+% Insights Li et al.~\cite{li2013survey}: Coverage and connectivity are the
+% main aspects topology control deals with. Network Coverage is defined by the
+% authors as "how well the target field is monitored by the sensor network".
+% This affects where sensor nodes are placed, e.g. if sensing ranges overlap or
+% cover the whole field, then the network has blanket coverage. Connectivity
+% deals with how well and to what costs sensor nodes in a network can
+% communicate with each other. Similiar to Aziz et al.~\cite{aziz2013survey},
+% the authors bring up duty cycling and route building as techniques for
+% handling network connectivity. Duty cycling in combination with network
+% coverage is present in the work of Tian et al., (CITE AND REREAD THAT) where
+% sensor nodes go into sleep mode when the area they are sensing is already
+% covered enough by neighbor sensor nodes. They also define additional high
+% level use cases for sensor networks, i.e. monitoring an area, a breach of an
+% area or some points of interest (POI). They bring up the point, that in
+% network topology design, a tradeoff between network performance, i.e. network
+% coverage, data quality, and network lifetime, i.e. network connectivity, is
+% given. The authors point out, that real life deployments of wireless sensor
+% networks are providing multiple network services. To stay efficient and be
+% scalable, protocols have to support multiple network services. If a system
+% integrates multiple protocols for the multiple network services, the
+% complexity of such a system can have negative impact on scalability and
+% efficiency. THIS CAN BE A GOOD INTRODUCTION TO COMBINATION OF ALGORITHMS.
+
+
+\begin{description}
+    \item[Topology Control] 
+    Topology Control is defined by Aziz et al.~\cite{aziz2013survey} as "a
+    technique that uses any controlled network parameter to generate and
+    maintain a topology for the benefits of reducing energy consumption and
+    achieving a desired property for an entire network." Modifiable parameters are ...
+\end{description}
+
+% What to look out for: What is topology building? Are algorithms which are
+% classified as topology building algorithms, only used once in a sensor
+% network, i.e. when the network is set up a routing topology is created? Use
+% cases for those algorithms -> node failure handling, i.e. connections between
+% nodes have to be reestablished, mobile nodes, i.e. connectivity changes
+% continuosly... Another important aspect is the interaction between topology
+% building and routing. Which aspects differentiate them from each other? Are
+% there even any differences in routing and topology building?
 
 \subsection{Combination of Algorithms}
 \label{sec:Combination of Algorithms}
@@ -1076,8 +1251,6 @@ When $ M' $ differs from $ M $ by a user specified imprecision value $
 \gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}
 $. Otherwise $ T_i $ is decreased to a minimal sampling period $ T_{min}
 $. The algorithm was tested against \ac{EWMA}, L-SIP and FAST. L-SIP is a  
-
-
 
 % Further Possible combinations: 
 

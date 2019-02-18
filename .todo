@@ -1,45 +1,34 @@
 TODO for next push
 
-1. 3-4 Algorithms in every category, finish Discussion
+1. Picture of the Taxonomy
 
-2. a. Rewrite synonyms section to better justify "sampling algorithm catalog", 
-      i.e. why there is a filtering category and a sampling category in the
-      taxonomy
-   b. Rewrite sensing and sampling part, make destinction between
-      usecases/sensors: 
-        - Sensors can be turned on or off 
-        - Sensors produce a continuous data stream which is sampled by some algorithm
+2. Add Topology and Routing algorithms
+    - if they cover the same topics, "combine" them into one section and adjust
+    the places were you used "topology and routing algorithms"
+    - additionally, add data sharing or some query processing systems
+    - add 2-3 algorithms which can be used as in combinatino with the taxonomy
+    algs, i.e. another clustering scheme ("We discussed a clustering scheme
+    already with ASAP...")
+    - sooooooo, read the topology building and routing survey papers
 
-3. Write an outlook (e.g. in Overview of the taxonomy) which sums up the
-categories and why we devided the algorithms that way
-    - differentiate the categories better from each other
-
-4. Picture of the Taxonomy
-
-5. Implement the change requests of Jonas
-
+3. Maybe add Data Sharing into topology
 
 General TODO
 
-1. Fix Graph Visualizations
-
-2. Distinguish work from "Energy management in wireless sensor networks with
+1. Distinguish work from "Energy management in wireless sensor networks with
 energy-hungry sensors"
     - the paper has a taxonomy of Adaptive Sensing strategies
 
-3. Expand on advantages/disadvantages, use cases, and maybe problem alg tries
-to solve 
-
-4. Maybe include some query processing engines for sensor networks if there are
+2. Maybe include some query processing engines for sensor networks if there are
 newer ones on the level of tinyDB
 
-5. Add maybe a prelimenary section or expand the terminology section with some
-information on different use cases/ types of sensor networks (can be added into
+3. Add maybe a prelimenary section or expand the terminology section with some
+information on different use cases/types of sensor networks (can be added into
 the "hardware" part), i.e. networks for continuous monitoring of some
 phenomenon, networks for answering user queries (however, a user query could be
 also an instruction to report readings over a long interval)
 
-6. Maybe add after each subsection a comparison table of the algorithms you
+4. Maybe add after each subsection a comparison table of the algorithms you
 presented. Comparisons can be made on use case, additional techniques leveraged
 (e.g. clustering algorithms)...
     - however, real in depth comparisons wont be possible as it is only a high
