@@ -1,13 +1,13 @@
 %!TEX root = jt-thesis-main.tex
 
-\section{English Abstract}
+\section*{English Abstract}
 \begin{onehalfspace}
 	
 	The english abstract is required for all english theses at TU-Berlin.
 \end{onehalfspace}
 \clearpage
 
-\section{Deutscher Abstract}
+\section*{Deutscher Abstract}
 \begin{onehalfspace}
 	
 	Ein deutscher Abstract wird immer benötigt, für alle Abschlussarbeiten an
@@ -18,9 +18,9 @@
 
 \section{Introduction}
 \label{sec:Introduction}
-Gartner Inc. states that the number of interconnected devices will reach 20.4
-billion by 2020~\cite{gartner} To gather information from those devices, we
-need algorithms which efficiently sample and route data from sensor nodes
+Gartner Inc. states that the number of network connected devices will reach
+20.4 billion by 2020~\cite{gartner} To gather information from those devices,
+we need algorithms which efficiently sample and route data from sensor nodes
 (i.e., devices) to data sinks. Energy expenditure will gain higher importance,
 especially for mobile devices such as battery-powered wearables and
 smartphones. A \ac{WSN} is often battery-powered and use cases span from home
@@ -42,30 +42,28 @@ cycling~\cite{carrano2014survey}, topology control~\cite{li2013survey},
 in-network aggregation~\cite{fasolo2007network}, data
 compression~\cite{srisooksai2012practical}, and general routing
 techniques~\cite{al2004routing, kulkarni2011particle, singh2015survey,
-rault2014energy}. TinyDB~\cite{madden2005tinydb},
+rault2014energy}. Systems such as TinyDB~\cite{madden2005tinydb},
 ACQUIRE~\cite{sadagopan2003acquire} and COUGAR~\cite{yao2002cougar} introduce
-system architectures for query processing which consist of algorithms for
-sampling, and routing data requested by a user through a \ac{SQL} like
-language.
+architectures for query processing in \acp{SN} which consist of algorithms for
+sampling, and routing data requested by a user.
 
+% TODO Expand Section with other subjects than wsns and energy conservation
 
 \subsection{Motivation}
 \label{sec:motivation}
 
 As stated above, surveys and taxonomies were presented for different areas of
 sensor networks. However, during our research, we did not encounter a survey or
-catalog focusing on sampling algorithms in sensor networks. This thesis aims to
-provide a catalog for a comprehensive overview of the existing sampling
-algorithms for the specific use case of sensor data. For researchers as well as
-practitioners, a collection of sampling algorithms is a valuable starting point
-for finding a solution for a design problem in a sensor network. 
-\par
-Therefore, a taxonomy of the algorithms will be presented to provide a compact
-overview. Furthermore, algorithms which focus on areas other than sensing (like
-routing and topology control) in sensor networks will be presented.
-Combinations of said algorithms with sampling algorithms as well as
-combinations of sampling algorithms from different categories could inspire
-further research.
+catalog focusing on sampling algorithms in sensor data. This thesis provides a
+catalog for a comprehensive overview of the existing sampling algorithms for
+sensor data. For researchers as well as practitioners, a collection of sampling
+algorithms is a valuable starting point for finding an algorithm suitable for a
+specific usecase. Therefore, we present a taxonomy of the algorithms to provide
+a compact overview. Furthermore, algorithms which focus on areas other than
+sampling (like routing and topology control) in sensor networks will be
+presented. Combinations of sampling, routing and topology control algorithms as
+well as combinations of sampling algorithms from different categories can
+inspire further research.
 
 
 \subsection{Scientific Background}
@@ -83,9 +81,9 @@ in \acp{RSN}, techniques for allocating sensing tasks to sensors while handling
 the non linear emission of, e.g. solar and wind is
 crucial~\cite{liu2011perpetual}. \acp{WSN} often have a limited energy source
 at their disposal, making management of energy expenditure a top priority to
-increase network lifetime. As Cheng et al. state in their
-work~\cite{cheng2013stcdg} network lifetime is often defined in \acp{WSN} as
-the lifetime of the first node to run out of energy. 
+increase network lifetime. As Cheng et al. state~\cite{cheng2013stcdg} network
+lifetime is often defined in \acp{WSN} as the lifetime of the first node to run
+out of energy. 
 \par
 \acp{WSN} and \acp{RSN} are often designed with some nodes sensing the
 phenomenon and one or more sink nodes wich transfer the sensed data to a
@@ -150,77 +148,123 @@ and route path finding will be discussed later in the thesis.
 
 The contributions of this thesis go as follows: 
 \begin{enumerate}
-	\item A catalog of different sampling algorithms for sensor data gathering
-	\item A taxonomy of those algorithms for a compact overview of the field of data sensing in \acp{SN}
-	\item Combinations of different algorithms to provide a basis for further
-	research
+    \item We present a catalog of different sampling algorithms for sensor data
+    gathering. We classify the sampling techniques in a taxonomy for a compact
+    overview of the field of data sensing in \acp{SN}.
+    \item We present relevant information for each algorithm. We define
+    relevant information as:
+
+        \begin{itemize}
+            \item The problem(s) the algorithm tries to solve
+            \item Basic workings of the algorithm
+            \item Experimental results of the algorithm and how it compares to others
+            \item Use case(s)
+            \item Advantages and limitations of the algorithm
+            % \item Compatibility of the algorithms with other techniques
+        \end{itemize}
+
+    \item We provide the basis for further research by presenting combinations
+    of different algorithms.
+    % TODO Add quantifiable point, e.g. number of algorithms presented and what we derived from it
 \end{enumerate}
 
 
 \subsection{Thesis Outline}
 
+\para {Section \ref{sec:Methodology}.}  In section \ref{sec:Methodology}, we
+explain our approach in compiling the taxonomy. In the first subsection we
+define and discuss the terminology used in this work. The second subsection
+motivates our selection criteria for including algorithms in the taxonomy. In
+the third subsection we define out evaluation metrics for the presented
+algorithms.
+
 \para{Section \ref{sec:Taxonomy}.}  In section \ref{sec:Taxonomy}, we present a
-high level taxonomy for classifying sampling algorithms. The section is split
-into four subsections. The first gives an overview of the described classes and
-subclasses and a motivation of why we chose such a partitioning. Each following
-section describes a class and its subclasses in detail. For each subclass,
-relevant information of multiple algorithms will be presented. We define
-relevant information as:
-\begin{itemize}
-	\item The problem(s) the algorithm tries to solve
-	\item Basic workings of the algorithm
-	\item Experimental results of the algorithm and how it compares to others
-	\item Use case(s) (if any)
-	\item Advantages and limitations of the algorithm the authors discuss
-	% \item Compatibility of the algorithms with other techniques
-\end{itemize}
+taxonomy for classifying sampling algorithms. The section is split into four
+subsections. The first gives an overview of the described classes and
+subclasses and motivations for the classification. Each following section
+describes a class and its subclasses in detail. For each subclass, relevant
+information of multiple algorithms will be presented. 
 
-\para{Section \ref{sec:Discussion}.} In section \ref{sec:Discussion}, we review
-algorithms not covered in the taxonomy from areas other than sampling, e.g.
-topology control and routing. This section is split into two subsections. The
-first subsection presents those algorithms and their relevant information. The
-definiton of relevant information for those algorithms does not change. In the
-second section we discuss possible combinations of different sampling
-algorithms with other sampling and non-sampling algorithms. The combinations
-found here could be used as a basis for further research.
+\para{Section \ref{sec:Related Algorithms}.} In section \ref{sec:Related
+Algorithms}, we review algorithms not covered in the taxonomy from areas other
+than sampling, e.g. topology control and routing. This section is split into
+two subsections. The first subsection presents those algorithms and their
+relevant information. The definiton of relevant information for those
+algorithms does not change. In the second section we discuss possible
+combinations of different sampling algorithms with other sampling and
+non-sampling algorithms. The combinations found here could be used as a basis
+for further research.
 
+\section{Methodology}
+\label{sec:Methodology}
 
-\section{Taxonomy}
-\label{sec:Taxonomy}
-
-In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
-classify algorithms into two categories: \catI (Section~\ref{sec:catI}) and
-\catII (Section~\ref{sec:catII}). %  and \catIII (Section~\ref{sec:catIII}).
-\catI are all algorithms which goal it is to prevent the \textit{sampling}
-of redundant data. This is achieved at sensor node level, manipulating the
-sampling rate to capture all relevant information from a data stream produced
-by a sensor. In contrast, \catII focus on suppressing already sampled data by
-utilizing spatial and temporal correlations between nodes' sampled values. We
-decided to include \catII into the taxonomy, as filtering and sampling both
-take place at the sensor node level and are applied before data is sent further
-down the network.  % Think about other points.
-
-% IDEA: Talk about other ways, the algorithms could be classified. E.g.: Use
-% case -> Tata et al. talk about how sensor network applications can be used
-% for interval monitoring, i.e. report temperature in a room every hour or
-% event monitoring, i.e. a bird lands in a nest, cars are counted in a traffic
-% jam when one occurs, etc.
+In this section we present our methodology in conducting our research. This
+includes the selection criteria for including algorithms and publications into
+the taxonomy and the evaluation metrics for the presented algorithms. We also
+include a terminology subsection, where we discuss and define different terms
+used in the area of data sampling and \acp{SN}.
 
 \subsection{Terminology}
+\label{sec:Terminology}
 
-The literature related to data retrieval from sensors defines many different
+% TODO add a shit ton of definitions for every technical word used in the thesis
+
+The literature related to data sampling from sensors defines many different
 terms such as data collection (e.g.~\cite{laiymani2013adaptive, liu2007energy,
 wang2012adaptive}), data sampling (e.g.~\cite{willett2004backcasting,
 jain2004adaptive, szczytowski2010asample}), data gathering
 (e.g.~\cite{wang2012data, luo2009compressive, zhang2016data}), and data sensing
 (e.g.~\cite{padhy2006utility, mahmudimanesh2012balanced, duarte2005joint}).
 Some publications use these terms as synonyms while other publications use
-different terms to differentiate concepts. In the following paragraphs, we
-clarify the definitions of data collection, data sampling, data gathering, and
-data sensing. We include this subsection, because we need to clarify the
-terminology in order to be precise in the following sections.
+different terms to differentiate concepts. In the following paragraphs, we,
+i.a. clarify the definitions of data collection, data sampling, data gathering,
+and data sensing. We include this subsection, because we need to clarify the
+terminology in order to be precise in the following sections. We will define
+other terms used in this paper, aswell.
 
 \begin{description}
+
+    \item[Data Stream]
+        Hirzel et al.~\cite{hirzel2014catalog} define data streams as "a
+        conceptually infinite sequence of data items". We follow that
+        definition in this thesis.
+% TODO find better formulation than "follow that definiton"
+    \item[Network Utilization]
+        The standards for technology in automotive retail organization define
+        network utilization as "the amount of traffic on the network compared
+        to the peak amount that the network can support"~\cite{networkutil}. We
+        follow that definition in this thesis.
+
+    \item[Sampling Rate, Sampling Frequency]
+        The federal agencies digital guidelines initiative defines sampling
+        rate or sampling frequency as "the number of samples per second (or per
+        other unit) taken from a continuous signal to make a discrete or
+        digital signal"~\cite{samplingrate}. We follow that definition in this
+        thesis.
+
+    \item[Sensing Rate]
+        
+
+    \item[Sensor Node]
+        
+
+    \item[Base Station, Client Station, Fusion Center]
+        
+
+
+    \item[\ac{MAC}]
+        
+
+    \item[Duty Cycle, Duty Cycling]
+        Lin et al.~\cite{lin2004medium} define a duty cycle as "the ratio of
+        the listen interval to the frame length". Duty cycling is defined by
+        Buettner et al.~\cite{buettner2006x} as an approach in which "each
+        sensor node periodically cycles between an awake state and a sleep
+        state".
+
+% a frame length is the length of a data unit on the data link layer. A frame
+% consists of a mac header and a payload (data)
+
     \item[Data collection and data gathering] 
         Data collection is often mentioned in connection with the whole process
         of acquiring data through sensors in \acp{SN}. A data stream produced
@@ -240,7 +284,7 @@ terminology in order to be precise in the following sections.
         data collection as synonyms as they both describe the whole process of
         acquiring data at sensor nodes and routing them to a base station.
 
-    \item[Data sensing and data sampling ] 
+    \item[Data sensing and data sampling] 
         The definitons for data sampling and data sensing are also inconsistent
         in the literature. Zhao et al.~\cite{zhao2016cats} employ sampling in
         the context of sink nodes assigning sampling tasks, which consist of a
@@ -266,29 +310,36 @@ terminology in order to be precise in the following sections.
         stream would be stored at each point in time, on which additional
         filtering would be applied. This differs from reservoir sampling, ...
 \end{description}
+\par
 
-\par
-% COMMENT JT: Instead of saying "could be used" you can just say that we use it
-% as such and other do this as well: Similar to related literature, we use the
-% terms A and B as syn. [1,2,3]. In general, each of the definition paragraphs
-% should end with an concluding sentence which clarifies how you use the term
-% you defined. COMMENT JT: NEVER write "could be" in research. This basically
-% means you have no idea! In German: "Es könnte sein" => Ja was? Ist es so oder
-% nicht? Kann es sein oder nicht?. Either it can or it cannot. The only place
-% where you could write "could" is in the "future research" section. There you
-% indeed make guesses.
-%COMMENT JT: There's is often a confision between sampling (i.e. reading) from
-%sensors and computing smaller samples (example data) from a huge badge of data
-%(i.e. reservoir sampling). It would be good to clarify the difference here and
-%to point out that we are NOT dealing with the latter one in this thesis.
-\par
-%I would make the below part a separate paragraph because above this comment
-%you talk about algorithms  (i.e. software) and below  this comment you, out of
-%a sudden, talk about devices, servers (i.e. hardware).
-Additional synonyms we encountered are base station, fusion center and client
-station which all describe a wired station like a server to which information
-is routed and from which user queries can be specified to then be distributed
-in the network.
+\subsection{Algortihm selection criteria}
+\label{sec:Algortihm selection criteria}
+
+
+\subsection{Evaluation Metrics}
+\label{sec:Evaluation Metrics}
+
+\section{Taxonomy}
+\label{sec:Taxonomy}
+
+In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
+classify algorithms into two categories: \catI (Section~\ref{sec:catI}) and
+\catII (Section~\ref{sec:catII}). %  and \catIII (Section~\ref{sec:catIII}).
+\catI are all algorithms which prevent the \textit{sampling} of redundant data.
+This is achieved at sensor node level, manipulating the sampling rate to
+capture all relevant information from a data stream produced by a sensor. In
+contrast, \catII focus on suppressing already sampled data by utilizing spatial
+and temporal correlations between sampled values. We decided to include \catII
+into the taxonomy, as filtering and sampling both take place at the sensor node
+level and are applied before data is sent to data consumers.
+
+% TODO Think about other points.
+
+% IDEA: Talk about other ways, the algorithms could be classified. E.g.: Use
+% case -> Tata et al. talk about how sensor network applications can be used
+% for interval monitoring, i.e. report temperature in a room every hour or
+% event monitoring, i.e. a bird lands in a nest, cars are counted in a traffic
+% jam when one occurs, etc.
 
 \subsection{Overview}
 \label{sec:Overview}
@@ -313,7 +364,7 @@ rates of sensor nodes (e.g.~\cite{trihinas2015adam, jain2004adaptive}), we
 include algorithms to the Sampling Algorithms category only if the main focus
 of the work lies on sampling rate manipulation. % maybe rewrite that
 
-In out research we found adaptive sampling and compressive sampling to be good
+In our research we found adaptive sampling and compressive sampling to be good
 sub classifications for sampling algorithms. Both types of algorithms target
 sampling rates of sensor nodes to reduce network traffic. Adaptive sampling
 algorithms employ schemes to dynamically react to changes in the behaviour of
@@ -449,7 +500,7 @@ nodes (e.g.~\cite{santini2006adaptive}), the sensor unit can be the main energy
 consumer~\cite{boyle2012energy}. The authors contribute an \ac{EASA} for
 perpetually operating \acp{RSN} which builds upon the \ac{ASA} by Alippi et
 al.~\cite{alippi2007adaptive}. The \ac{ASA} algorithm leverages the Nyquist
-Theorem $$ F_N > 2 * F_{max} $$ for finding the optimal (minimum) sampling rate
+Theorem $$ F_N > 2 \cdot F_{max} $$ for finding the optimal (minimum) sampling rate
 $ F_N $. To estimate the maximum frequency in the power spectrum $ F_{max} $, a
 \ac{FFT} is used on the first $ W $ samples of the process. A \ac{CI} can be
 defined to capture changes in the dynamic of the process. The algorithm is run
@@ -510,7 +561,7 @@ al.~\cite{luo2009compressive} give an example of a signal being sparse in
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[width=\linewidth]{images/example-signal-sparse.png}
-  \captionof{figure}{A sparse signal in the DCT domain}
+  \captionof{figure}{A sparse signal in the DCT domain~\cite{luo2009compressive}}
   \label{fig:sparsesignal}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
@@ -576,21 +627,21 @@ $ \Psi $ is the domain in which \textbf{d} can be represented by $ K << N
 $ coefficients and $ x $ is the vector of coefficients.
 
 The authors evaluated \ac{CDG} against a baseline transmission scheme (all
-nodes transmit as soon as readings are aquired) with the ns-2 simulation tool.
-Additionally, testing was done on two real life datasets to evalutate the
-reconstuction capability. For the simulated environment, the authors created
-two synthetic sensor networks. The first is a network with a chain topology,
-with 1000 sensor nodes spaced 10 meters apart from each other and with sink
-nodes located at each extreme of the chain. The second set-up was a grid-like
-routing tree with 1089 sensor nodes and a sink node in the center of the
-network, e.g. Fig.~\ref{fig:grid topology}. The authors varied in their testing
-runs the signal input intervals and observed the package loss and output
-interval change. \ac{CDG} outperformed the baseline scheme in both topologies
-managing input intervals 5 times and 2.3 times smaller than the baseline scheme
-in the chain and grid topologies respectively. Additionally, \ac{CDG} achieved
-a packet loss of near zero in both topologies, while the baseline scheme had
-package loss rates of 5\% and 20\% in the chain and grid topologies
-respectively.
+nodes transmit as soon as readings are aquired) with the ns-2 simulation
+tool~\cite{bajaj1999improving}. Additionally, testing was done on two real life
+datasets to evalutate the reconstuction capability. For the simulated
+environment, the authors created two synthetic sensor networks. The first is a
+network with a chain topology, with 1000 sensor nodes spaced 10 meters apart
+from each other and with sink nodes located at each extreme of the chain. The
+second set-up was a grid-like routing tree with 1089 sensor nodes and a sink
+node in the center of the network, e.g. Fig.~\ref{fig:grid topology}. The
+authors varied in their testing runs the signal input intervals and observed
+the package loss and output interval change. \ac{CDG} outperformed the baseline
+scheme in both topologies managing input intervals 5 times and 2.3 times
+smaller than the baseline scheme in the chain and grid topologies respectively.
+Additionally, \ac{CDG} achieved a packet loss of near zero in both topologies,
+while the baseline scheme had package loss rates of 5\% and 20\% in the chain
+and grid topologies respectively.
 
 The real life datasets consist of measurements collected in the Pacific Ocean
 by a single moving device and a sensor network in a datacenter. The authors
@@ -695,7 +746,7 @@ the difference for all data points in the original matrix $ X $, $
 ||(LR^T)S^T||^2_F $ the optimization problem is now
 
 $$
-minimize \ ||(LR^T).*Q-B||^2_F + \zeta(||L||^2_F + ||R||^2_F) + \eta ||(LR^T)S^T||^2_F
+minimize \ ||(LR^T). \cdot Q-B||^2_F + \zeta(||L||^2_F + ||R||^2_F) + \eta ||(LR^T)S^T||^2_F
 $$
 
 Another extentsion of \ac{STCDG} is the handling of empty columns. Empty
@@ -709,22 +760,22 @@ nodes are transmitted independant of the set sampling ratio.
 The authors tested \ac{STCDG} against \ac{EDCA} and \ac{CDG} on 3 different
 datasets in terms of recovery error, power consumption and network capacity.
 The used datasets were the berekeley Research Laboratory sensor data, a
-synthetic trace generated with the ns-2 tool, and the residential building data
-gathered by the authors. Specifically, the authors subdivided the laboratory
-and residential building data sets into singular sensed phenomena, namely light
-and temperature. \ac{NMAE} was used to measure the recovery performance of the
-algorithms. The researchers found that the algorithms have critical sampling
-ratios, which if surpassed, lead to a high \ac{NMAE}. \ac{STCDG} perfomed
-better than the other algorithms, having low \ac{NMAE} (sub 0.1) with low
-sampling ratios (0.1 - 0.2). \ac{CDG} perfomed worst of all. The authors argue
-that the sparsity feature is not always present in real life data sets. The
-performance of all algorithms dropped on datasets with lower temporal/spatial
-correlation and fewer sensor nodes (24 and 54 sensor nodes in the residential
-building and laboratory datasets respectively). The authors argue that \ac{CDG}
-is outperformed at high sampling ratios by a centralized exact scheme, which,
-like the naive scheme in the previous work of Cheng et
-al.~\cite{cheng2013stcdg}, sends all sensor readings at every timeslot to the
-sink. \ac{STCDG} and \ac{EDCA} have both the same energy consumption.
+synthetic trace generated with the ns-2 tool~\cite{bajaj1999improving}, and the
+residential building data gathered by the authors. Specifically, the authors
+subdivided the laboratory and residential building data sets into singular
+sensed phenomena, namely light and temperature. \ac{NMAE} was used to measure
+the recovery performance of the algorithms. The researchers found that the
+algorithms have critical sampling ratios, which if surpassed, lead to a high
+\ac{NMAE}. \ac{STCDG} perfomed better than the other algorithms, having low
+\ac{NMAE} (sub 0.1) with low sampling ratios (0.1 - 0.2). \ac{CDG} perfomed
+worst of all. The authors argue that the sparsity feature is not always present
+in real life data sets. The performance of all algorithms dropped on datasets
+with lower temporal/spatial correlation and fewer sensor nodes (24 and 54
+sensor nodes in the residential building and laboratory datasets respectively).
+The authors argue that \ac{CDG} is outperformed at high sampling ratios by a
+centralized exact scheme, which, like the naive scheme in the previous work of
+Cheng et al.~\cite{cheng2013stcdg}, sends all sensor readings at every timeslot
+to the sink. \ac{STCDG} and \ac{EDCA} have both the same energy consumption.
 
 
 \subsection{\catII} % Filtering algorithms
@@ -1030,16 +1081,17 @@ consumption levels with increasing sensor density.
 % \subsection{\catIII}
 % \label{sec:catIII}
 
-\section{Discussion}
-\label{sec:Discussion}
+\section{Related Algorithms}
+\label{sec:Related Algorithms}
 
 In this section we will present additional algorithms from the area of
 routing~\ref{sec:Routing} and topology control~\ref{sec:Topology Control}. We
 will also present possible combinations of algorithms which could inspire
-further reseach in this area~\ref{sec:Combination of Algorithms}.
+further reseach in the area of data sampling from sensor networks
+~\ref{sec:Combination of Algorithms}.
 
-\subsection{Other Algorithms}
-\label{sec:Other Algorithms}
+% \subsection{Related Algorithms}
+% \label{sec:Other Algorithms}
 
 We decided to include routing and topology control as additional classes of
 algorithms in \acp{SN}, because all of the schemes described in the taxonomy
@@ -1081,7 +1133,7 @@ of routing and topology control algorithms ...
 % too. Routing however plays an important role especially after some nodes
 % die etc.
 
-\subsubsection{Routing}
+\subsection{Routing}
 \label{sec:Routing}
 
 Routing schemes define how data is communicated in a network. In a survey from
@@ -1090,7 +1142,7 @@ routing into network protocols and routing criteria. Network protocols define,
 how communication between nodes in a sensor network is structured. With flat
 network routing, all nodes have the same task in the network, mainly sensing
 and forwarding data. Hierarchical network routing incorporates schemes, in
-which the sensor network is divided into clusters. We described such a scheme
+which the sensor network is divided into clusters. We presented such a scheme
 in our taxonomy with \textit{ASAP}~\cite{gedik2007asap}. In location based
 routing, sensor nodes are typically equiped with a GPS
 module~\cite{xu2001geography} or can infer their own position on based on the
@@ -1098,18 +1150,35 @@ strength of incoming signals, if a GPS module is too
 expensive~\cite{hu2004localization}. Location based routing is especially
 useful in mobile sensor networks, in which nodes change their position in the
 sensing field frequently and therefore change their
-neighbors~\cite{hu2004localization}. A work py Zou et al.~\cite{zou2004pager}
-introduces a \textit{stateless} location-based routing algorithm for mobile
-sensor networks, i.e. sensor nodes do not have to save past routing paths. The
-algorithm uses greedy forwarding to rout sensed data to the next node on the
-shortest path to the base station~\cite{stojmenovic2001loop}. However, sensor
-nodes can sometimes be the closest node to the base station in their local
-topology, even though there exists a shorter path and thus routing can fail,
-e.g. Fig.~\ref{fig:shadow nodes}. To handle such cases, the authors define a
-scheme which idenfies such nodes. Sensor nodes assign cost variables to
-themselves, based on the cost variables of its neighbors. This ensures that
-every sensor node has a neighbor with a lower cost variable than itself, which
-enables a high-cost-to-low-cost routing if greedy routing fails. 
+neighbors~\cite{hu2004localization}.
+
+A work py Zou et al.~\cite{zou2004pager} introduces a \textit{stateless},
+(sensor nodes do not have to save past routing paths) location-based routing
+algorithm, \textit{PAGER-M}, for mobile sensor networks. The algorithm uses
+greedy forwarding~\cite{stojmenovic2001loop} to rout sensed data to the next
+node on the shortest path to the base station. However, sensor nodes can
+sometimes be the closest node to the base station in their local topology (but
+still out of range to transmit), even though there exists a shorter path and
+thus routing can fail, e.g. Fig.~\ref{fig:shadow nodes}. To handle such cases,
+the authors define a scheme which idenfies such nodes. Sensor nodes assign cost
+variables to themselves, based on the cost variables of its neighbors. This
+ensures that every sensor node has a neighbor with a lower cost variable than
+itself, which enables a high-cost-to-low-cost routing if greedy routing fails.
+The authors tested their algorihtm against \textit{GPSR}~\cite{karp2000gpsr}
+and \textit{AODV}~\cite{perkins2003ad} in a simulated environment with ns-2.
+\textit{GPSR} is a stateless routing algorithm which uses greedy routing and
+perimeter routing when greedy routing fails. Perimeter routing uses the
+right-hand rule to traverse a graph couter-clockwise. AODV is a routing
+algorithm in which sensor nodes maintain routing paths to frequently
+communicated sensor nodes. If no path is known pathfinding is initiated by
+broadcasting a route request message. \textit{PAGER-M} outperformed the other
+algorithms in package delivery ratio, as the algorithm uses a conservative path
+choosing, i.e. a longer routing path is chosen, if a sensor node on the shorter
+path is moving aways thus increasing package loss probability. \textit{GPSR}
+found the shortest paths on average in the experiment, when sensor nodes had
+lower communication ranges. However, the routing overhead and energy
+consumption where consistently higher with \textit{GPSR} compared to
+\textit{PAGER-M}.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{images/pager-shadow-nodes.pdf}
@@ -1121,22 +1190,74 @@ the closest node to the base station in its local topology~\cite{zou2004pager}.}
 
 Pantazis et al. extend the work of Al-Karaki et al. in their survey on routing
 protocols~\cite{pantazis2013energy}, with, i.a., Mobile Agent-based protocols.
-Such protocols use mobile agents to visit sensor nodes and perform some tasks,
-thus making the \ac{SN} more flexible. % Now present an algorithm
+Such protocols use mobile agents, i.e. software, to visit sensor nodes and
+perform tasks, therefore making the \ac{SN} more flexible. Chen et
+al.~\cite{chen2007applications}, i.a. justify Mobile Agent-based protocols as a
+means to run multiple applications on the same \ac{SN}. As it is unfeasible to
+store all application specific programs at each sensor node (due to resource
+constraints), mobile agents can be used to migrate between sensor nodes and
+perform application specific tasks autonomously.
+
+Chen et al. present multiple algorithms for mobile agent-based protocols in
+their work~\cite{chen2011itinerary}. The authors expand with their algorithms
+the \textit{LCF} algorithm by Qi et al.~\cite{qi2001optimal}. \textit{LCF}
+calculates an ad-hoc itinerary (application specififed route through sensor
+nodes) by searching for the closest sensor node to a current node. Chen et al.
+expand the algorithm by presenting a scheme to select the first sensor node in
+the itinerary which would minize the energy expenditure of the mobile agent.
+The authors further propose an algorithm to iteratively optimize the next $ k $
+hops of the mobile agent. The authors find in their experiments, in which they
+simulate a large-scale \ac{SN} with 800 sensor nodes, that their algorihtm
+decreases the energy-delay product ($ energy \cdot delay $) by 80\% in the first
+iteration and only marginally in following iterations.
 
 Singh et al.~\cite{singh2010routing} additionally define single-path and
 multi-path routing. With single-path routing, sensor nodes send their sensed
 values on the shortest path to the base station. With multi-path routing on the
 other hand, sensor nodes divide their sensed data and send it with the
-\textit{k} shortest paths to the base station. % Now present an algorithm
+\textit{k} shortest paths to the base station. The authors additionally define
+different instances of multi-path routing, e.g. disjoint paths and braided
+paths. With disjoint paths each path has unique sensor nodes, while in braided
+paths a primary path is built and additional paths are computed by excluding
+one sensor node from the primary path.
 
-are relevant for large scale multihop sensor networks,
-as data is not sent directly from a sensor node to the sink, but routed through
-some intermediary sensor nodes. This is because sending messages directly does
-not scale well with increasing number of sensor nodes in terms of energy
-expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
-in \acp{SN} in which sensor nodes may fail or additional aggregation has to
-take place during hops, is not trivial.
+Chen et al.~\cite{chen2011itinerary} present an algorithm, \ac{DGR}, for
+routing real-time video data over multiple paths in a \ac{WSN}. \acp{WSN} which
+transmit highly commpressed video streams are also called \acp{VSN}. In
+\acp{VSN} only a few sensor nodes are equipped with video capturing devides and
+more powerful batteries. The rest of the nodes are do not have such equipment
+and only serve as relay nodes. The authors argue that \acp{VSN} are limited in
+bandwidth and energy and are additionally susceptible to transmission errors.
+The algorithm constructs a application specific number of \textit{disjoint}
+paths from a source video sensor node to the sink node. To keep the paths
+disjoint, the algorithm may construct routes which have nodes that are further
+away from the sink than the source node. Such cases can occure when the node
+density is low in the \ac{SN} and the path number is high. The authors argue
+that disjoint paths are important, as video sent on intersecting paths
+"interferes with each other severly". Next hop selection is done in the
+algorithm by broadcasting probe messages from the source to the next hop and so
+on. A node is selected a the next hop based on its location, i.e. distance to
+the \textit{StrategicMappingLocation}, which is a point on the line between the
+source node and the sink. The authors tested their algorithm in a simulated
+environment with 500 sensor nodes, one video sensor node and one sink against
+the already covered \textit{GPSR} with and without additional \ac{FEC}
+\footnote{The authors define \ac{FEC} as a scheme which is used to increase
+error resilience in real-time video transmission by generating redundant
+packets.} coding. The authors simulations show that their scheme outperforms
+\textit{GPSR} with and without \ac{FEC} coding in terms of $ \eta $. The metric
+$ \eta $ is defined by the authors as $ \eta = \frac{lifetime \cdot
+PSNR}{delay}$ with $ lifetime $ specifying the time until the first sensor
+nodes dies, $ PSNR $ as peak signal-to-noise ration, i.e. the recieved video
+quality, and $ delay $ denoting the "average delay for real-time video
+applications".
+
+% are relevant for large scale multihop sensor networks,
+% as data is not sent directly from a sensor node to the sink, but routed through
+% some intermediary sensor nodes. This is because sending messages directly does
+% not scale well with increasing number of sensor nodes in terms of energy
+% expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
+% in \acp{SN} in which sensor nodes may fail or additional aggregation has to
+% take place during hops, is not trivial.
 
 % Insights Al-Karaki et al.: Different node deployment options: Manual and
 % random. With manual placement, routing paths can be planned, while random
@@ -1170,8 +1291,8 @@ take place during hops, is not trivial.
 % set the nail in the coffin of making two distinct categories here. The
 % authors Topology category deals with the location of the nodes.
 
-\subsubsection{Topology Building}
-\label{sec:Topology Building}
+\subsection{Topology Control}
+\label{sec:Topology Control}
 
 % Insights Aziz et al.: There are a lot of definitions of network
 % liftime~\cite{aziz2013survey}. Aziz et al. include algorithms in their work
@@ -1211,14 +1332,91 @@ take place during hops, is not trivial.
 % complexity of such a system can have negative impact on scalability and
 % efficiency. THIS CAN BE A GOOD INTRODUCTION TO COMBINATION OF ALGORITHMS.
 
+Topology Control is defined by Aziz et al.~\cite{aziz2013survey} as "a
+technique that uses any controlled network parameter to generate and maintain a
+topology for the benefits of reducing energy consumption and achieving a
+desired property for an entire network." Modifiable parameters are listed by
+the authors as transmission power of the radio, changing the mode of sensor
+nodes and clustering. Sensor nodes can manipulate the transmission power of
+their radios to vary the transmission range and therefore reduce energy
+expenditure for communication. While clustering is also mentioned as a
+\textit{routing} technique, changing modes of sensor nodes is a new
+classification, also called \textit{duty cycling}~\cite{carrano2014survey,
+lin2004medium, buettner2006x}. As Carrano et al. point
+out~\cite{carrano2014survey}, duty cycling finds a tradeoff between latency and
+energy consumption in \acp{SN}. End-to-end latency increases, if routing sensor
+nodes have to wait for the next sensor node in the routing path to wake up.
+Additionally, the authors argue, that although a sensor node consumes less
+energy in sleep mode, i.e. the radio transceiver is turned off, higher data
+collision rates and potential control packet overhead, induced by duty cycling,
+can increase energy expenditure.
 
-\begin{description}
-    \item[Topology Control] 
-    Topology Control is defined by Aziz et al.~\cite{aziz2013survey} as "a
-    technique that uses any controlled network parameter to generate and
-    maintain a topology for the benefits of reducing energy consumption and
-    achieving a desired property for an entire network." Modifiable parameters are ...
-\end{description}
+Sun et al.~\cite{sun2008ri} present a \ac{MAC} protocol which tackles the
+aforementioned problems. With the protocol \textit{RI-MAC} every sensor node
+has a wake up schedule. While awake, a sensor node will broadcast a message
+that it is ready to receive data. A sender node, which is awake and waiting for
+the message, then starts data transmission, which the receiving node
+acknowledges. The authors argue, that due to the receiver initiated
+transmission, \textit{RI-MAC} handles heavier traffic loads more power
+efficiently, than other \ac{MAC} protocols, such as \textit{B-MAC} and
+\textit{X-MAC}. This is because the broadcasted message by a receiver sensor
+node has a backoff window size with which the receiver can schedule different
+sender nodes. The authors tested their protocol extensively on a small, real
+world testbed and in a large \ac{SN} simulated with the ns-2
+tool~\cite{bajaj1999improving}. Their tests were additionally run on
+\textit{X-MAC}~\cite{buettner2006x}, in which data transmission is not
+initiated by the receiver, and \textit{X-MAC-UMPA} which is a simplification of
+\textit{X-MAC}. In both test environments, \textit{RI-MAC} outperformed the
+other two algorithms in, i.a. average packet delivery ratio and average
+latency.
+
+Li et al.~\cite{li2013survey} address in their survey on topology control,
+network coverage as a key issue in \acp{SN}. Network coverage is defined by the
+authors as "the surveillance map of the target field, which emphasizes the
+sensors' placement positions and cooperations among sensors". A target field
+has observable points and can be covered by sensor nodes to monitor every point
+in the field. The authors define such coverage as blanket coverage. Barrier
+coverage is a type of topology where the sensor nodes are laid-out in such a
+way, that the outlines of a field are monitored. Liu et
+al.~\cite{liu2008strong} define a barrier as "the union of the covered areas of
+sensors". Barrier coverage can be used to spot intruders, if they cross an area
+covered by a sensor node. However, barrier coverages can have gaps (e.g.
+Fig.~\ref{fig:coverage}), especially if the sensor nodes are deployed randomly,
+e.g. dropped from an airplane, and have scheduling mechanisms to turn off their
+sensors~\cite{liu2008strong}. The algorithm devides the observed area into
+smaller regions. Each region is devided into disjoint segments, where sensor
+nodes are distributed horizontally, and vertical strip, where sensor nodes are
+distributed vertically. Afterwards, the algorithm computes how many disjoint
+segments need to be active to provide full barrier coverage with no gaps.
+Through rotation of the active segments, a longer network lifetime can be
+achieved. The authors tested their approach in a simulated environment against
+a centralized approach, i.e. barriers are computed for the whole area. The
+authors found that their algorithm forms stronger barriers, i.e. more local
+barriers are found in the segments than in the whole area. Additionally, the
+authors argue that their algorithm has lower communication overhead and
+computational costs than the centralized algorithm, because sensor nodes only
+have to communicate in their local segments.
+
+% TODO Potentielly add 3D sensor networks and Sweep Coverage
+
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{images/weak-coverage.png}
+  \caption{}
+  \label{fig:weak}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{images/strong-coverage.png}
+  \caption{}
+  \label{fig:strong}
+\end{subfigure}
+\caption{Example of a weak (a) and a strong (b) barrier coverage \ac{SN}}
+\label{fig:coverage}
+\end{figure}
+
+\FloatBarrier
 
 % What to look out for: What is topology building? Are algorithms which are
 % classified as topology building algorithms, only used once in a sensor
@@ -1235,17 +1433,16 @@ take place during hops, is not trivial.
 % algorithms as it is a framework which has filtering and sampling techniques
 % additionally, in the experiments the authors compared their framework i.a.
 % against L-SIP which is a model based scheme
-A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides a
+A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides
 framework for finding a sampling rate which optimizes the tradeoff between
 energy consumption and quality of data. The framework was implemented in java
-with no external dependencies. The algorithm estimates a metric stream $ M $
-to reduce the number of sampling periods when the metric stream does not
-fluctuate and vice versa. A sampling period $ T_i $ is computed by estimating
-the metric stream evolution. The authors use a \ac{PEWMA} to produce an
-estimated metric stream $ M' $. The \ac{PEWMA} is a Variation of \ac{EWMA}
-which provides a one-step ahead estimation. The authors state that \ac{PEWMA}
-is more robust against abrunt transient changes in the metric evoultion than
-\ac{EWMA}.
+with no external dependencies. The algorithm estimates a metric stream $ M $ to
+reduce the number of sampling periods when the metric stream does not fluctuate
+and vice versa. A sampling period $ T_i $ is computed by estimating the metric
+stream evolution. The authors use a \ac{PEWMA} to produce an estimated metric
+stream $ M' $. The \ac{PEWMA} is a Variation of \ac{EWMA} which provides a
+one-step ahead estimation. The authors state that \ac{PEWMA} is more robust
+against abrunt transient changes in the metric evoultion than \ac{EWMA}.
 
 When $ M' $ differs from $ M $ by a user specified imprecision value $
 \gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}

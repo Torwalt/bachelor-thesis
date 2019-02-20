@@ -123,6 +123,8 @@ sympy-plots-for-*.tex/
 
 # todonotes
 *.tdo
+*.todo
+*.questions
 
 # xindy
 *.xdy
@@ -137,6 +139,9 @@ sympy-plots-for-*.tex/
 
 # power point
 *.pptx
+
+# libre office pp
+*.odp
 
 # editor
 .vscode
