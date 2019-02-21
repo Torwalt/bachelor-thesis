@@ -106,22 +106,9 @@ outsourcing this task to the base station could induce a major communication
 overhead with additional energy expenditure. Techniques on topology control
 and route path finding will be discussed later in the thesis.
 
-% \begin{figure}
-% \centering
-% \begin{minipage}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{images/star-structure.pdf}
-%   \caption{(a)}
-%   \label{fig:Star Topology}
-% \end{minipage}%
-% \begin{minipage}{.5\textwidth}
-%   \centering
-%   \includegraphics[width=\linewidth]{images/tree-structure.pdf}
-%   \captionof{figure}{(a)}
-%   \label{fig:Tree Topology}
-% \end{minipage}
-% \caption{Example Topologies. Inspiration taken from Reina et al.~\cite{reina2013role}}
-% \end{figure}
+% TODO talk about "Energy Management in Wireless Sensor Networks with
+% Energy-hungry Sensors and how their classification of adaptive sensing
+% strategies differs from our work
 
 \begin{figure}
 \begin{subfigure}{.5\textwidth}
@@ -166,31 +153,35 @@ The contributions of this thesis go as follows:
     \item We provide the basis for further research by presenting combinations
     of different algorithms.
     % TODO Add quantifiable point, e.g. number of algorithms presented and what we derived from it
+    % We present 14 algorithms from the field of data sampling and 5 related algorithms, i.e. from routing and topology control
 \end{enumerate}
 
 
 \subsection{Thesis Outline}
 
 \para {Section \ref{sec:Methodology}.}  In section \ref{sec:Methodology}, we
-explain our approach in compiling the taxonomy. In the first subsection we
-define and discuss the terminology used in this work. The second subsection
-motivates our selection criteria for including algorithms in the taxonomy. In
-the third subsection we define out evaluation metrics for the presented
-algorithms.
+explain our approach in compiling the taxonomy. In
+subsection~\ref{sec:Terminology} we define and discuss the terminology used in
+this work. Subsection~\ref{sec:Algortihm selection criteria} motivates our
+selection criteria for including algorithms in the taxonomy. In
+subsection~\ref{sec:Evaluation Metrics} we define our evaluation metrics for
+the presented algorithms.
 
 \para{Section \ref{sec:Taxonomy}.}  In section \ref{sec:Taxonomy}, we present a
-taxonomy for classifying sampling algorithms. The section is split into four
-subsections. The first gives an overview of the described classes and
-subclasses and motivations for the classification. Each following section
+taxonomy for classifying sampling algorithms. The section is split into three
+subsections.~\ref{sec:Overview} gives an overview of the described classes,
+subclasses, and motivations for the classification. Each following section
 describes a class and its subclasses in detail. For each subclass, relevant
 information of multiple algorithms will be presented. 
+% We additionally split the subclasses into additional classes, or
+% subsubclasses. Algorithms can be in multiple subsubclasses.
 
 \para{Section \ref{sec:Related Algorithms}.} In section \ref{sec:Related
 Algorithms}, we review algorithms not covered in the taxonomy from areas other
-than sampling, e.g. topology control and routing. This section is split into
-two subsections. The first subsection presents those algorithms and their
-relevant information. The definiton of relevant information for those
-algorithms does not change. In the second section we discuss possible
+than sampling, i.e. topology control and routing. This section is split into
+three subsections. The subsections~\ref{sec:Routing} and~\ref{sec:Topology
+Control} present algorithms from the areas of routing and topology control in
+\ac{SN}. In section~\ref{sec:Combination of Algorithms} we discuss possible
 combinations of different sampling algorithms with other sampling and
 non-sampling algorithms. The combinations found here could be used as a basis
 for further research.
@@ -217,10 +208,10 @@ jain2004adaptive, szczytowski2010asample}), data gathering
 (e.g.~\cite{padhy2006utility, mahmudimanesh2012balanced, duarte2005joint}).
 Some publications use these terms as synonyms while other publications use
 different terms to differentiate concepts. In the following paragraphs, we,
-i.a. clarify the definitions of data collection, data sampling, data gathering,
+i.a. discuss the definitions of data collection, data sampling, data gathering,
 and data sensing. We include this subsection, because we need to clarify the
-terminology in order to be precise in the following sections. We will define
-other terms used in this paper, aswell.
+terminology in order to be precise in the following sections. We define other
+terms used in this paper, aswell.
 
 \begin{description}
 
@@ -343,26 +334,28 @@ level and are applied before data is sent to data consumers.
 
 \subsection{Overview}
 \label{sec:Overview}
-% Picture of taxonomy at the beginning Explain picture and explain the terms
-% e.g. model based adaptive sampling is a prediction scheme ... Reasoning
-% behind the partitioning of the algorithms maybe if a assignment of a
-% particular algorithm is not straightforward
-% explain why thesis title is about sampling algorithms and taxonomy has 
-% filtering and sampling as different categories
 
-% Distinguish sampling algorithms, filtering algorithms and data sharing from
-% each other
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{images/taxonomy.pdf}
+\caption{Taxonomy of the presented Algorithms}
+\label{fig:Taxonomy}
+\centering
+\end{figure}
+
+% TODO: Picture of taxonomy. Reasoning for classifying in such a way. Justify
+% thesis title and why filtering algorithms are included.
 
 \subsection{\catI} % Sampling Algorithms
 \label{sec:catI}
 
 The first category of our taxonomy incorporates all algorithms which primary
-focus is on manipulating the sampling or sensing rate of one or multiple sensor
-nodes to reduce network utilization. Although there are algorithms from other
-categories which also may incorporate manipulations to the sensing/sampling
-rates of sensor nodes (e.g.~\cite{trihinas2015adam, jain2004adaptive}), we
-include algorithms to the Sampling Algorithms category only if the main focus
-of the work lies on sampling rate manipulation. % maybe rewrite that
+focus lies on manipulating the sampling or sensing rate of one or multiple
+sensor nodes to reduce network utilization. Although there are algorithms from
+other categories which also may incorporate manipulations to the
+sensing/sampling rates of sensor nodes (e.g.~\cite{trihinas2015adam,
+jain2004adaptive}), we include algorithms to the Sampling Algorithms category
+only if the main focus of the work lies on sampling rate manipulation. % maybe
+rewrite that
 
 In our research we found adaptive sampling and compressive sampling to be good
 sub classifications for sampling algorithms. Both types of algorithms target
@@ -1337,7 +1330,7 @@ technique that uses any controlled network parameter to generate and maintain a
 topology for the benefits of reducing energy consumption and achieving a
 desired property for an entire network." Modifiable parameters are listed by
 the authors as transmission power of the radio, changing the mode of sensor
-nodes and clustering. Sensor nodes can manipulate the transmission power of
+nodes, and clustering. Sensor nodes can manipulate the transmission power of
 their radios to vary the transmission range and therefore reduce energy
 expenditure for communication. While clustering is also mentioned as a
 \textit{routing} technique, changing modes of sensor nodes is a new
@@ -1397,7 +1390,7 @@ authors argue that their algorithm has lower communication overhead and
 computational costs than the centralized algorithm, because sensor nodes only
 have to communicate in their local segments.
 
-% TODO Potentielly add 3D sensor networks and Sweep Coverage
+% TODO Potentially add 3D sensor networks and Sweep Coverage
 
 \begin{figure}
 \begin{subfigure}{.5\textwidth}
@@ -1429,6 +1422,7 @@ have to communicate in their local segments.
 
 \subsection{Combination of Algorithms}
 \label{sec:Combination of Algorithms}
+
 % I decided to include Adam and Admin as an example of combination of
 % algorithms as it is a framework which has filtering and sampling techniques
 % additionally, in the experiments the authors compared their framework i.a.

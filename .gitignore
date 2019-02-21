@@ -145,3 +145,7 @@ sympy-plots-for-*.tex/
 
 # editor
 .vscode
+
+# Python virtual environments
+venv
+env

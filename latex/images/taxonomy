@@ -1,0 +1,18 @@
+// The Round Table
+digraph structs {
+	edge [arrowhead=none]
+	node [shape=box]
+	A [label="Sampling Algorithms for Sensor Data"]
+	B [label="Sampling Algorithms"]
+	C [label="Filtering Algorithms"]
+	D [label="Adaptive Sampling"]
+	E [label="Compressive Sampling"]
+	F [label="Model Based Schemes"]
+	G [label="Adaptive Filtering"]
+	A -> B
+	A -> C
+	B -> D
+	B -> E
+	C -> F
+	C -> G
+}
