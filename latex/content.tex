@@ -237,14 +237,36 @@ terms used in this paper, aswell.
         
 
     \item[Sensor Node]
+        Healy et al.~\cite{healy2008wireless} define sensor nodes as a "[...]
+        tiny, cheap, disposable and self contained battery powered computer".
+        Sensor nodes consist usually of a processing unit, a communication
+        device (sometimes called radio in this thesis), and a sensing
+        unit~\cite{akyildiz2002wireless}.
+
+    \item[Base Station, Fusion Center]
+        Base station~\cite{padhy2006utility} and fusion
+        center~\cite{willett2004backcasting} refer to a computer which is
+        usually wired and not restricted in ressources (e.g. CPU, memory,
+        battery).
         
 
-    \item[Base Station, Client Station, Fusion Center]
-        
-
+    \item[Centralized Exact, Baseline Transmission Scheme, Naive Scheme]
+        Centralized exact~\cite{gedik2007asap}, baseline transmission
+        scheme~\cite{luo2009compressive} and naive
+        scheme~\cite{cheng2010efficient} all refer to a scheme in which sensor
+        nodes report their sensor readings each $ t $ time units without any
+        suppression. 
+       
+       
+       Baseline transmission
+       Scheme is used by Luo et al.~\cite{luo2009compressive} Naive Scheme
+       cheng2010efficient Centralized Exact 
 
     \item[\ac{MAC}]
         
+
+    \item[Multi-Hop]
+       
 
     \item[Duty Cycle, Duty Cycling]
         Lin et al.~\cite{lin2004medium} define a duty cycle as "the ratio of
@@ -335,6 +357,10 @@ level and are applied before data is sent to data consumers.
 \subsection{Overview}
 \label{sec:Overview}
 
+% TODO: Reasoning for classifying in such a way. Justify
+% thesis title and why filtering algorithms are included.
+
+
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{images/taxonomy.pdf}
 \caption{Taxonomy of the presented Algorithms}
@@ -342,8 +368,45 @@ level and are applied before data is sent to data consumers.
 \centering
 \end{figure}
 
-% TODO: Picture of taxonomy. Reasoning for classifying in such a way. Justify
-% thesis title and why filtering algorithms are included.
+% 14 algs
+\begin{table}[h]
+\caption{Table of presented Algorithms \label{table:algorithm table}}
+    \begin{tabular} { |p{3cm}||p{3cm}|p{3cm}|p{3cm}|p{3cm}| }
+
+    \hline
+    Algorithm& Assumptions & Advantages & Limitations & Overhead\\
+    \hline
+
+    \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and temporal
+    correlation of signal & Random sensor deployment & Premature death of
+    cluster heads & medium\\
+
+    Jain et al.~\cite{jain2004adaptive} & Sensor data is streamed continuosly &
+    Important data gets more bandwidth & Only Single-hop \acp{SN} & High\\
+
+    \textit{USAC}~\cite{padhy2006utility}& Test & Test & Test & Test\\
+
+    \textit{EASA}~\cite{srbinovski2016energy}& Test & Test & Test & Test\\
+    \textit{CDG}~\cite{luo2009compressive}& Test & Test & Test & Test\\
+    \textit{EDCA}~\cite{cheng2010efficient}& Test & Test & Test & Test\\
+    \textit{STCDG}~\cite{cheng2013stcdg}& Test & Test & Test & Test\\
+    \textit{BBQ}~\cite{deshpande2004model}& Test & Test & Test & Test\\
+    \textit{Ken}~\cite{chu2006approximate}& Test & Test & Test & Test\\
+    \textit{ASAP}~\cite{gedik2007asap}& Test & Test & Test & Test\\
+    Jiang et al.~\cite{jiang2011prediction}& Test & Test & Test & Test\\
+    Meng et al.~\cite{meng2004event}& Test & Test & Test & Test\\
+    Solis et al.~\cite{solis2005efficient}& Test & Test & Test & Test\\
+    \textit{Conch}~\cite{silberstein2006constraint}& Test & Test & Test & Test\\
+    \hline
+    \end{tabular}
+\end{table}
+
+We visualize our taxonomy in Fig.~\ref{fig:Taxonomy}.
+
+The presented algorithms are summed up and compared in
+table~\ref{table:algorithm table}. We will address the algorithms by the names
+the authors have given them and additionally reference the paper. If the
+algorithm has no name, the authors are referenced instead.
 
 \subsection{\catI} % Sampling Algorithms
 \label{sec:catI}
@@ -352,10 +415,12 @@ The first category of our taxonomy incorporates all algorithms which primary
 focus lies on manipulating the sampling or sensing rate of one or multiple
 sensor nodes to reduce network utilization. Although there are algorithms from
 other categories which also may incorporate manipulations to the
-sensing/sampling rates of sensor nodes (e.g.~\cite{trihinas2015adam,
-jain2004adaptive}), we include algorithms to the Sampling Algorithms category
-only if the main focus of the work lies on sampling rate manipulation. % maybe
-rewrite that
+sensing/sampling rates of sensor nodes (e.g.~\cite{trihinas2015adam}), we
+include algorithms to the Sampling Algorithms category only if the main focus
+of the work lies on sampling rate manipulation. 
+
+% TODO add two other references of papers which are not in the category
+% adaptive sampling but use a sampling scheme
 
 In our research we found adaptive sampling and compressive sampling to be good
 sub classifications for sampling algorithms. Both types of algorithms target
@@ -371,7 +436,6 @@ high accuracy.
 \subsubsection{Adaptive Sampling}
 \label{sec:Adaptive Sampling}
 
-% All required definitions for adaptive sampling
 Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
 
 \begin{quote}
@@ -441,7 +505,7 @@ energy in most sensor nodes~\cite{raghunathan2002energy}.
 
 \par
 
-A technique designed initially for a glacier monitoring application by Padhi et
+A technique designed initially for a glacier monitoring application by Padhy et
 al. \ac{USAC}~\cite{padhy2006utility} is an example of an adaptive sampling
 scheme for a \ac{WSN}. The algorithm uses a linear regression model at each
 sensor node to capture phase shifts of the observed phenomenon as fast as
@@ -493,19 +557,20 @@ nodes (e.g.~\cite{santini2006adaptive}), the sensor unit can be the main energy
 consumer~\cite{boyle2012energy}. The authors contribute an \ac{EASA} for
 perpetually operating \acp{RSN} which builds upon the \ac{ASA} by Alippi et
 al.~\cite{alippi2007adaptive}. The \ac{ASA} algorithm leverages the Nyquist
-Theorem $$ F_N > 2 \cdot F_{max} $$ for finding the optimal (minimum) sampling rate
-$ F_N $. To estimate the maximum frequency in the power spectrum $ F_{max} $, a
-\ac{FFT} is used on the first $ W $ samples of the process. A \ac{CI} can be
-defined to capture changes in the dynamic of the process. The algorithm is run
-on the base station due to computational complexity, thus some communication
-overhead is present. \ac{EASA} expands \ac{ASA} with energy awareness, i.e.
-adjusting optimal sampling frequency of a sensor node based on current and
-critical battery level, and rate of energy saving. When the battery level drops
-below the user defined critical value $ m $, the sampling rate deviates from the
-optimal \ac{ASA} sampling rate. This may lead to the signal not capturing the
-singal fully as the nyquist theorem is violated. The authors argue that a
-potential loss in data quality is the cost of staying continuously in the
-network. The authors tested \ac{EASA} extensively on data from two deployments.
+Theorem $$ F_N > 2 \cdot F_{max} $$ for finding the optimal (minimum) sampling
+rate $ F_N $. To estimate the maximum frequency in the power spectrum $ F_{max}
+$, a \ac{FFT} is used on the first $ W $ samples of the process. A \ac{CI} can
+be defined to capture changes in the dynamic of the process. The algorithm is
+run on the base station due to computational complexity, thus some
+communication overhead is present. \ac{EASA} expands \ac{ASA} with energy
+awareness, i.e. adjusting optimal sampling frequency of a sensor node based on
+current and critical battery level, and rate of energy saving. When the battery
+level drops below the user defined critical value $ m $, the sampling rate
+deviates from the optimal \ac{ASA} sampling rate. This may lead to the sensor
+not capturing the singal fully as the nyquist theorem is violated. The authors
+argue that a potential loss in data quality is the cost of staying continuously
+in the network. The authors tested \ac{EASA} extensively on data from two
+deployments.
 
 \begin{enumerate}
     \item A custom, windpowered deployment for measuring wind speed
@@ -535,9 +600,9 @@ introduced by Donoho et al.~\cite{Donoho06compressedsensing} in 2006.
 Mahmudimanesh et al.~\cite{mahmudimanesh2010reordering} describe \ac{CS} as:
 
 \begin{quotation}
-    \ac{CS} states that it is possible to reconstruct a discrete signal from a set of
+    "\ac{CS} states that it is possible to reconstruct a discrete signal from a set of
     randomly chosen values selected from a vector computed by a linear transform
-    of the discrete signal vector.
+    of the discrete signal vector".
 \end{quotation}
 
 Candés et al.~\cite{candes2008introduction} summarize the main principles of
@@ -565,13 +630,14 @@ al.~\cite{luo2009compressive} give an example of a signal being sparse in
 \end{minipage}
 \end{figure}
 
-% CDG
-% make a different introduction if you dont find a paper which could intrduce cdg
+% TODO make a different introduction if you dont find a paper which could
+% introduce cdg or a paper which focusses on small scale SNs
+
 Compressive sampling methods were designed for large scale, multihop sensor
 networks, aswell. Luo et al.~\cite{luo2009compressive} developed a \ac{CDG}
 algorithm for large scale sensor networks. The goal of the algorithm is to
-deacrease energy expenditure and distribute energy consumption evenly across
-all sensor nodes to maximize the lifetime of the network. This is achieved by
+decrease energy expenditure and distribute energy consumption evenly across all
+sensor nodes to maximize the lifetime of the network. This is achieved by
 reducing the datatraffic in a network by compressing data readings at each hop.
 This would lead to $ M $ messages arriving at the sink from $ N $ sensor nodes,
 where $ M << N $. The sink broadcasts a random seed to the network with which
@@ -579,7 +645,7 @@ each sensor node can generate, together with its own identificator, a local
 seed. Sensor nodes then use the local seed to generate a random coefficient $
 \phi_i $ which they transmit together with their sensor reading $ d_i $ to
 their parent node. Parent nodes receive readings from their child nodes and sum
-the input with their own $ d $ and $ \phi $. Therefore, every sensor node
+up the input with their own $ d $ and $ \phi $. Therefore, every sensor node
 transmits only one value. This ensures the sink node receives $ M $ weighted
 sums $ y $, which consist of a matrix of the random coefficients, $ \Phi $ and
 all sensor readings \textbf{d}:
@@ -688,21 +754,21 @@ U\Sigma^{1/2}; \ R = V\Sigma^{1/2}$. The problem is solved using a method by
 Zhang et al.~\cite{zhang2009spatio}.
 
 Testing was done using a publicly availiable dataset of temperature
-measurements by sensor nodes from the berekeley Research Laboratory and a
-synthetic dataset. With the real world data, the authors tested the accuracy of
-\ac{EDCA} while using different sampling ratios for the 54 sensor nodes. The
-authors could only observe small recovery errors. With a sampling ratio of 0.2,
-i.e. every fifth sensed value is transmitted, the standard deviation $ \sigma $
-was $ < 0.15°C $. % Reread that, as in stcdg, edca does not perform that well
-With the synthetic data set, the authors compared \ac{EDCA}
-with a naive scheme, in which all sensed data points are sent to the sink, on
-network lifetime. The lifetime of a sensor network is defined by the authors as
-"the time duration of the first sensor node which runs out of power". The
-lifetime ratio is defined as $ (1/M_{max}) / (1/M_0) $ where $ M_{max} $ is
-"the maximum power wasted [...] on every simulation using \ac{EDCA} and $ M_0 $
-the power wasted by the naive scheme. The authors found the lifetime ratio to
-be 5 when having a sampling ratio of 0.2, increasing the lifetime of a network
-fivefold in comparison to the naive scheme.
+measurements by sensor nodes from the Intel Berkeley Research
+lab~\cite{labdata} and a synthetic dataset. With the real world data, the
+authors tested the accuracy of \ac{EDCA} while using different sampling ratios
+for the 54 sensor nodes. The authors could only observe small recovery errors.
+With a sampling ratio of 0.2, i.e. every fifth sensed value is transmitted, the
+standard deviation $ \sigma $ was $ < 0.15°C $. % Reread that, as in stcdg,
+edca does not perform that well With the synthetic data set, the authors
+compared \ac{EDCA} with a naive scheme, in which all sensed data points are
+sent to the sink, on network lifetime. The lifetime of a sensor network is
+defined by the authors as "the time duration of the first sensor node which
+runs out of power". The lifetime ratio is defined as $ (1/M_{max}) / (1/M_0) $
+where $ M_{max} $ is "the maximum power wasted [...] on every simulation using
+\ac{EDCA} and $ M_0 $ the power wasted by the naive scheme. The authors found
+the lifetime ratio to be 5 when having a sampling ratio of 0.2, increasing the
+lifetime of a network fivefold in comparison to the naive scheme.
 
 
 \par
@@ -717,18 +783,16 @@ fact, that with \ac{CDG}, the domain in which the data is sparse has to be
 known in advance. Additionally \ac{CDG} utilizes only the sparsity of data,
 requiring the full dataset to be reordered if the data is not sparse.
 
-The authors deployed an own sensor network in a residential building. They used
-the data to analyze short-term stability and low rank of spatially and
-temporally correlated data. The authors found the data to have a good low-rank
+The authors deployed a sensor network in a residential building. They used the
+data to analyze short-term stability and low rank of spatially and temporally
+correlated data. The authors found the data to have a good low-rank
 approximation and short-term stability. Short-term stability is defined by the
 authors as the difference between adjacent gaps of sensor readings, with gaps
 being the time between two adjacent sensor readings. So the difference is
-defined as 
-
+defined as
 $$
 dif(n,t) = X(n,t + 1) + X(n,t - 1) - 2X(n, t); \ \ where  \ \ 1 <= n <= N  \ \ and  \ \ 2 <= t <= T - 1
 $$
-
 thus, if $ dif(n, t) $ is small then sensor readings at node n around timeslot
 t are stable.
 
@@ -742,7 +806,7 @@ $$
 minimize \ ||(LR^T). \cdot Q-B||^2_F + \zeta(||L||^2_F + ||R||^2_F) + \eta ||(LR^T)S^T||^2_F
 $$
 
-Another extentsion of \ac{STCDG} is the handling of empty columns. Empty
+Another extension of \ac{STCDG} is the handling of empty columns. Empty
 columns may appear at the sink when the sampling ratio is low or the packet
 loss rate is high. The authors point out that such cases can lead to very high
 recovery errors. Therefore, the algorithm ignores empty columns first and
@@ -752,15 +816,15 @@ nodes are transmitted independant of the set sampling ratio.
 
 The authors tested \ac{STCDG} against \ac{EDCA} and \ac{CDG} on 3 different
 datasets in terms of recovery error, power consumption and network capacity.
-The used datasets were the berekeley Research Laboratory sensor data, a
-synthetic trace generated with the ns-2 tool~\cite{bajaj1999improving}, and the
-residential building data gathered by the authors. Specifically, the authors
-subdivided the laboratory and residential building data sets into singular
-sensed phenomena, namely light and temperature. \ac{NMAE} was used to measure
-the recovery performance of the algorithms. The researchers found that the
-algorithms have critical sampling ratios, which if surpassed, lead to a high
-\ac{NMAE}. \ac{STCDG} perfomed better than the other algorithms, having low
-\ac{NMAE} (sub 0.1) with low sampling ratios (0.1 - 0.2). \ac{CDG} perfomed
+The used datasets were the Intel Berkeley Research lab~\cite{labdata} sensor
+data, a synthetic trace generated with the ns-2 tool~\cite{bajaj1999improving},
+and the residential building data gathered by the authors. Specifically, the
+authors subdivided the laboratory and residential building data sets into
+singular sensed phenomena, namely light and temperature. \ac{NMAE} was used to
+measure the recovery performance of the algorithms. The researchers found that
+the algorithms have critical sampling ratios, which if surpassed, lead to a
+high \ac{NMAE}. \ac{STCDG} perfomed better than the other algorithms, having
+low \ac{NMAE} (sub 0.1) with low sampling ratios (0.1 - 0.2). \ac{CDG} perfomed
 worst of all. The authors argue that the sparsity feature is not always present
 in real life data sets. The performance of all algorithms dropped on datasets
 with lower temporal/spatial correlation and fewer sensor nodes (24 and 54
@@ -783,7 +847,7 @@ sensor node or sink. The algorithms presented include additional schemes, e.g.
 clustering, to further reduce communication between nodes without reducing
 prediction accuracy under some threshold. Adaptive filtering algorithms include
 techniques to suppress sensed values based on temporal and spatial correlations
-in the network.
+between sensor nodes in the network.
 
 % here adaptive filtering summary
 % introduction or outlook to that category after writing the subsubsection parts
@@ -794,7 +858,7 @@ in the network.
 We categorize algorithms into model based schemes if they use a prediction
 model to enrich delivered sensor data at a sink or replace data transmission
 altogether. One of the earlier examples of a model driven data gathering
-technique is the well cited work of Deshpande et al.\cite{deshpande2004model}.
+technique is the well cited work of Deshpande et al.~\cite{deshpande2004model}.
 The authors present \textit{BBQ} (or Barbie-Q) a model query system in which
 user's queries to a sensor network are answered, until some error threshold,
 with a prediction model. Only if the prediction is not accurate enough, actual
@@ -822,18 +886,18 @@ the model to reduce the number of sensors queried.
 The authors evaluated their system by comparing \textit{BBQ} with
 TinyDB~\cite{madden2005tinydb} and Approximate-Caching on two datasets
 collected by a small amount of sensors (11 and 54 each). TinyDB is a sensornet
-querying system in which the readings of sensor nodes are send and aggregated
-on the way to the sink. With Approximate-Caching, sensor nodes send their
-sensed values to a sink only if they differ from the previous sent values by
-some user defined margin $ \epsilon $. So in comparison, TinyDB reports always
-the exact values asked for in a user query, while  Approximate-Caching is
-tweakable with error bounds and \textit{BBQ} is additionally configurable with
-\acp{CI}. Therefore, the acquisition costs of TinyDB were constant while
-\textit{BBQ} outperformed the other algorithms on high error margins ($
-\epsilon = 1 $) with acquisition costs being an order-of-magnitude lower than
-those of Approximate-Caching. As the authors themeselves point out,
-\textit{BBQ} is not suitable for anomaly detection, as for such a task constant
-sensor sampling is required.
+querying system in which the readings of sensor nodes are routed through the
+network and aggregated on the way to the sink. With Approximate-Caching, sensor
+nodes send their sensed values to a sink only if they differ from the previous
+sent values by some user defined margin $ \epsilon $. So in comparison, TinyDB
+reports always the exact values asked for in a user query, while
+Approximate-Caching is tweakable with error bounds and \textit{BBQ} is
+additionally configurable with \acp{CI}. Therefore, the acquisition costs of
+TinyDB were constant while \textit{BBQ} outperformed the other algorithms on
+high error margins ($ \epsilon = 1 $) with acquisition costs being an
+order-of-magnitude lower than those of Approximate-Caching. As the authors
+themeselves point out, \textit{BBQ} is not suitable for anomaly detection, as
+for such a task constant sensor sampling is required.
 \par
 Chu et al. tackle, i.a., this problem, in their work~\cite{chu2006approximate}.
 The presented algorithm, \textit{Ken} targets \textit{SELECT *} queries in
@@ -995,7 +1059,7 @@ The authors tested, i.a., the accuracy and and energy consumption of the
 approach in a simulated environment, with 528 nodes from which only 92 sent
 readings to the sink in the course of the experiment. The maximum error did not
 exceed 10, i.e. the distance between the value assigned to a silent node by the
-sink and the actual value. With introduction of network lossiness, 17 reading
+sink and the actual value. With introduction of network lossiness, 17 readings
 out of 92 are dropped on the way to the sink. In that case the maximum error
 was 20. Energy savings were compared against a centralized exact scheme on
 transmitting data, listening for neighbors data and receiving data. The
@@ -1013,22 +1077,22 @@ Another algorithm, which leverages contour mapping to generate maps of
 environmental phenomenons, is a paper by Solis et
 al.~\cite{solis2005efficient}. Similiar to the work of Meng et al., the
 algorithm suppresses the reporting of readings at nodes which are in the same
-isocluster, i.e. there is no isoline between them. An example is given in
-Fig.~\ref{fig:contour map}. The space between isolines is dependant on the
-application. Less space equals a higher data resolution, as more potential
-isolines are between nodes, at the expense of energy, as more readings are
-communicated. Readings are scheduled from the farthest leaf nodes (in the case
-of a tree topology) to the sink node, which makes additional energy
-conservation through shutting down the radio, possible. The authors indicate
-that additional temporal suppression is applicabble, as sensor nodes may only
-report a reading if that reading changed the isocluster. The authors evaluated
-their approach in a simulated environment against multiple other approaches,
-e.g. an aggregation scheme, in which data is aggregated at parent nodes into
-groups and the averages of the groups are sent further down the network. The
-other schemes were a centralized exact approach with and without additional
-temporal suppression. The authors found their approach outperfoming the other
-algorithms in energy savings and accuracy when constructing contour maps from
-sensor readings.
+isocluster, i.e. there is no isoline between them. An example of isolines in a
+contour map is given in Fig.~\ref{fig:contour map}. The space between isolines
+is dependant on the application. Less space equals a higher data resolution, as
+more potential isolines are between nodes, at the expense of energy, as more
+readings are communicated. Readings are scheduled from the farthest leaf nodes
+(in the case of a tree topology) to the sink node, which makes additional
+energy conservation through shutting down the radio, possible. The authors
+indicate that additional temporal suppression is applicabble, as sensor nodes
+may only report a reading if that reading changed the isocluster. The authors
+evaluated their approach in a simulated environment against multiple other
+approaches, e.g. an aggregation scheme, in which data is aggregated at parent
+nodes into groups and the averages of the groups are sent further down the
+network. The other schemes were a centralized exact approach with and without
+additional temporal suppression. The authors found their approach outperfoming
+the other algorithms in energy savings and accuracy when constructing contour
+maps from sensor readings.
 
 A paper by Silberstein et al.~\cite{silberstein2006constraint} presents a
 technique, \textit{Conch}, with which redundant reporting can be reduced even
@@ -1038,7 +1102,7 @@ values, i.e. when two sensor nodes differ significantly in their readings, but
 one reading can always be infered from the other one, no values should be sent.
 In \textit{Conch} a sensor node in a network has a set of sensor nodes from
 which it receives updates (updaters) and a set of nodes to which it sends
-updates to (reporters). A sensor node broadcasts its sensed values to to the
+updates to (reporters). A sensor node broadcasts its sensed values to the
 reporters if its new sensed values differs from the old sensed value by some
 margin. When a sensor node receives a value from an updater node, it computes
 the difference to its own sensed value. If no value is received, the sensor
@@ -1046,23 +1110,23 @@ node assumes no change has taken place. The base station monitors all
 differences between sensor nodes (called edges by the authors), so in the
 initialization all reporters send their edges to the base station. Some nodes
 are monitored directly and route their sensed values to the base station. At
-every timestep, which derives from a user set sampling frequency, the
-base station receives updated differences from reporting nodes and sensed values
+every timestep, which derives from a user set sampling frequency, the base
+station receives updated differences from reporting nodes and sensed values
 from directly monitored nodes. This enables the base station to compute the
 value of every sensor node at any timestep, if every node can be reached from a
 directly monitored node and the corresponding edges. The authors emphasize that
 \textit{Conch} is a monitoring algorithm; routing schemes are still used to
-route a report from a sensor node to the base station efficiently. The algorithm
-is flexible as the authors present ways to build \textit{Conch plans}, i.e.
-monitoring topologies, to focus on minimizing energy consumption or increase
-sensor node and message failure resilience. The authors tested their algorithm
-in different simulated environments against multiple algorithms, i.a. the
-scheme by Meng et al.~\cite{meng2004event}. The authors tested the performance
-of \textit{Conch} on, i.a. \acp{SN} with different sensor node densities,
-predictable increases of the observed value and outlier detection.
-\textit{Conch} outperforms all other schemes in terms of energy consumption at
-every test and only the scheme of Meng et al. exhibits similiar energy
-consumption levels with increasing sensor density.
+route a report from a sensor node to the base station efficiently. The
+algorithm is flexible as the authors present ways to build \textit{Conch
+plans}, i.e. monitoring topologies, to focus on minimizing energy consumption
+or increase sensor node and message failure resilience. The authors tested
+their algorithm in different simulated environments against multiple
+algorithms, i.a. the scheme by Meng et al.~\cite{meng2004event}. The authors
+tested the performance of \textit{Conch} on, i.a. \acp{SN} with different
+sensor node densities, predictable increases of the observed value and outlier
+detection. \textit{Conch} outperforms all other schemes in terms of energy
+consumption at every test and only the scheme of Meng et al. exhibits similiar
+energy consumption levels with increasing sensor density.
 
 % EAST. Algorithm basics. Uses a clustering algorithm in which the sensing area
 % is devided dynamically into cells. Cells consist of a coordinator (cluster
@@ -1083,24 +1147,22 @@ will also present possible combinations of algorithms which could inspire
 further reseach in the area of data sampling from sensor networks
 ~\ref{sec:Combination of Algorithms}.
 
-% \subsection{Related Algorithms}
-% \label{sec:Other Algorithms}
-
 We decided to include routing and topology control as additional classes of
 algorithms in \acp{SN}, because all of the schemes described in the taxonomy
 use (e.g.~\cite{padhy2006utility}) or presume
 (e.g.~\cite{silberstein2006constraint}) some routing and topology control
-scheme. There already exist multiple exhaustive surveys on topology
-control~\cite{aziz2013survey, li2013survey} and routing~\cite{al2004routing,
-pantazis2013energy, singh2010routing}. We will nevertheless show some examples
-of routing and topology control algorithms ...
+scheme. Multiple exhaustive surveys on topology control~\cite{aziz2013survey,
+li2013survey} and routing~\cite{al2004routing, pantazis2013energy,
+singh2010routing} exist already. We will nevertheless show some examples of
+routing and topology control algorithms, as this will grant a better overview
+of the challanges of data sampling in \acp{SN}.
 
 % Ideas: Introduce the following subsections and why we chose to include
 % routing and topology building algorithms into the paper but not into the
 % taxonomy. E.g. Many of the algorithms in the taxonomy use or presume routing
 % and topology building algorithms. Mainly from an energy consumption point of
-% view, tree topologies in which nodes closer to the sink/base station have more
-% child nodes (i.e. connections to other sensor for which they route the
+% view, tree topologies in which nodes closer to the sink/base station have
+% more child nodes (i.e. connections to other sensor for which they route the
 % information further up the network) need some kind of aggregation mechanisms,
 % or such nodes run out of energy faster than other nodes (if you need to cite
 % then~\cite{li2013survey}). This will lead to connectivity issues, as the sink
@@ -1427,16 +1489,33 @@ have to communicate in their local segments.
 % algorithms as it is a framework which has filtering and sampling techniques
 % additionally, in the experiments the authors compared their framework i.a.
 % against L-SIP which is a model based scheme
-A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides
+
+In this section, we will present possible combinations of algorithms presented
+in this thesis. Also, we will present schemes, which employ techniques
+categorized by us as different classes. As most of the algorithms presented
+focus only on a specific area of data gathering in sensor networks, they are
+not able to function without a routing scheme or topology control. For example,
+Srbinovski et al.~\cite{srbinovski2016energy} focus entirely on their adaptive
+sampling algorithm, while Padhy et al.~\cite{padhy2006utility} present a
+routing scheme \textit{and} an adaptive sampling scheme. To utilize the
+algorithm of Srbinovski et al. in an \ac{SN}, a routing technique and topology
+control schemes are needed. We will not discuss such combinations ...
+
+Trihinas et al.~\cite{trihinas2015adam} present \textit{AdAM}, a framework
+which incorporates a sampling \textit{and} a filtering algorithm. With
+\textit{AdAM} running on sensor nodes, 
+
+
+A more recent paper from Trihinas et al.~\cite{trihinas2015adam} provides a
 framework for finding a sampling rate which optimizes the tradeoff between
-energy consumption and quality of data. The framework was implemented in java
-with no external dependencies. The algorithm estimates a metric stream $ M $ to
-reduce the number of sampling periods when the metric stream does not fluctuate
-and vice versa. A sampling period $ T_i $ is computed by estimating the metric
-stream evolution. The authors use a \ac{PEWMA} to produce an estimated metric
-stream $ M' $. The \ac{PEWMA} is a Variation of \ac{EWMA} which provides a
-one-step ahead estimation. The authors state that \ac{PEWMA} is more robust
-against abrunt transient changes in the metric evoultion than \ac{EWMA}.
+energy consumption and quality of data. The algorithm estimates a metric stream
+$ M $ to reduce the number of sampling periods when the metric stream does not
+fluctuate and vice versa. A sampling period $ T_i $ is computed by estimating
+the metric stream evolution. The authors use a \ac{PEWMA} to produce an
+estimated metric stream $ M' $. The \ac{PEWMA} is a Variation of \ac{EWMA}
+which provides a one-step ahead estimation. The authors state that \ac{PEWMA}
+is more robust against abrunt transient changes in the metric evoultion than
+\ac{EWMA}.
 
 When $ M' $ differs from $ M $ by a user specified imprecision value $
 \gamma $, then $ T_i $ is increased to a maximum sampling period $ T_{max}
