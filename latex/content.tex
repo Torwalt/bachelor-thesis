@@ -143,7 +143,7 @@ The contributions of this thesis go as follows:
     \item We present a catalog of different sampling algorithms for sensor data
     gathering. We classify the sampling techniques in a taxonomy for a compact
     overview of the field of data sensing in \acp{SN}.
-    \item We present relevant information for each algorithm. We define
+    \item We present relevant information for each algorithm. We summarize
     relevant information as:
 
         \begin{itemize}
@@ -252,6 +252,15 @@ terms used in this paper, aswell.
     \item[\ac{MAC}-Protocol]
         
 
+    \item[Overhead]
+        
+
+    \item[Control Message]
+        
+
+    \item[Neighboring Sensor Node]
+        
+
     \item[Single-Hop, Multi-Hop]
         Multi-hop routing usually refers to sensor networks in which sensor
         nodes do not communicate directly to sink, but to a neighboring sensor
@@ -314,16 +323,17 @@ terms used in this paper, aswell.
         stream would be stored at each point in time, on which additional
         filtering would be applied. 
 
-    \item[Stream Sampling, Reservoir Sampling]
+    \item[Stream Sampling]
         Another distinction we would like to make is stream sampling and
         reservoir sampling. Lahiri et al.~\cite{Lahiri2009} define stream
         sampling as "the process of collecting a representative sample of the
         elements of a data stream". The authors further elaborate that stream
         sampling differs from conventional sampling in that data which is not
-        sampled when it arrives, is lost.
+        sampled when it arrives, is lost. \textit{Reservoir Sampling} is an
+        instance of stream sampling. 
 
-        % QUESTION the sources refers to reservoir sampling as an ealy stream
-        % sampling algorithm.
+        % TODO Reservoir Sampling definition finden und zu stream sampling
+        % abgrenzen
 
     \item[Sampling Rate, Sampling Frequency]
         The federal agencies digital guidelines initiative defines sampling
@@ -355,33 +365,93 @@ high speeds.
 
 We selected the algorithms the taxonomy based on the following criteria:
 
-        \begin{itemize}
-            \item Algorithms which are associated with each other.
-            \begin{itemize}
-                \item It is interesting to see, how an algorithm evolves, as
-                authors expand on an algorithm or incorporate ideas from that
-                algorithm into their own work.
-            \end{itemize}
-            \item Algorithms which highlight different design areas of \acp{SN}
-            \begin{itemize}
-                \item For example, Jain et al.~\cite{jain2004adaptive} concern
-                themselves with wired sensor networks, while Srbinovski et
-                al.~\cite{srbinovski2016energy} design their algorithm for
-                \acp{RSN}. We found diversity in the use cases important.
-            \end{itemize}
-            \item Algorithms which employ techniques from other areas than
-            distributed systems. 
-            \begin{itemize}
-                \item In our opinion the most representative example is
-                \textit{compressive sampling} which uses findings from the
-                domain of signal processing to greatly reduce data sent through
-                the network.
-            \end{itemize}
-        \end{itemize}
-
+\begin{itemize}
+    \item Algorithms which are associated with each other.
+    \begin{itemize}
+        \item It is interesting to see, how an algorithm evolves, as
+        authors expand on an algorithm or incorporate ideas from that
+        algorithm into their own work.
+    \end{itemize}
+    \item Algorithms which highlight different design areas of \acp{SN}
+    \begin{itemize}
+        \item For example, Jain et al.~\cite{jain2004adaptive} concern
+        themselves with wired sensor networks, while Srbinovski et
+        al.~\cite{srbinovski2016energy} design their algorithm for
+        \acp{RSN}. We found diversity in the use cases important.
+    \end{itemize}
+    \item Algorithms which employ techniques from other areas than
+    distributed systems. 
+    \begin{itemize}
+        \item In our opinion the most representative example is
+        \textit{compressive sampling} which uses findings from the
+        domain of signal processing to greatly reduce data sent through
+        the network.
+    \end{itemize}
+\end{itemize}
 
 \subsection{Evaluation Metrics}
 \label{sec:Evaluation Metrics}
+
+To provide a better overview of the presented algorithms, we summerized our
+findings in table~\ref{table:algorithm table}. Each algorithm is described by a set
+of properties:
+
+\begin{description}
+    \item[Assumptions]
+        The algorithms presented in the taxonomy assume specific characteristcs
+        of a sensor network they are deployed in or a signal they observe. We
+        sum up the main assumption of an algorithm in the table. We define the
+        main assumption as a prerequisite, without which the algorithm cannot
+        perform the way the authors of the algortihm intended.
+    \item[Advantages]
+        We present the advantages of an algorithm as the authors define them.
+        Given that many of the presented algorithms position themselves as
+        energy efficient, we do not include energy efficiency as an advantage.
+        Rather, we include algorithm traits which make an algortihm stand out
+        more in its strenghts. However, the presented traits are not distinct,
+        as algorithms, especially from the same category, share strenghts and
+        weaknesses (e.g., \ac{EDCA} and \ac{STCDG} share many properties, as
+        \ac{STCDG} is an extension of \ac{EDCA}).
+    \item[Limitations]
+        Similiar to the advantages, we include limitations of algorithms as the
+        authors or authors of other work define them. 
+        
+        % Limitations can be in terms of use cases, i.e. an algorithm is not
+        % suitable for large-scale sensor networks, or 
+    \item[Communication Overhead]
+        We added communication overhead as an algorithm property, because
+        overhead generated by communication between nodes or the base station
+        concerns all types of networks. Overhead, e.g. control messages sent by
+        a server to a sensor node, demands allocation of bandwidth ...We define
+        different levels of communication overhead:
+
+        % TODO justify why you decided to take in communication overhead
+
+        \begin{itemize}
+            \item \textit{Low}. A low communication overhead is present, if
+            sensor nodes work autonomously, i.e. no control messages are sent
+            by the server, after an initial "set-up" phase in which a server
+            configures parameters at sensor nodes. Communication between nodes
+            is limited to multi-hop routing.
+
+            \item \textit{Medium}. Algorithms with a medium communication
+            overhead allow sensor nodes to work independantly from one another,
+            with the exception of communicating to neighboring sensor nodes.
+
+            \item \textit{High}. High communication overhead is present, if
+            algorithms require the server to periodically make adjustments to
+            the configuration of sensor nodes or the network in general.
+        \end{itemize}
+
+        The communication overhead of algorithms, which are "in between" a
+        level, is elaborated on in the taxonomy.
+
+        The properties of the algorithms presented in the table, with the
+        exception of \textit{communication overhead}, are statements from the
+        authors of the algorithm or analysis of other authors.
+
+\end{description}
+
 
 \section{Taxonomy}
 \label{sec:Taxonomy}
@@ -408,9 +478,6 @@ level and are applied before data is sent to data consumers.
 \subsection{Overview}
 \label{sec:Overview}
 
-% TODO: Reasoning for classifying in such a way. Justify
-% thesis title and why filtering algorithms are included.
-
 We visualize our taxonomy in Fig.~\ref{fig:Taxonomy}.
 
 \begin{figure}[h]
@@ -433,7 +500,7 @@ algorithm has no name, the authors are referenced instead.
     \begin{tabular} { |p{3.5cm}||p{3cm}|p{3cm}|p{3cm}|p{2.5cm}| }
 
     \hline
-    Algorithm& Assumptions & Advantages & Limitations & Overhead\\
+    Algorithm& Assumptions & Advantages & Limitations & Message Overhead\\
     \hline
 
     \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and temporal
@@ -443,9 +510,9 @@ algorithm has no name, the authors are referenced instead.
     Jain et al.~\cite{jain2004adaptive} & Sensor data is streamed continiously &
     Important data gets more bandwidth & Only Single-hop \acp{SN} & High\\
 
-    \textit{USAC}~\cite{padhy2006utility}& Fix number of sensor nodes &
-    Static confidence interval~\cite{kho2007decentralised} & Captures sudden
-    changes in data & Medium\\
+    \textit{USAC}~\cite{padhy2006utility}& Fix number of sensor nodes & Captures
+    sudden changes in data & Static confidence
+    interval~\cite{kho2007decentralised} & Medium\\
 
     \textit{EASA}~\cite{srbinovski2016energy}& Sensing consumes more energy
     than communicating & Adaptive to energy levels & Complex computation &
@@ -456,10 +523,16 @@ algorithm has no name, the authors are referenced instead.
     scale \acp{SN} & Medium - High\\
 
     \textit{EDCA}~\cite{cheng2010efficient}& matrix of collected exhibits
-    low-rank feature & Robust against packet loss & Test & Test\\
+    low-rank feature & Robust against packet loss & Empty columns reduce
+    recovery accuracy~\cite{cheng2013stcdg} & Low\\
 
-    \textit{STCDG}~\cite{cheng2013stcdg}& Test & Test & Test & Test\\
-    \textit{BBQ}~\cite{deshpande2004model}& Test & Test & Test & Test\\
+    \textit{STCDG}~\cite{cheng2013stcdg}& low rank and short term stability of
+    matrix & Adaptible since independent of \ac{SN}-type & Not suitable for
+    small scale \acp{SN}~\cite{yi2015partial} & Low\\
+
+    \textit{BBQ}~\cite{deshpande2004model}& Test &  & Not suitable for
+    anomaly detection & Test\\
+
     \textit{Ken}~\cite{chu2006approximate}& Test & Test & Test & Test\\
     \textit{ASAP}~\cite{gedik2007asap}& Test & Test & Test & Test\\
     Jiang et al.~\cite{jiang2011prediction}& Test & Test & Test & Test\\
@@ -480,9 +553,9 @@ The first category of our taxonomy incorporates all algorithms which primary
 focus lies on manipulating the sampling rate of one or multiple sensor nodes to
 reduce network utilization. Although there are algorithms from other categories
 which also may incorporate manipulations to the sensing/sampling rates of
-sensor nodes (e.g.~\cite{trihinas2015adam}), we include algorithms to the
-Sampling Algorithms category only if the main focus of the work lies on
-sampling rate manipulation. 
+sensor nodes (e.g.~\cite{trihinas2015adam, chatterjea2008adaptive}), we include
+algorithms to the Sampling Algorithms category only if the main focus of the
+work lies on sampling rate manipulation. 
 
 % TODO add two other references of papers which are not in the category
 % adaptive sampling but use a sampling scheme
@@ -824,17 +897,18 @@ lab~\cite{labdata} and a synthetic dataset. With the real world data, the
 authors tested the accuracy of \ac{EDCA} while using different sampling ratios
 for the 54 sensor nodes. The authors could only observe small recovery errors.
 With a sampling ratio of 0.2, i.e. every fifth sensed value is transmitted, the
-standard deviation $ \sigma $ was $ < 0.15°C $. % Reread that, as in stcdg,
-edca does not perform that well With the synthetic data set, the authors
-compared \ac{EDCA} with a naive scheme, in which all sensed data points are
-sent to the sink, on network lifetime. The lifetime of a sensor network is
-defined by the authors as "the time duration of the first sensor node which
-runs out of power". The lifetime ratio is defined as $ (1/M_{max}) / (1/M_0) $
-where $ M_{max} $ is "the maximum power wasted [...] on every simulation using
-\ac{EDCA}" and $ M_0 $ the power wasted by the naive scheme. The authors found
-the lifetime ratio to be 5 when having a sampling ratio of 0.2, increasing the
-lifetime of a network fivefold in comparison to the naive scheme.
+standard deviation $ \sigma $ was $ < 0.15°C $. With the synthetic data set,
+the authors compared \ac{EDCA} with a naive scheme, in which all sensed data
+points are sent to the sink, on network lifetime. The lifetime of a sensor
+network is defined by the authors as "the time duration of the first sensor
+node which runs out of power". The lifetime ratio is defined as $ (1/M_{max}) /
+(1/M_0) $ where $ M_{max} $ is "the maximum power wasted [...] on every
+simulation using \ac{EDCA}" and $ M_0 $ the power wasted by the naive scheme.
+The authors found the lifetime ratio to be 5 when having a sampling ratio of
+0.2, increasing the lifetime of a network fivefold in comparison to the naive
+scheme.
 
+% TODO Reread the experimental part
 
 \par
 
@@ -1563,16 +1637,17 @@ have to communicate in their local segments.
 % additionally, in the experiments the authors compared their framework i.a.
 % against L-SIP which is a model based scheme
 
-In this section, we will present possible combinations of algorithms presented
-in this thesis. Also, we will present schemes, which employ multiple techniques
-categorized by us as different classes. As most of the algorithms presented
-focus only on a specific area of data gathering in sensor networks, they are
-not able to function without a routing scheme or topology control. For example,
-Srbinovski et al.~\cite{srbinovski2016energy} focus entirely on their adaptive
-sampling algorithm, while Padhy et al.~\cite{padhy2006utility} present a
-routing scheme \textit{and} an adaptive sampling scheme. To utilize the
+In this section, we will present possible combinations of algorithms showcased
+in this thesis. Additionall, we will present schemes, which employ multiple
+techniques categorized by us as different classes. As most of the algorithms
+presented focus only on a specific area of data gathering in sensor networks,
+they are not able to function without a routing scheme or topology control. For
+example, Srbinovski et al.~\cite{srbinovski2016energy} focus entirely on their
+adaptive sampling algorithm, while Padhy et al.~\cite{padhy2006utility} present
+a routing scheme \textit{and} an adaptive sampling scheme. To utilize the
 algorithm of Srbinovski et al. in an \ac{SN}, a routing technique and topology
-control schemes are needed. We will not discuss such combinations ...
+control schemes are needed. We will not discuss such combinations as they are
+application specific and would go beyond the scope of this thesis.
 
 % TODO combinations with routing and topology control or only with algorithms
 % from taxonomy?
@@ -1646,7 +1721,7 @@ to the scheme of Chatterjea et al. is the additional clustering of the nodes.
 
 The authors of the \textit{Conch} algorithm point
 out~\cite{silberstein2006constraint}, that their scheme can be used in
-combination with prediction scheme like \textit{Ken}~\cite{jain2004adaptive}.
+combination with a prediction scheme like \textit{Ken}~\cite{jain2004adaptive}.
 Similiar to \textit{ASAP}, \textit{Ken} could predict values of cluster members
 at cluster heads and route values to the sink if the prediciton is not accurate
 enough. The \textit{Conch} scheme could then be used in a multi-hop sensor
