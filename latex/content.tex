@@ -141,7 +141,8 @@ present in sensor data sampling.
 The contributions of this thesis go as follows: 
 \begin{enumerate}
     \item We present a catalog of different sampling algorithms for sensor data
-    gathering. We classify the sampling techniques in a taxonomy for a compact
+    gathering.
+    \item We classify the sampling techniques in a taxonomy for a compact
     overview of the field of data sensing in \acp{SN}.
     \item We present relevant information for each algorithm. We summarize
     relevant information as:
@@ -152,13 +153,18 @@ The contributions of this thesis go as follows:
             \item Experimental results of the algorithm and how it compares to others
             \item Use case(s)
             \item Advantages and limitations of the algorithm
-            % \item Compatibility of the algorithms with other techniques
         \end{itemize}
 
-    \item We provide the basis for further research by presenting combinations
-    of different algorithms.
-    % TODO Add quantifiable point, e.g. number of algorithms presented and what we derived from it
-    % We present 14 algorithms from the field of data sampling and 5 related algorithms, i.e. from routing and topology control
+% TODO Maybe Add communication overhead here, too
+
+    \item We present additional algorithms from the area of \textit{routing}
+    and \textit{topology building}
+
+    % TODO Add quantifiable point, e.g. number of algorithms presented and what
+    % we derived from it We present 14 algorithms from the field of data
+    % sampling and 5 related algorithms, i.e. from routing and topology
+    % control. We additionally present 2 algorithms which combine techiques
+    % from sampling and filtering.
 \end{enumerate}
 
 
@@ -214,20 +220,20 @@ different terms to differentiate concepts. In the following paragraphs, we,
 i.a. discuss the definitions of data collection, data sampling, data gathering,
 and data sensing. We include this subsection, because we need to clarify the
 terminology in order to be precise in the following sections. We define other
-terms used in this paper, aswell.
+terms used in this paper, aswell. We generally follow the definitions listed in
+this section. For terms which we identify as synonyms, we decide for one term
+and use this term throughout the thesis.
 
 \begin{description}
 
     \item[Data Stream]
         Hirzel et al.~\cite{hirzel2014catalog} define data streams as "a
-        conceptually infinite sequence of data items". We follow that
-        definition in this thesis.
-% TODO find better formulation than "follow that definiton"
+        conceptually infinite sequence of data items".
+
     \item[Network Utilization]
         The standards for technology in automotive retail organization define
         network utilization as "the amount of traffic on the network compared
-        to the peak amount that the network can support"~\cite{networkutil}. We
-        follow that definition in this thesis.
+        to the peak amount that the network can support"~\cite{networkutil}.
 
     \item[Sensor Node]
         Healy et al.~\cite{healy2008wireless} define sensor nodes as a "[...]
@@ -235,6 +241,9 @@ terms used in this paper, aswell.
         Sensor nodes usually consist of a processing unit, a communication
         device (sometimes called radio in this thesis), and a sensing
         unit~\cite{akyildiz2002wireless}.
+
+    \item[Sensor Reading]
+        
 
     \item[Base Station, Fusion Center, Sink, Sink Node]
         Base station~\cite{padhy2006utility}, fusion
@@ -247,13 +256,32 @@ terms used in this paper, aswell.
         scheme~\cite{luo2009compressive} and naive
         scheme~\cite{cheng2010efficient} all refer to a scheme in which sensor
         nodes report their sensor readings each $ t $ time units without any
-        suppression. 
+        suppression.
+
+    \item[\ac{MAN}]
+        The \ac{IEEE} defines \ac{MAN} as "a computer network, extending over a
+        large geographical area such as an urban area and providing integrated
+        communication services such as data, voice, and video"~\cite{ieee802}.
+
+    \item[\ac{LAN}]
+        The \ac{IEEE} defines \ac{MAN} as "a computer network, located on a
+        user’s premises, within a limited geographical area".~\cite{ieee802}.
 
     \item[\ac{MAC}-Protocol]
-        
+        The \ac{IEEE} defines the \ac{MAC}-protocol as "The protocol that
+        governs access to the transmission medium in a LAN or MAN, to enable
+        the exchange of data between \ac{LAN} or \ac{MAN}
+        stations"~\cite{ieee802}. This definition is also applicabble to
+        \acp{SN}, where the \ac{MAC}-Protocol "coordinates nodes' access to the
+        shared wireless medium"~\cite{kredo2007hybrid}.
 
     \item[Overhead]
-        
+        Kabara et al. define [Control Frames] Overhead as "All frames
+        containing protocol information and not application data. Energy for
+        transmitting and receiving these frames is considered to be
+        wasted"~\cite{kabara2012mac}. We denominate control frames overhead as
+        message overhead or just overhead in the thesis for reasons of
+        breivity.
 
     \item[Control Message]
         
@@ -418,37 +446,38 @@ of properties:
         
         % Limitations can be in terms of use cases, i.e. an algorithm is not
         % suitable for large-scale sensor networks, or 
-    \item[Communication Overhead]
-        We added communication overhead as an algorithm property, because
-        overhead generated by communication between nodes or the base station
+    \item[Message Overhead]
+        We added message overhead as an algorithm property, because overhead
+        generated through communication between nodes or the base station
         concerns all types of networks. Overhead, e.g. control messages sent by
         a server to a sensor node, demands allocation of bandwidth ...We define
-        different levels of communication overhead:
+        different levels of message overhead:
 
         % TODO justify why you decided to take in communication overhead
 
         \begin{itemize}
-            \item \textit{Low}. A low communication overhead is present, if
+            \item \textit{Low}. A low message overhead is present, if
             sensor nodes work autonomously, i.e. no control messages are sent
             by the server, after an initial "set-up" phase in which a server
             configures parameters at sensor nodes. Communication between nodes
             is limited to multi-hop routing.
 
-            \item \textit{Medium}. Algorithms with a medium communication
-            overhead allow sensor nodes to work independantly from one another,
-            with the exception of communicating to neighboring sensor nodes.
+            \item \textit{Medium}. Algorithms with a medium message overhead
+            allow sensor nodes to work independantly from one another, with the
+            exception of communicating to neighboring sensor nodes.
 
-            \item \textit{High}. High communication overhead is present, if
+            \item \textit{High}. High message overhead is present, if
             algorithms require the server to periodically make adjustments to
             the configuration of sensor nodes or the network in general.
         \end{itemize}
 
-        The communication overhead of algorithms, which are "in between" a
-        level, is elaborated on in the taxonomy.
+        The message overhead of an algorithm, which is "in between" a level, is
+        elaborated on in the taxonomy.
 
         The properties of the algorithms presented in the table, with the
         exception of \textit{communication overhead}, are statements from the
-        authors of the algorithm or analysis of other authors.
+        authors of the algorithm or analysis of other authors. If no reference
+        is given, then the statement is from the author of the algorithm.
 
 \end{description}
 
@@ -458,14 +487,14 @@ of properties:
 
 In this section we present our taxonomy of sampling algorithms for \acp{SN}. We
 classify algorithms into two categories: \catI (Section~\ref{sec:catI}) and
-\catII (Section~\ref{sec:catII}). %  and \catIII (Section~\ref{sec:catIII}).
-\catI are all algorithms which prevent the \textit{sampling} of redundant data.
-This is achieved at sensor node level, manipulating the sampling rate to
-capture all relevant information from a data stream produced by a sensor. In
-contrast, \catII focus on suppressing already sampled data by utilizing spatial
-and temporal correlations between sampled values. We decided to include \catII
-into the taxonomy, as filtering and sampling both take place at the sensor node
-level and are applied before data is sent to data consumers.
+\catII (Section~\ref{sec:catII}). \catI are all algorithms which prevent the
+\textit{sampling} of redundant data. This is achieved at sensor node level,
+manipulating the sampling rate to capture all relevant information from a data
+stream produced by a sensor. In contrast, \catII focus on suppressing already
+sampled data by utilizing spatial and temporal correlations between sampled
+values. We decided to include \catII into the taxonomy, as filtering and
+sampling both take place at the sensor node level and are applied before data
+is sent to data consumers.
 
 % TODO Think about other points.
 
@@ -497,50 +526,60 @@ algorithm has no name, the authors are referenced instead.
 
 \begin{table}[h]
 \caption{Table of presented Algorithms \label{table:algorithm table}}
-    \begin{tabular} { |p{3.5cm}||p{3cm}|p{3cm}|p{3cm}|p{2.5cm}| }
+    % \begin{adjustbox}{angle=90}
 
-    \hline
-    Algorithm& Assumptions & Advantages & Limitations & Message Overhead\\
-    \hline
+        \begin{tabular} { |p{3.5cm}||p{3cm}|p{3cm}|p{3cm}|p{2.5cm}| }
 
-    \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and temporal
-    correlation of signal & Random sensor deployment & Premature death of
-    cluster heads & medium\\
+        \hline
+        Algorithm & Assumptions & Advantages & Limitations & Message Overhead\\
+        \hline
 
-    Jain et al.~\cite{jain2004adaptive} & Sensor data is streamed continiously &
-    Important data gets more bandwidth & Only Single-hop \acp{SN} & High\\
+        \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and temporal
+        correlation of signal & Random sensor deployment & Premature death of
+        cluster heads & High\\
 
-    \textit{USAC}~\cite{padhy2006utility}& Fix number of sensor nodes & Captures
-    sudden changes in data & Static confidence
-    interval~\cite{kho2007decentralised} & Medium\\
+        Jain et al.~\cite{jain2004adaptive} & Sensor data is streamed
+        continiously & Important data receives more bandwidth & Only Single-hop
+        \acp{SN} & High\\
 
-    \textit{EASA}~\cite{srbinovski2016energy}& Sensing consumes more energy
-    than communicating & Adaptive to energy levels & Complex computation &
-    High\\
+        \textit{USAC}~\cite{padhy2006utility}& Fix number of sensor nodes &
+        Captures sudden changes in data & Static confidence
+        interval~\cite{kho2007decentralised} & Low\\
 
-    \textit{CDG}~\cite{luo2009compressive}& Knowledge of domain in which
-    observed signal is k-sparse & Low packet loss & Not suitable for small
-    scale \acp{SN} & Medium - High\\
+        \textit{EASA}~\cite{srbinovski2016energy}& Sensing consumes more energy
+        than communicating & Adaptive to energy levels & Complex computation &
+        High\\
 
-    \textit{EDCA}~\cite{cheng2010efficient}& matrix of collected exhibits
-    low-rank feature & Robust against packet loss & Empty columns reduce
-    recovery accuracy~\cite{cheng2013stcdg} & Low\\
+        \textit{CDG}~\cite{luo2009compressive}& Knowledge of domain in which
+        observed signal is k-sparse & Low packet loss & Not suitable for small
+        scale \acp{SN} & Low\\
 
-    \textit{STCDG}~\cite{cheng2013stcdg}& low rank and short term stability of
-    matrix & Adaptible since independent of \ac{SN}-type & Not suitable for
-    small scale \acp{SN}~\cite{yi2015partial} & Low\\
+        \textit{EDCA}~\cite{cheng2010efficient}& Matrix of collected exhibits
+        low-rank feature & Robust against packet loss & Empty columns reduce
+        recovery accuracy~\cite{cheng2013stcdg} & Low\\
 
-    \textit{BBQ}~\cite{deshpande2004model}& Test &  & Not suitable for
-    anomaly detection & Test\\
+        \textit{STCDG}~\cite{cheng2013stcdg}& low rank and short term stability of
+        matrix & Adaptible since independent of \ac{SN}-type & Not suitable for
+        small scale \acp{SN}~\cite{yi2015partial} & Low\\
 
-    \textit{Ken}~\cite{chu2006approximate}& Test & Test & Test & Test\\
-    \textit{ASAP}~\cite{gedik2007asap}& Test & Test & Test & Test\\
-    Jiang et al.~\cite{jiang2011prediction}& Test & Test & Test & Test\\
-    Meng et al.~\cite{meng2004event}& Test & Test & Test & Test\\
-    Solis et al.~\cite{solis2005efficient}& Test & Test & Test & Test\\
-    \textit{Conch}~\cite{silberstein2006constraint}& Test & Test & Test & Test\\
-    \hline
-    \end{tabular}
+        \textit{BBQ}~\cite{deshpande2004model}& Slow topology change & Exploits
+        correlation between sensor and voltage levels & Not suitable for
+        anomaly detection & Low\\
+
+        \textit{Ken}~\cite{chu2006approximate}& Slow topology
+        change~\cite{gedik2007asap} & Suitable for anomaly detection &
+        Prediction Models constructed at sink~\cite{gedik2007asap}  &
+        Medium-High~\cite{gedik2007asap}\\
+
+        \textit{ASAP}~\cite{gedik2007asap}& Test & Test & Test & Test\\
+
+        Jiang et al.~\cite{jiang2011prediction}& Test & Test & Test & Test\\
+        Meng et al.~\cite{meng2004event}& Test & Test & Test & Test\\
+        Solis et al.~\cite{solis2005efficient}& Test & Test & Test & Test\\
+        \textit{Conch}~\cite{silberstein2006constraint}& Test & Test & Test & Test\\
+        \hline
+        \end{tabular}
+    % \end{adjustbox}
 \end{table}
 
 \FloatBarrier
@@ -584,6 +623,7 @@ Trihinas et al.~\cite{trihinas2015adam} define adaptive sampling as:
 \end{quote}
 
 \par
+\textit{1) Backcasting:}
 Although the quote is from 2015, the idea of adaptive sampling goes back to the
 2000s. One technique called \textit{Backcasting} was presented by Willet et
 al.~\cite{willett2004backcasting}. The key idea of the work is that a monitored
@@ -609,6 +649,7 @@ phenomenon.
 
 \par
 
+\textit{2) Jain et al.:}
 Another technique, also from 2004, was published by Jain et
 al.~\cite{jain2004adaptive}. The authors main contribution is an algorithm to
 change the sampling rate of individual sensor nodes in a stream sensor network
@@ -779,11 +820,11 @@ sensor nodes to maximize the lifetime of the network. This is achieved by
 reducing the datatraffic in a network by compressing data readings at each hop.
 This would lead to $ M $ messages arriving at the sink from $ N $ sensor nodes,
 where $ M << N $. The sink broadcasts a random seed to the network with which
-each sensor node can generate, together with its own identificator, a local
-seed. Sensor nodes then use the local seed to generate a random coefficient $
-\phi_i $ which they transmit together with their sensor reading $ d_i $ to
-their parent node. Parent nodes receive readings from their child nodes and sum
-up the input with their own $ d $ and $ \phi $. Therefore, every sensor node
+each sensor node can generate, together with its own identifier, a local seed.
+Sensor nodes then use the local seed to generate a random coefficient $ \phi_i
+$ which they transmit together with their sensor reading $ d_i $ to their
+parent node. Parent nodes receive readings from their child nodes and sum up
+the input with their own $ d $ and $ \phi $. Therefore, every sensor node
 transmits only one value. This ensures the sink node receives $ M $ weighted
 sums $ y $, which consist of a matrix of the random coefficients, $ \Phi $ and
 all sensor readings \textbf{d}:
@@ -1038,6 +1079,7 @@ order-of-magnitude lower than those of Approximate-Caching. As the authors
 themeselves point out, \textit{BBQ} is not suitable for anomaly detection, as
 for such a task constant sensor sampling is required.
 \par
+\textit{9) Ken:}
 Chu et al. tackle, i.a., this problem, in their work~\cite{chu2006approximate}.
 The presented algorithm, \textit{Ken} targets \textit{SELECT *} queries in
 which all values are requested from all sensor nodes. No data reduction takes
@@ -1045,32 +1087,34 @@ place and such queries are thus expensive regarding energy consumption through
 communication. \textit{Ken} operates using a prediction model which is
 synchronized at the sink and at sensor nodes. Users query the sensor network
 with frequency and error interval arguments, e.g. values from all sensor nodes
-every f seconds with an error margin of $ \pm\epsilon $. A sensor node collects
-values and checks if the sink node is able to predict the collected values
-correctly within $ \pm\epsilon $. If the values lie within the interval, the
-sensor node suppresses its reading. In the other case, the sensor node pushes
-its values down the network to the sink node. The models at the sink node use
-the new values to \textit{resynchronize} its model with the model at the sensor
-nodes. In a multihop \ac{SN}, additional compression based on spatial
-correlation can take place at different hops. To enable compression based on
-spatial correlation, the authors propose a clustering scheme in which there are
-multiple sink nodes which communicate with the base station. This reduces
-communication overhead, as sensor readings do not have to be stored in one
-central place in the network. Each sink node maintains a synchronized
-prediciton model with its child nodes. Additionally, the base station maintains
-synchronized prediciton models with the sink nodes. Such a structure is
-depicted in Fig.~\ref{fig:cluster Chu}. To find such clustering groups, the
-authors, i.a., present a heuristic approach, in which sensor nodes are assigned
-to a sink node by its data reduction factor, i.e. a performance indicator for
-the prediciton model. The authors evaluated their approach on two real world
-datasets with small, fixed amount of sensors (one with 11 and the other with 49
-sensors). \textit{Ken} was tested with the clustering technique and with an
-average model, in which predictions are made with the average of all sensed
-values and no clusters are build. The authors came to the conclusion, that
-\textit{Ken} performs better with the clustering scheme, when the communication
-costs to the base station are many times higher than to a neighbor. This
-advantage recedes if there are a lot of outliers which the model cannot
-predict.
+every $ f $ seconds with an error margin of $ \pm\epsilon $. A sensor node
+collects values and checks if the sink node is able to predict the collected
+values correctly within $ \pm\epsilon $. If the values lie within the interval,
+the sensor node suppresses its reading. In the other case, the sensor node
+pushes its values down the network to the sink node. The models at the sink
+node use the new values to \textit{resynchronize} its model with the model at
+the sensor nodes. In a multihop \ac{SN}, additional compression based on
+spatial correlation can take place at different hops. To enable compression
+based on spatial correlation, the authors propose a clustering scheme in which
+there are multiple clusters of sensor nodes with a cluster head each that
+communicates with the base station. This reduces communication overhead, as
+sensor readings do not have to be stored in one central place in the network.
+Each cluster head maintains a synchronized prediciton model with its child
+nodes. Additionally, the base station maintains synchronized prediciton models
+with the cluster heads. Such a structure is depicted in Fig.~\ref{fig:cluster
+Chu}. To find such clustering groups, the authors, i.a., present a heuristic
+approach, in which sensor nodes are assigned to a cluster head by its data
+reduction factor, i.e. a performance indicator for the prediciton model. The
+cluster formation algorithm is run at the sink, which induces some
+communication overhead if new clusters have to be formed. The authors evaluated
+their approach on two real world datasets with small, fixed amount of sensors
+(one with 11 and the other with 49 sensors). \textit{Ken} was tested with the
+clustering technique and with an average model, in which predictions are made
+with the average of all sensed values and no clusters are build. The authors
+came to the conclusion, that \textit{Ken} performs better with the clustering
+scheme, when the communication costs to the base station are many times higher
+than to a neighbor. This advantage recedes if there are a lot of outliers which
+the model cannot predict.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{images/ken-clustering.png}
@@ -1162,11 +1206,6 @@ that their algorithm is not focussed on cluster creation. Algorithms like
 \textit{ASAP} can be used to create clusters and cycle cluster heads.
 
 \subsubsection{Adaptive Filtering}
-
-% Possible delimitation to model based schemes: Rich Spatio-temporal models are
-% often not fesiable to run on energy constraint nodes source: Energy-Efﬁcient
-% Data Aggregation Techniques for Exploiting Spatio-Temporal Correlations in
-% Wireless Sensor Networks
 \label{sec:Adaptive Filtering}
 
 The first algorithm we would like to present in this category is a work from
@@ -1267,15 +1306,11 @@ detection. \textit{Conch} outperforms all other schemes in terms of energy
 consumption at every test and only the scheme of Meng et al. exhibits similiar
 energy consumption levels with increasing sensor density.
 
-% EAST. Algorithm basics. Uses a clustering algorithm in which the sensing area
-% is devided dynamically into cells. Cells consist of a coordinator (cluster
-% head), member and representative sensor nodes. Member nodes do not send their
-% data, representative nodes send their sampled values to the coordinator only
-% if 
-
-
-% \subsection{\catIII}
-% \label{sec:catIII}
+% TODO EAST. Algorithm basics. Uses a clustering algorithm in which the sensing
+% area is devided dynamically into cells. Cells consist of a coordinator
+% (cluster head), member and representative sensor nodes. Member nodes do not
+% send their data, representative nodes send their sampled values to the
+% coordinator only if 
 
 \section{Related Algorithms}
 \label{sec:Related Algorithms}
@@ -1295,37 +1330,6 @@ li2013survey} and routing~\cite{al2004routing, pantazis2013energy,
 singh2010routing} exist already. We will nevertheless show some examples of
 routing and topology control algorithms, as this will grant a better overview
 of the challanges of data sampling in \acp{SN}.
-
-% Ideas: Introduce the following subsections and why we chose to include
-% routing and topology building algorithms into the paper but not into the
-% taxonomy. E.g. Many of the algorithms in the taxonomy use or presume routing
-% and topology building algorithms. Mainly from an energy consumption point of
-% view, tree topologies in which nodes closer to the sink/base station have
-% more child nodes (i.e. connections to other sensor for which they route the
-% information further up the network) need some kind of aggregation mechanisms,
-% or such nodes run out of energy faster than other nodes (if you need to cite
-% then~\cite{li2013survey}). This will lead to connectivity issues, as the sink
-% node / base station looses connections or to even more energy expenditure, as
-% sensor nodes which are further away from the sink have to be used as
-% gateways. This could be bypassed by using more powerful nodes closer to the
-% sink/base station, however, this would make deployment scenarios more
-% expensive and less flexible. Li et al.: The authors distinguish between
-% static, mobile and hybrid sensor networks. We focus in our work on static
-% sensor networks, but want to point out, that mobile sensor networks are an
-% interesting and emerging field. Mobile Sensor networks introduce new
-% challanges like ever changing topology and connectivity, ..., but they also
-% bring new opportunities, like covering a field with less mobile sensors than
-% static ones, embedded sensors in cars... Connectivity algorithms play an
-% important role in mobile networks, as new sensor nodes can replace dead
-% sensor nodes to retain the coverage level in a sensor network.
-
-% Alternatives:
-% Maybe put routing and topology building into one subcategory as they both
-% deal with inter node connectivity and communication. Topology building is
-% often only an initial challange and once a sensor network is deployed, a
-% topology is set. But, clustering can be seen as a topology building scheme,
-% too. Routing however plays an important role especially after some nodes
-% die etc.
 
 \subsection{Routing}
 \label{sec:Routing}
@@ -1411,7 +1415,8 @@ values on the shortest path to the base station. With multi-path routing on the
 other hand, sensor nodes divide their sensed data and send it with the
 \textit{k} shortest paths to the base station. The authors additionally define
 different instances of multi-path routing, e.g. disjoint paths and braided
-paths. With disjoint paths each path has unique sensor nodes, while in braided paths a primary path is built and additional paths are computed by excluding
+paths. With disjoint paths each path has unique sensor nodes, while in braided
+paths a primary path is built and additional paths are computed by excluding
 one sensor node from the primary path.
 
 Chen et al.~\cite{chen2011itinerary} present an algorithm, \ac{DGR}, for
@@ -1444,95 +1449,8 @@ nodes dies, $ PSNR $ as peak signal-to-noise ration, i.e. the recieved video
 quality, and $ delay $ denoting the "average delay for real-time video
 applications".
 
-% % EDAL is actually a routing scheme...
-% The work of Yao et al.~\cite{yao2015edal} also leverages multiple techniques to
-% achieve efficient data collection in sensor networks. The algortihm,
-% \textit{EDAL}, utilizes techniques from operational research to find the best
-% routes in a large-scale \ac{WSN} in terms of energy consumption and message
-% delay. Afterwards, compressive sampling is employed to reduce the amount of
-% required samples to reconstruct the original signal at the sink with high
-% probability.
-
-% are relevant for large scale multihop sensor networks,
-% as data is not sent directly from a sensor node to the sink, but routed through
-% some intermediary sensor nodes. This is because sending messages directly does
-% not scale well with increasing number of sensor nodes in terms of energy
-% expenditure~\cite{padhy2006utility}. In addition, finding optimal routing paths
-% in \acp{SN} in which sensor nodes may fail or additional aggregation has to
-% take place during hops, is not trivial.
-
-% Insights Al-Karaki et al.: Different node deployment options: Manual and
-% random. With manual placement, routing paths can be planned, while random
-% deployment requires routing paths to be formed ad hoc. The authors define
-% routing protocols similiar to Aziz et al. and Li et al. defining topology
-% building protocols. The authors include in network aggregation in their
-% routing taxonomy. A lot of routing algorithms presented in the survey, deal
-% with the diffusion of user queries; mainly based on directed diffusion.
-% Clustering is also included in the survey, which is kind of a topology
-% building technique. Their work deals with network structure and protocol
-% operation. Network structure deals with how routes are found, i.e. flat
-% routing -> sensor nodes send their values to the next neighbor/parent,
-% hierarchical network routing -> sensor nodes are grouped into clusters,
-% location based routing -> sensor nodes can identify their own coordinates and
-% the coordinates of other nodes, which is especially useful in mobile sensor
-% networks, as sensor nodes change their location. Protocol operation deals
-% with on which premise routes are build, i.e. the route with the highes
-% quality of service is found or a query optimizer decides how to best execute
-% an imperative user statement.
-
-% Insights Singh et al.: The categorization of routing protocols is similiar to
-% Al-Karaki et al. They define single-path routing and multi-path routing.
-% Single path -> a sensor node sends its data to the sink via the shortest
-% route. Multi-path -> A sensor node finds the k shortest paths to the sink
-% node and divides its data to "tax" the paths evenly. Maybe take some pictures
-% from the paper.
-
-% Insights Pantazis et al.: The paper extends the taxonomy presented by
-% Al-Karaki et al. The paper is really long with a lot of sources. The authors
-% have a subcategory, "Topology Based", in their taxonomy. So this basically
-% set the nail in the coffin of making two distinct categories here. The
-% authors Topology category deals with the location of the nodes.
-
 \subsection{Topology Control}
 \label{sec:Topology Control}
-
-% Insights Aziz et al.: There are a lot of definitions of network
-% liftime~\cite{aziz2013survey}. Aziz et al. include algorithms in their work
-% for a survey on topology building routing algorithms. So it is possible, that
-% topology building (or topology control) and routing are the same. The authors
-% say that topology building can be done through varying transmission power to,
-% i.e. not communicating to a sink directly, but sending it to other nodes in a
-% multihop fashion. Li et al. also present this problem as finding the minimum
-% transmission power with which connectivity is still warranted. Additionally,
-% sensor nodes can have different and dynamic transmission power settings or
-% can be configured to all have the same transmission power setting. Another
-% technique the authors bring up is basically duty cycling, i.e. putting a
-% sensor node into sleep, idle, listening, transmit mode. The third technique
-% is clustering. The fourth technique is a hybrid technique which utilizes some
-% sort of clustering algorithm and schemes from the previous techniques.
-
-% Insights Li et al.~\cite{li2013survey}: Coverage and connectivity are the
-% main aspects topology control deals with. Network Coverage is defined by the
-% authors as "how well the target field is monitored by the sensor network".
-% This affects where sensor nodes are placed, e.g. if sensing ranges overlap or
-% cover the whole field, then the network has blanket coverage. Connectivity
-% deals with how well and to what costs sensor nodes in a network can
-% communicate with each other. Similiar to Aziz et al.~\cite{aziz2013survey},
-% the authors bring up duty cycling and route building as techniques for
-% handling network connectivity. Duty cycling in combination with network
-% coverage is present in the work of Tian et al., (CITE AND REREAD THAT) where
-% sensor nodes go into sleep mode when the area they are sensing is already
-% covered enough by neighbor sensor nodes. They also define additional high
-% level use cases for sensor networks, i.e. monitoring an area, a breach of an
-% area or some points of interest (POI). They bring up the point, that in
-% network topology design, a tradeoff between network performance, i.e. network
-% coverage, data quality, and network lifetime, i.e. network connectivity, is
-% given. The authors point out, that real life deployments of wireless sensor
-% networks are providing multiple network services. To stay efficient and be
-% scalable, protocols have to support multiple network services. If a system
-% integrates multiple protocols for the multiple network services, the
-% complexity of such a system can have negative impact on scalability and
-% efficiency. THIS CAN BE A GOOD INTRODUCTION TO COMBINATION OF ALGORITHMS.
 
 Topology Control is defined by Aziz et al.~\cite{aziz2013survey} as "a
 technique that uses any controlled network parameter to generate and maintain a
@@ -1620,22 +1538,8 @@ have to communicate in their local segments.
 
 \FloatBarrier
 
-% What to look out for: What is topology building? Are algorithms which are
-% classified as topology building algorithms, only used once in a sensor
-% network, i.e. when the network is set up a routing topology is created? Use
-% cases for those algorithms -> node failure handling, i.e. connections between
-% nodes have to be reestablished, mobile nodes, i.e. connectivity changes
-% continuosly... Another important aspect is the interaction between topology
-% building and routing. Which aspects differentiate them from each other? Are
-% there even any differences in routing and topology building?
-
 \subsection{Combination of Algorithms}
 \label{sec:Combination of Algorithms}
-
-% I decided to include Adam and Admin as an example of combination of
-% algorithms as it is a framework which has filtering and sampling techniques
-% additionally, in the experiments the authors compared their framework i.a.
-% against L-SIP which is a model based scheme
 
 In this section, we will present possible combinations of algorithms showcased
 in this thesis. Additionall, we will present schemes, which employ multiple
@@ -1648,9 +1552,6 @@ a routing scheme \textit{and} an adaptive sampling scheme. To utilize the
 algorithm of Srbinovski et al. in an \ac{SN}, a routing technique and topology
 control schemes are needed. We will not discuss such combinations as they are
 application specific and would go beyond the scope of this thesis.
-
-% TODO combinations with routing and topology control or only with algorithms
-% from taxonomy?
 
 Trihinas et al.~\cite{trihinas2015adam} present \textit{AdAM}, a framework
 which incorporates a sampling \textit{and} a filtering algorithm. With
