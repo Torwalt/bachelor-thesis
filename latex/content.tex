@@ -19,14 +19,14 @@
 \section{Introduction}
 \label{sec:Introduction}
 Gartner Inc. states that the number of network connected devices will reach
-20.4 billion by 2020~\cite{gartner} To gather information from those devices,
+20.4 billion by 2020~\cite{gartner}. To gather information from those devices,
 we need algorithms which efficiently sample and route data from sensor nodes
 (i.e., devices) to data sinks. Energy expenditure will gain higher importance,
 especially for mobile devices such as battery-powered wearables and
 smartphones. A \ac{WSN} is often battery-powered and use cases span from home
 and health applications to the military sector~\cite{akyildiz2002wireless}.
-With low production costs of a node as a goal in
-\acp{WSN}~\cite{akyildiz2002wireless}, resource usage at the nodes is
+With low production costs of a sensor node as a goal in
+\acp{WSN}~\cite{akyildiz2002wireless}, resource usage at the sensor nodes is
 restricted. While reducing sampling frequencies leads to a higher life of a
 battery-powered sensor network, important changes in the observed phenomenon
 could be missed which reduces the quality of the
@@ -45,9 +45,26 @@ techniques~\cite{al2004routing, kulkarni2011particle, singh2015survey,
 rault2014energy}. Systems such as TinyDB~\cite{madden2005tinydb},
 ACQUIRE~\cite{sadagopan2003acquire} and COUGAR~\cite{yao2002cougar} introduce
 architectures for query processing in \acp{SN} which consist of algorithms for
-sampling, and routing data requested by a user.
+sampling, and routing data requested by a user. Generally, the algorithms
+presented in this thesis are not limited to \acp{SN}. Distributed systems, e.g.
+... exhibit similiar challanges to \acp{SN}, namely, a vast amount of data is
+generated in a distributed fashion at high velocities. With increasing numbers
+of such data sources, the sinks which process that data need to scale or the
+mass of data needs to be reduced. One way to reduce the data is to employ
+stream sampling algorithms at the data sources. The advantage of reducing data
+at or close to the source is twofold: First, the network, over which the data
+is transmitted, is less burdened. If a network is overloaded, data arrives at a
+sink delayed, which can be detrimental to latency critical applications (e.g.
+online search engines~\cite{kasture2016tailbench}, transactional
+databases~\cite{kasture2016tailbench}, patient health monitoring
+applications~\cite{abdullah2015real}). In this thesis we provide an overview of
+sampling and filtering algorithms for sensor data. We focus on \acp{SN},
+however, we argue that the techniques presented in this thesis can be applied
+to all kinds of data. 
 
-% TODO Expand Section with other subjects than wsns and energy conservation
+
+% TODO Check if that is ok. Examples for distributed systems, particular not
+% WSNs.
 
 \subsection{Motivation}
 \label{sec:motivation}
@@ -61,10 +78,8 @@ a collection of sampling algorithms is a valuable starting point for finding an
 algorithm suitable for a specific usecase. Therefore, we present a taxonomy of
 the algorithms to provide a compact overview. Furthermore, algorithms which
 focus on areas other than sampling (like routing and topology control) in
-sensor networks will be presented. Combinations of sampling, routing and
-topology control algorithms as well as combinations of sampling algorithms from
-different categories can inspire further research.
-
+sensor networks will be presented. Combinations of sampling are additionally
+showcased.
 
 \subsection{Scientific Background}
 \label{sec:Scientific Background}
@@ -82,29 +97,28 @@ the non linear emission of, e.g. solar and wind is
 crucial~\cite{liu2011perpetual}. \acp{WSN} often have a limited energy source
 at their disposal, making management of energy expenditure a top priority to
 increase network lifetime. As Cheng et al. state~\cite{cheng2013stcdg} network
-lifetime is often defined in \acp{WSN} as the lifetime of the first node to run
-out of energy. 
+lifetime is often defined in \acp{WSN} as the lifetime of the first sensor node
+to run out of energy. 
 \par
-\acp{WSN} and \acp{RSN} are often designed with some nodes sensing the
-phenomenon and one or more sink nodes wich transfer the sensed data to a
-central base station. Based on the type of topology, e.g. a simple star
-structure (Fig.~\ref{fig:Star Topology}), sensed data is forwarded to the sink
-node directly, i.e. in a one-hop manner. More complex topologies, e.g. tree
-(Fig.~\ref{fig:Tree Topology}) or connected star structures, often require to
-relay sensed data through intermediary nodes to a sink node in a multi-hop
-fashion, as direct communication paths between sensing and sink nodes are not
-always possible~\cite{romer2004design}. 
+\acp{WSN} and \acp{RSN} are often designed with some sensor nodes sensing the
+phenomenon and one or more sinks where the data is routed to. Based on the type
+of topology, e.g. a simple star structure (Fig.~\ref{fig:Star Topology}),
+sensed data is forwarded to the sink directly, i.e. in a one-hop manner.
+More complex topologies, e.g. tree (Fig.~\ref{fig:Tree Topology}) or connected
+star structures, often require to relay sensed data through intermediary sensor
+nodes to a sink in a multi-hop fashion, as direct communication paths
+between sensing and sink are not always possible~\cite{romer2004design}. 
 \par
-In more complex topologies with a lot of intermediary nodes, finding the
+In more complex topologies with a lot of intermediary sensor nodes, finding the
 optimal routing path from sensor node to the sink is not trivial. With
-increasing number of nodes, the complexity of the computation of the optimal
-route increases, as nodes have multiple neighbors from which to choose the next
-transmission step. Solving such a problem locally, i.e. nodes compute the next
-best step, with additional contraints, e.g. minimizing energy expenditure and
-meet quality of data thresholds can be an unfeasible task. On the other hand,
-outsourcing this task to the base station could induce a major communication
-overhead with additional energy expenditure. Techniques on topology control
-and route path finding will be discussed later in the thesis.
+increasing number of sensor nodes, the complexity of the computation of the
+optimal route increases, as sensor nodes have multiple neighbors from which to
+choose the next transmission step. Solving such a problem locally, i.e. sensor
+nodes compute the next best step, with additional contraints, e.g. minimizing
+energy expenditure and meet quality of data thresholds can be an unfeasible
+task. On the other hand, outsourcing this task to the sink could induce a major
+communication overhead with additional energy expenditure. Techniques on
+topology control and route path finding will be discussed later in the thesis.
 \par
 A survey by Alippi et. al~\cite{alippi2009energy} presents a taxonomy of
 adaptive sensing strategies. The authors present, i.a. "adaptive sampling" and
@@ -140,10 +154,10 @@ present in sensor data sampling.
 
 The contributions of this thesis go as follows: 
 \begin{enumerate}
-    \item We present a catalog of different sampling algorithms for sensor data
+    \item We present a catalog of 14 sampling algorithms for sensor data
     gathering.
     \item We classify the sampling techniques in a taxonomy for a compact
-    overview of the field of data sensing in \acp{SN}.
+    overview of the field of data sampling in \acp{SN}.
     \item We present relevant information for each algorithm. We summarize
     relevant information as:
 
@@ -153,18 +167,18 @@ The contributions of this thesis go as follows:
             \item Experimental results of the algorithm and how it compares to others
             \item Use case(s)
             \item Advantages and limitations of the algorithm
+            \item Message Overhead of the algorithm
         \end{itemize}
 
-% TODO Maybe Add communication overhead here, too
+    \item We present 5 related algorithms from the area of \textit{routing}
+    and \textit{topology control}
 
-    \item We present additional algorithms from the area of \textit{routing}
-    and \textit{topology building}
+    \item We present 2 algorithms which combine techniques from sampling and
+    filtering.
 
-    % TODO Add quantifiable point, e.g. number of algorithms presented and what
-    % we derived from it We present 14 algorithms from the field of data
-    % sampling and 5 related algorithms, i.e. from routing and topology
-    % control. We additionally present 2 algorithms which combine techiques
-    % from sampling and filtering.
+    \item We showcase possible combination of algorithms presented in the
+    thesis.
+
 \end{enumerate}
 
 
@@ -184,18 +198,14 @@ subsections.~\ref{sec:Overview} gives an overview of the described classes,
 subclasses, and motivations for the classification. Each following section
 describes a class and its subclasses in detail. For each subclass, relevant
 information of multiple algorithms will be presented. 
-% We additionally split the subclasses into additional classes, or
-% subsubclasses. Algorithms can be in multiple subsubclasses.
 
 \para{Section \ref{sec:Related Algorithms}.} In section \ref{sec:Related
 Algorithms}, we review algorithms not covered in the taxonomy from areas other
 than sampling, i.e. topology control and routing. This section is split into
 three subsections. The subsections~\ref{sec:Routing} and~\ref{sec:Topology
 Control} present algorithms from the areas of routing and topology control in
-\ac{SN}. In section~\ref{sec:Combination of Algorithms} we discuss possible
-combinations of different sampling algorithms with other sampling and
-non-sampling algorithms. The combinations found here could be used as a basis
-for further research.
+\acp{SN}. In section~\ref{sec:Combination of Algorithms} we discuss possible
+combinations of different sampling algorithms.
 
 \section{Methodology}
 \label{sec:Methodology}
@@ -242,7 +252,7 @@ and use this term throughout the thesis.
         device (sometimes called radio in this thesis), and a sensing
         unit~\cite{akyildiz2002wireless}.
 
-    \item[Sensor Reading]
+    % \item[Sensor Reading]
         
 
     \item[Base Station, Fusion Center, Sink, Sink Node]
@@ -250,13 +260,15 @@ and use this term throughout the thesis.
         center~\cite{willett2004backcasting}, sink~\cite{alippi2009energy} and
         Sink Node~\cite{chen2013sink} refer to a computer which is usually
         wired and not restricted in ressources (e.g. CPU, memory, battery).
+        We will use the term sink throughout the thesis.
 
     \item[Centralized Exact, Baseline Transmission Scheme, Naive Scheme]
         Centralized exact~\cite{gedik2007asap}, baseline transmission
         scheme~\cite{luo2009compressive} and naive
         scheme~\cite{cheng2010efficient} all refer to a scheme in which sensor
         nodes report their sensor readings each $ t $ time units without any
-        suppression.
+        suppression. We will use the term centralized exact throughout the
+        thesis.
 
     \item[\ac{MAN}]
         The \ac{IEEE} defines \ac{MAN} as "a computer network, extending over a
@@ -264,13 +276,13 @@ and use this term throughout the thesis.
         communication services such as data, voice, and video"~\cite{ieee802}.
 
     \item[\ac{LAN}]
-        The \ac{IEEE} defines \ac{MAN} as "a computer network, located on a
+        The \ac{IEEE} defines \ac{LAN} as "a computer network, located on a
         user’s premises, within a limited geographical area".~\cite{ieee802}.
 
     \item[\ac{MAC}-Protocol]
         The \ac{IEEE} defines the \ac{MAC}-protocol as "The protocol that
-        governs access to the transmission medium in a LAN or MAN, to enable
-        the exchange of data between \ac{LAN} or \ac{MAN}
+        governs access to the transmission medium in a \ac{LAN} or \ac{MAN}, to
+        enable the exchange of data between \ac{LAN} or \ac{MAN}
         stations"~\cite{ieee802}. This definition is also applicabble to
         \acp{SN}, where the \ac{MAC}-Protocol "coordinates nodes' access to the
         shared wireless medium"~\cite{kredo2007hybrid}.
@@ -283,27 +295,51 @@ and use this term throughout the thesis.
         message overhead or just overhead in the thesis for reasons of
         breivity.
 
+% a frame length is the length of a data unit on the data link layer. A frame
+% consists of a mac header and a payload (data)
+
     \item[Control Message]
         
 
     \item[Neighboring Sensor Node]
         
 
-    \item[Single-Hop, Multi-Hop]
+    \item[Overhearing]
+        Ye et al.~\cite{ye2004medium} define overhearing as nodes picking up
+        packets destined for other nodes. They define overhearing as energy
+        wasteful, as it consumes energy.
+
+    \item[Multi-Hop]
         Multi-hop routing usually refers to sensor networks in which sensor
         nodes do not communicate directly to sink, but to a neighboring sensor
         node~\cite{yaacoub2012multihop}. The neighboring sensor node then
-        communicates to another neighbor or the the sink or base station.
+        communicates to another neighbor or the the sink.
 
-    \item[Duty Cycle, Duty Cycling]
+    \item[Single-Hop]
+        Single-hop topologies are networks in which all sensor nodes can hear
+        each other~\cite{ye2004medium}.
+
+    \item[Duty Cycle Duty Cycling]
         Lin et al.~\cite{lin2004medium} define a duty cycle as "the ratio of
-        the listen interval to the frame length". Duty cycling is defined by
-        Buettner et al.~\cite{buettner2006x} as an approach in which "each
-        sensor node periodically cycles between an awake state and a sleep
-        state".
+        the listen interval to the frame length". 
 
-% a frame length is the length of a data unit on the data link layer. A frame
-% consists of a mac header and a payload (data)
+    \item[Duty Cycling]
+        Duty cycling is defined by Buettner et al.~\cite{buettner2006x} as an
+        approach in which "each sensor node periodically cycles between an
+        awake state and a sleep state".
+
+    \item[Sampling Rate, Sampling Frequency]
+        The federal agencies digital guidelines initiative defines sampling
+        rate or sampling frequency as "the number of samples per second (or per
+        other unit) taken from a continuous signal to make a discrete or
+        digital signal"~\cite{samplingrate}. We will use the term sampling rate
+        exact throughout the thesis.
+ 
+    \item[Sampling Period]
+        The University of Amsterdam~\cite{samplingperiod} defines the sampling
+        period as "the time difference between two consecutive samples in a
+        sound. It is the inverse of the sampling frequency". We apply this
+        definition to any signal.
 
     \item[Data collection and data gathering] 
         Data collection is often mentioned in connection with the whole process
@@ -315,21 +351,18 @@ and use this term throughout the thesis.
         while additionally employing compressive sampling. The authors use data
         collection to define this process. Additionally, a survey by Di
         Francesco et al.~\cite{di2011data} defines the term data collection as
-        the process of getting data from a sensor node to the sink node.
+        the process of getting data from a sensor node to the sink.
         Vukobratovic et al.~\cite{vukobratovic2010rateless, zhang2016data}
         describe data gathering as the process of collecting and transmitting
-        sensed data from sensor nodes to sink nodes. A sink node could be a
-        base station, e.g. a wired server, or another node in the \ac{SN} which
-        acts as a gateway into the network and can route data to a server. We
-        will use data gathering and data collection as synonyms as they both
-        describe the whole process of acquiring data at sensor nodes and
-        routing them to a base station.
+        sensed data from sensor nodes to sink. We will use data gathering and
+        data collection as synonyms as they both describe the whole process of
+        acquiring data at sensor nodes and routing them to a sink.
 
     \item[Data sensing and data sampling] 
         The definitons for data sampling and data sensing are also inconsistent
         in the literature. Zhao et al.~\cite{zhao2016cats} employ sampling in
-        the context of sink nodes assigning sampling tasks, which consist of a
-        time window and a sampling interval, to sensor nodes. Trihinas et
+        the context of sink assigning sampling tasks, which consist of a time
+        window and a sampling period, to sensor nodes. Trihinas et
         al.~\cite{trihinas2015adam} also do not differentiate between sampling
         and sensing.  Aquino et al.~\cite{aquino2014musa} on the other hand,
         discern sensing as the process of a preconfigured sensor unit measuring
@@ -349,7 +382,8 @@ and use this term throughout the thesis.
         stream. Because sensor nodes have only limited
         memory~\cite{akyildiz2002wireless}, only \textit{samples} of the data
         stream would be stored at each point in time, on which additional
-        filtering would be applied. 
+        filtering would be applied. Elsewise we use data sampling throughout
+        the thesis.
 
     \item[Stream Sampling]
         Another distinction we would like to make is stream sampling and
@@ -363,18 +397,6 @@ and use this term throughout the thesis.
         % TODO Reservoir Sampling definition finden und zu stream sampling
         % abgrenzen
 
-    \item[Sampling Rate, Sampling Frequency]
-        The federal agencies digital guidelines initiative defines sampling
-        rate or sampling frequency as "the number of samples per second (or per
-        other unit) taken from a continuous signal to make a discrete or
-        digital signal"~\cite{samplingrate}. We follow that definition in this
-        thesis.
-
-    \item[Sampling Period]
-        The University of Amsterdam~\cite{samplingperiod} defines the sampling
-        period as "the time difference between two consecutive samples in a
-        sound. It is the inverse of the sampling frequency". We apply this
-        definition to any signal.
 
 \end{description}
 \par
@@ -396,33 +418,32 @@ We selected the algorithms the taxonomy based on the following criteria:
 \begin{itemize}
     \item Algorithms which are associated with each other.
     \begin{itemize}
-        \item It is interesting to see, how an algorithm evolves, as
-        authors expand on an algorithm or incorporate ideas from that
-        algorithm into their own work.
+        \item It is interesting to see, how an algorithm evolves, as authors
+        expand on an algorithm or incorporate ideas from that algorithm into
+        their own work.
     \end{itemize}
     \item Algorithms which highlight different design areas of \acp{SN}
     \begin{itemize}
         \item For example, Jain et al.~\cite{jain2004adaptive} concern
         themselves with wired sensor networks, while Srbinovski et
-        al.~\cite{srbinovski2016energy} design their algorithm for
-        \acp{RSN}. We found diversity in the use cases important.
+        al.~\cite{srbinovski2016energy} design their algorithm for \acp{RSN}.
+        We found diversity in the use cases interesting.
     \end{itemize}
-    \item Algorithms which employ techniques from other areas than
-    distributed systems. 
+    \item Algorithms which employ techniques from areas other than distributed
+    systems. 
     \begin{itemize}
         \item In our opinion the most representative example is
-        \textit{compressive sampling} which uses findings from the
-        domain of signal processing to greatly reduce data sent through
-        the network.
+        \textit{compressive sampling} which uses findings from the domain of
+        signal processing to greatly reduce data sent through the network.
     \end{itemize}
 \end{itemize}
 
 \subsection{Evaluation Metrics}
 \label{sec:Evaluation Metrics}
 
-To provide a better overview of the presented algorithms, we summerized our
-findings in table~\ref{table:algorithm table}. Each algorithm is described by a set
-of properties:
+To provide a better overview of the presented algorithms, we summarize our
+findings in table~\ref{table:algorithm table}. Each algorithm is described by a
+set of properties:
 
 \begin{description}
     \item[Assumptions]
@@ -443,31 +464,30 @@ of properties:
     \item[Limitations]
         Similiar to the advantages, we include limitations of algorithms as the
         authors or authors of other work define them. 
-        
         % Limitations can be in terms of use cases, i.e. an algorithm is not
         % suitable for large-scale sensor networks, or 
     \item[Message Overhead]
         We added message overhead as an algorithm property, because overhead
-        generated through communication between nodes or the base station
+        generated through communication between sensor nodes or the sink
         concerns all types of networks. Overhead, e.g. control messages sent by
-        a server to a sensor node, demands allocation of bandwidth ...We define
-        different levels of message overhead:
-
-        % TODO justify why you decided to take in communication overhead
+        a server to a sensor node, demands allocation of bandwidth which loads
+        the network and can lead to message delays. We define different levels
+        of message overhead:
 
         \begin{itemize}
-            \item \textit{Low}. A low message overhead is present, if
-            sensor nodes work autonomously, i.e. no control messages are sent
-            by the server, after an initial "set-up" phase in which a server
-            configures parameters at sensor nodes. Communication between nodes
-            is limited to multi-hop routing.
+            \item \textit{Low}. A low message overhead is present, if sensor
+            nodes work autonomously, i.e. no control messages are sent by the
+            sink, after an initial "set-up" phase in which a sink configures
+            parameters at sensor nodes. Communication between sensor nodes is
+            limited to multi-hop routing.
 
             \item \textit{Medium}. Algorithms with a medium message overhead
             allow sensor nodes to work independantly from one another, with the
-            exception of communicating to neighboring sensor nodes.
+            exception of communicating to and overhearing messages from
+            neighboring sensor nodes.
 
             \item \textit{High}. High message overhead is present, if
-            algorithms require the server to periodically make adjustments to
+            algorithms require the sink to periodically make adjustments to
             the configuration of sensor nodes or the network in general.
         \end{itemize}
 
@@ -516,7 +536,7 @@ We visualize our taxonomy in Fig.~\ref{fig:Taxonomy}.
 \centering
 \end{figure}
 
-\FloatBarrier
+% \FloatBarrier
 % 14 algs
 
 The presented algorithms are summed up and compared in
@@ -524,63 +544,83 @@ table~\ref{table:algorithm table}. We will address the algorithms by the names
 the authors have given them and additionally reference the paper. If the
 algorithm has no name, the authors are referenced instead.
 
-\begin{table}[h]
-\caption{Table of presented Algorithms \label{table:algorithm table}}
+% \begin{table}
     % \begin{adjustbox}{angle=90}
-
-        \begin{tabular} { |p{3.5cm}||p{3cm}|p{3cm}|p{3cm}|p{2.5cm}| }
+        % \bgroup
+        \def\arraystretch{1.5}%
+        \begin{longtable} { |p{.20\textwidth}||p{.20\textwidth}|p{.20\textwidth}|p{.20\textwidth}|p{.10\textwidth}| } 
+            % { |p{3.5cm}||p{3cm}|p{3cm}|p{3cm}|p{2.5cm}| } % { |c||c|c|c|c| }
 
         \hline
         Algorithm & Assumptions & Advantages & Limitations & Message Overhead\\
         \hline
+        \hline
 
-        \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and temporal
-        correlation of signal & Random sensor deployment & Premature death of
-        cluster heads & High\\
+        \textit{Backcasting}~\cite{willett2004backcasting} & Spatial and
+        temporal correlation of the signal. & Random sensor deployment. &
+        Premature death of cluster heads. & High\\ % \hline
 
         Jain et al.~\cite{jain2004adaptive} & Sensor data is streamed
         continiously & Important data receives more bandwidth & Only Single-hop
-        \acp{SN} & High\\
+        \acp{SN} & High\\ % \hline
 
         \textit{USAC}~\cite{padhy2006utility}& Fix number of sensor nodes &
         Captures sudden changes in data & Static confidence
-        interval~\cite{kho2007decentralised} & Low\\
+        interval~\cite{kho2007decentralised} & Low\\ % \hline
 
         \textit{EASA}~\cite{srbinovski2016energy}& Sensing consumes more energy
         than communicating & Adaptive to energy levels & Complex computation &
-        High\\
+        High\\ % \hline
 
         \textit{CDG}~\cite{luo2009compressive}& Knowledge of domain in which
         observed signal is k-sparse & Low packet loss & Not suitable for small
-        scale \acp{SN} & Low\\
+        scale \acp{SN} & Low\\ % \hline
 
-        \textit{EDCA}~\cite{cheng2010efficient}& Matrix of collected exhibits
-        low-rank feature & Robust against packet loss & Empty columns reduce
-        recovery accuracy~\cite{cheng2013stcdg} & Low\\
+        \textit{EDCA}~\cite{cheng2010efficient}& Matrix of collected values
+        exhibits low-rank feature & Robust against packet loss & Empty columns
+        reduce recovery accuracy~\cite{cheng2013stcdg} & Low\\ % \hline
 
         \textit{STCDG}~\cite{cheng2013stcdg}& low rank and short term stability of
         matrix & Adaptible since independent of \ac{SN}-type & Not suitable for
-        small scale \acp{SN}~\cite{yi2015partial} & Low\\
+        small scale \acp{SN}~\cite{yi2015partial} & Low\\ % \hline
 
         \textit{BBQ}~\cite{deshpande2004model}& Slow topology change & Exploits
         correlation between sensor and voltage levels & Not suitable for
-        anomaly detection & Low\\
+        anomaly detection & Low\\ % \hline
 
         \textit{Ken}~\cite{chu2006approximate}& Slow topology
         change~\cite{gedik2007asap} & Suitable for anomaly detection &
         Prediction Models constructed at sink~\cite{gedik2007asap}  &
-        Medium-High~\cite{gedik2007asap}\\
+        Medium-High~\cite{gedik2007asap}\\ % \hline
 
-        \textit{ASAP}~\cite{gedik2007asap}& Test & Test & Test & Test\\
+        \textit{ASAP}~\cite{gedik2007asap}& Forgo some data quality for less
+        energy expenditure & In-network construction of models and clusters &
+        Not suitable for anomaly detection & Low\\ % \hline
 
-        Jiang et al.~\cite{jiang2011prediction}& Test & Test & Test & Test\\
-        Meng et al.~\cite{meng2004event}& Test & Test & Test & Test\\
-        Solis et al.~\cite{solis2005efficient}& Test & Test & Test & Test\\
-        \textit{Conch}~\cite{silberstein2006constraint}& Test & Test & Test & Test\\
+        Jiang et al.~\cite{jiang2011prediction}& Forgo some data quality for
+        less energy expenditure & Prevents energy costly and inaccurate
+        predictions & not suitable for anomaly detection & Low\\
+        % \hline
+
+        Meng et al.~\cite{meng2004event}& Events are sensed by more than one
+        sensor & Suppression is computationally simple & Relative difference of
+        sensor readings not leveraged~\cite{silberstein2006constraint}& Medium\\
+        % \hline
+
+        Solis et al.~\cite{solis2005efficient}&  & Test & Test & Medium\\ % \hline
+
+        \textit{Conch}~\cite{silberstein2006constraint}& Spatial and temporal
+        correlation of signal & Flexibility to increase network robustness or
+        energy efficiency & Sensor Nodes must know network
+        topology~\cite{trihinas2017admin}& Low\\ % \hline
+
         \hline
-        \end{tabular}
+        \caption{Table of presented Algorithms}
+        \label{table:algorithm table}
+        \end{longtable}
+        % \egroup
     % \end{adjustbox}
-\end{table}
+% \end{table}
 
 \FloatBarrier
 
@@ -607,8 +647,7 @@ an observed phenomenon, by manipulating sensing rates of sensor nodes.
 Compressive sampling utilizes findings from the field of signal processing, to
 sample signals, i.e. data streams from an observed phenomenon, below the
 typical Nyquist rate~\cite{candes2008introduction}. From such a subset of data,
-the original signal can be reconstructed at sink node or base station with very
-high accuracy.
+the original signal can be reconstructed at sink with very high accuracy.
 
 \subsubsection{Adaptive Sampling}
 \label{sec:Adaptive Sampling}
@@ -631,13 +670,14 @@ environment exhibits correlations in time and space domains which can be
 exploited to reduce the number of required sensor nodes to deliver an accurate
 picture about the monitored environment. The authors assume that the sensor
 network is a rectangular field of uniformly distributed sensor nodes.
-Initially, a subset of the sensor nodes is chosen by the fusion center to
-provide an initial estimate of the sensed phenomenon by a recursive dyadic
-partition. A subset of nodes are mutliple clusters of nodes with a cluster head
-each. Cluster heads route the data from the sensor nodes to the fusion center
-and vice versa. The fusion center recieves the sensed data and activates
-additional nodes to improve the quality of the sampling by reducing the
-\ac{MSE}. The authors evaluate their approach theoretically and come to the
+Initially, a subset of the sensor nodes is chosen by the sink to provide an
+initial estimate of the sensed phenomenon by a recursive dyadic partition. A
+subset of nodes are mutliple clusters of nodes with a cluster head each.
+Cluster heads route the data from the sensor nodes to the sink and vice versa.
+The sink recieves the sensed data and activates additional nodes to improve the
+quality of the sampling by reducing the \ac{MSE}. However, this leads to
+additional message overhead as control messages have to be routed through the
+network. The authors evaluate their approach theoretically and come to the
 conlusion, that a \ac{WSN} with 10000 sensors and energy to operate
 continuously for a year, would operate for 10 years when using
 \textit{Backcasting}. The authors point out that network lifetime could be
@@ -663,18 +703,19 @@ changing dynamic of a observed phenomenon. After each taken sample, a sensor
 node adjusts its \ac{SI} i.e. the time interval between two consecutive
 samples. If the desired \ac{SI} lies in the \ac{SIR}, the sensor node can
 adjust its \ac{SI} locally. Otherwise the sensor node has to request a new
-\ac{SI} from the server. The server keeps a metric of avaliable communication
+\ac{SI} from the sink. The sink keeps a metric of avaliable communication
 resources which gets updated after a request to change a \ac{SI} is accepted.
 The requests are stored in a job queue. To approve a \ac{SI} a linear
-optimization problem has to be solved. The authors evaluated their approach on
+optimization problem has to be solved. The addtional communication with the
+sink induces a high message overhead. The authors evaluated their approach on
 synthetic data generated by a spatio-temporal data generator. Tested metrics
 where the mean fractional estimation error $ \eta $, the proportion of messages
-exchanged between the source and the server and the number of values sensed by
+exchanged between the source and the sink and the number of values sensed by
 the source nodes \textit{m}. The adaptive sampling algorithm outperformed the
 alternative uniform sampling algorithm almost in every test. Tests were done,
 i.a using different numbers of sensor nodes and sliding window sizes. The
 authors indicate, that the algorithm is not applicabble to multi-hop sensor
-networks, i.e. a sensor node has to have a direct connection to the server.
+networks, i.e. a sensor node has to have a direct connection to the sink.
 Furthermore, both the sliding window and the \ac{SIR} have to be chosen by the
 user. Also, the authors state that the message overhead is high. The main goal
 of the algorithm is to optimize bandwidth usage in the network, thus this
@@ -684,6 +725,7 @@ energy in most sensor nodes~\cite{raghunathan2002energy}.
 
 \par
 
+\textit{3) \ac{USAC}:}
 A technique designed initially for a glacier monitoring application by Padhy et
 al. \ac{USAC}~\cite{padhy2006utility} is an example of an adaptive sampling
 scheme for a \ac{WSN}. The algorithm uses a linear regression model at each
@@ -694,11 +736,11 @@ against the actual sensed values. If a predicted value lies in the user defined
 factor $ \alpha $ until the sampling rate reaches $ f_{min} $. $ f_{min} $ is
 set by the user. If the value does not lie in the \ac{CI} then the sensor node
 raises its sampling rate to $ f_{max} $ to capture a supposed change in the
-dynamic of the observed phenomenon. The experiments tested the algorithm
-against the older deployed protocoll in the glacier monitoring application
-\textit{GLACSWEB}. In the \textit{GLACSWEB} protocol, sensor nodes send their
-data directly to the sink node. This technique is energy unefficient as the
-authors state that 
+dynamic of the observed phenomenon. No additional communication happens with
+the sink. The experiments tested the algorithm against the older deployed
+protocoll in the glacier monitoring application \textit{GLACSWEB}. In the
+\textit{GLACSWEB} protocol, sensor nodes send their data directly to the sink.
+This technique is energy unefficient as the authors state that 
 
 \begin{quotation}
     "(...) the power required to transmit data from one
@@ -706,15 +748,14 @@ authors state that
     between the nodes (...)."
 \end{quotation}
 
-Additionally, \textit{GLACSWEB} has a static sensing rate which the authors
+Additionally, \textit{GLACSWEB} has a static sampling rate which the authors
 argue, induces unnecessary sampling.
 
-The tests were conducted in a simulated environment using
-historical data from the application. The authors tested different network
-topologies, numbers of sensor nodes in a network and number of changes in the
-dynamic of the data. The experiments resulted in \ac{USAC} outperforming the
-older algorithm in every test. The efficiency increase, which is defined by the
-authors as
+The tests were conducted in a simulated environment using historical data from
+the application. The authors tested different network topologies, numbers of
+sensor nodes in a network and number of changes in the dynamic of the data. The
+experiments resulted in \ac{USAC} outperforming the older algorithm in every
+test. The efficiency increase, which is defined by the authors as
 
 \begin{quotation}
     "The value of the data gained over the energy consumed of USAC relative to
@@ -726,6 +767,7 @@ was, i.a. 470\% when distributing sensor nodes randomly around a center base
 station.
 \par
 
+\textit{4) \ac{EASA}:}
 \acp{RSN} combine the perpetual operation lifetime of wired \acp{SN} and the
 flexibility of \acp{WSN}. However, \acp{RSN} introduce new challanges for
 designing data collection algorithms. A paper from Srbinovski et
@@ -740,16 +782,15 @@ Theorem $$ F_N > 2 \cdot F_{max} $$ for finding the optimal (minimum) sampling
 rate $ F_N $. To estimate the maximum frequency in the power spectrum $ F_{max}
 $, a \ac{FFT} is used on the first $ W $ samples of the process. A \ac{CI} can
 be defined to capture changes in the dynamic of the process. The algorithm is
-run on the base station due to computational complexity, thus some
-communication overhead is present. \ac{EASA} expands \ac{ASA} with energy
-awareness, i.e. adjusting optimal sampling frequency of a sensor node based on
-current and critical battery level, and rate of energy saving. When the battery
-level drops below the user defined critical value $ m $, the sampling rate
-deviates from the optimal \ac{ASA} sampling rate. This may lead to the sensor
-not capturing the singal fully as the nyquist theorem is violated. The authors
-argue that a potential loss in data quality is the cost of staying continuously
-in the network. The authors tested \ac{EASA} extensively on data from two
-deployments.
+run on the sink due to computational complexity, thus message overhead is
+present. \ac{EASA} expands \ac{ASA} with energy awareness, i.e. adjusting
+optimal sampling frequency of a sensor node based on current and critical
+battery level, and rate of energy saving. When the battery level drops below
+the user defined critical value $ m $, the sampling rate deviates from the
+optimal \ac{ASA} sampling rate. This may lead to the sensor not capturing the
+singal fully as the nyquist theorem is violated. The authors argue that a
+potential loss in data quality is the cost of staying continuously in the
+network. The authors tested \ac{EASA} extensively on data from two deployments.
 
 \begin{enumerate}
     \item A custom, windpowered deployment for measuring wind speed
@@ -810,8 +851,9 @@ al.~\cite{luo2009compressive} give an example of a signal being sparse in
 \end{figure}
 
 % TODO make a different introduction if you dont find a paper which could
-% introduce cdg or a paper which focusses on small scale SNs
+% introduce cdg or a paper which focusses on small scale SNs. 
 
+\textit{5) \ac{CDG}:}
 Compressive sampling methods were designed for large scale, multihop sensor
 networks, aswell. Luo et al.~\cite{luo2009compressive} developed a \ac{CDG}
 algorithm for large scale sensor networks. The goal of the algorithm is to
@@ -821,13 +863,13 @@ reducing the datatraffic in a network by compressing data readings at each hop.
 This would lead to $ M $ messages arriving at the sink from $ N $ sensor nodes,
 where $ M << N $. The sink broadcasts a random seed to the network with which
 each sensor node can generate, together with its own identifier, a local seed.
-Sensor nodes then use the local seed to generate a random coefficient $ \phi_i
-$ which they transmit together with their sensor reading $ d_i $ to their
-parent node. Parent nodes receive readings from their child nodes and sum up
-the input with their own $ d $ and $ \phi $. Therefore, every sensor node
-transmits only one value. This ensures the sink node receives $ M $ weighted
-sums $ y $, which consist of a matrix of the random coefficients, $ \Phi $ and
-all sensor readings \textbf{d}:
+Afterwards, no message overhead is present. Sensor nodes then use the local
+seed to generate a random coefficient $ \phi_i $ which they transmit together
+with their sensor reading $ d_i $ to their parent node. Parent nodes receive
+readings from their child nodes and sum up the input with their own $ d $ and $
+\phi $. Therefore, every sensor node transmits only one value. This ensures the
+sink receives $ M $ weighted sums $ y $, which consist of a matrix of the
+random coefficients, $ \Phi $ and all sensor readings \textbf{d}:
 
 $$
 \begin{pmatrix}
@@ -864,21 +906,21 @@ $$
 $ \Psi $ is the domain in which \textbf{d} can be represented by $ K << N
 $ coefficients and $ x $ is the vector of coefficients.
 
-The authors evaluated \ac{CDG} against a baseline transmission scheme (all
-nodes transmit as soon as readings are aquired) with the ns-2 simulation
+The authors evaluated \ac{CDG} against centralized exact (all nodes transmit as
+soon as readings are aquired) with the ns-2 simulation
 tool~\cite{bajaj1999improving}. Additionally, testing was done on two real life
 datasets to evalutate the reconstuction capability. For the simulated
 environment, the authors created two synthetic sensor networks. The first is a
 network with a chain topology, with 1000 sensor nodes spaced 10 meters apart
-from each other and with sink nodes located at each extreme of the chain. The
-second set-up was a grid-like routing tree with 1089 sensor nodes and a sink
-node in the center of the network, e.g. Fig.~\ref{fig:grid topology}. The
-authors varied in their testing runs the signal input intervals and observed
-the package loss and output interval change. \ac{CDG} outperformed the baseline
-scheme in both topologies managing input intervals 5 times and 2.3 times
-smaller than the baseline scheme in the chain and grid topologies respectively.
+from each other and with sinks located at each extreme of the chain. The second
+set-up was a grid-like routing tree with 1089 sensor nodes and a sink node in
+the center of the network, e.g. Fig.~\ref{fig:grid topology}. The authors
+varied in their testing runs the signal input intervals and observed the
+package loss and output interval change. \ac{CDG} outperformed centralized
+exact in both topologies managing input intervals 5 times and 2.3 times smaller
+than the centralized exact in the chain and grid topologies respectively.
 Additionally, \ac{CDG} achieved a packet loss of near zero in both topologies,
-while the baseline scheme had package loss rates of 5\% and 20\% in the chain
+while the centralized exact had package loss rates of 5\% and 20\% in the chain
 and grid topologies respectively.
 
 The real life datasets consist of measurements collected in the Pacific Ocean
@@ -892,28 +934,19 @@ sparse representation of the datacenter dataset as the data exhibit little
 spatial correlation. Instead they opted for reorganizing the dataset by sorting
 the temperature values in ascending order at a moment $ t_0 $. The result is
 sparse in the wavelet domain and the original signal can be reconstructed.
-
-% \begin{figure}[h]
-% \includegraphics[width=8cm]{images/grid-topology-luo.png}
-% \caption{A grid topology~\cite{luo2009compressive}}
-% \label{fig:grid topology}
-% \centering
-% \end{figure}
-
 \par
-
+\textit{6) \ac{EDCA}:}
 One paper by Cheng et al.~\cite{cheng2010efficient} builds upon the low rank
 feature of a matrix. The authors point to discoveries proving that a matrix
 formed from spatial and temporal correlated data is approximately low rank and
 can be recovered from a subset of the data~\cite{vuran2004spatio,
 candes2009exact}. With the \ac{EDCA} sensor nodes sample at a fixed rate and
-send their sensed values to a cetral sink in a multi-hop scheme. However, the
-authors point out that missing values, i.e. no values in some time slots, can
-be recovered with low error. The focus of the algorithm lies on the recovery of
-a low rank
-% Therefore, the sampling rate could be made dynamic to further increase
-% efficiency.
-matrix. The authors use the nuclear norm to solve the rank minimization problem
+send their sensed values to a cetral sink in a multi-hop scheme. No additional
+control messages are sent from the sink to the nodes, with exception of the
+sampling rate. However, the authors point out that missing values, i.e. no
+values in some time slots, can be recovered with low error. The focus of the
+algorithm lies on the recovery of a low rank matrix. The authors use the
+nuclear norm to solve the rank minimization problem
 
 $$
 minimize \ rank(X), \ s.t. \ A(\cdot)=B
@@ -939,21 +972,17 @@ authors tested the accuracy of \ac{EDCA} while using different sampling ratios
 for the 54 sensor nodes. The authors could only observe small recovery errors.
 With a sampling ratio of 0.2, i.e. every fifth sensed value is transmitted, the
 standard deviation $ \sigma $ was $ < 0.15°C $. With the synthetic data set,
-the authors compared \ac{EDCA} with a naive scheme, in which all sensed data
+the authors compared \ac{EDCA} with centralized exact, in which all sensed data
 points are sent to the sink, on network lifetime. The lifetime of a sensor
 network is defined by the authors as "the time duration of the first sensor
 node which runs out of power". The lifetime ratio is defined as $ (1/M_{max}) /
 (1/M_0) $ where $ M_{max} $ is "the maximum power wasted [...] on every
-simulation using \ac{EDCA}" and $ M_0 $ the power wasted by the naive scheme.
+simulation using \ac{EDCA}" and $ M_0 $ the power wasted by centralized exact.
 The authors found the lifetime ratio to be 5 when having a sampling ratio of
-0.2, increasing the lifetime of a network fivefold in comparison to the naive
-scheme.
-
-% TODO Reread the experimental part
-
+0.2, increasing the lifetime of a network fivefold in comparison to centralized
+exact.
 \par
-
-% stcdg
+\textit{7) \ac{STCDG}:}
 Another paper by Cheng et al.~\cite{cheng2013stcdg} expands \ac{EDCA} and
 introduces a \ac{STCDG} algorithm. Similiar to \ac{EDCA}, \ac{STCDG} exploits
 the low rank feature and the short-term stability of data gathered through a
@@ -1005,12 +1034,12 @@ measure the recovery performance of the algorithms. The researchers found that
 the algorithms have critical sampling ratios, which if surpassed, lead to a
 high \ac{NMAE}. \ac{STCDG} perfomed better than the other algorithms, having
 low \ac{NMAE} (sub 0.1) with low sampling ratios (0.1 - 0.2). \ac{CDG} perfomed
-worst of all. The authors argue that the sparsity feature is not always present
+worst of all. The authors state that the sparsity feature is not always present
 in real life data sets. The performance of all algorithms dropped on datasets
 with lower temporal/spatial correlation and fewer sensor nodes (24 and 54
 sensor nodes in the residential building and laboratory datasets respectively).
 The authors argue that \ac{CDG} is outperformed at high sampling ratios by a
-centralized exact scheme, which, like the naive scheme in the previous work of
+centralized exact scheme, which, centralized exact in the previous work of
 Cheng et al.~\cite{cheng2013stcdg}, sends all sensor readings at every timeslot
 to the sink. \ac{STCDG} and \ac{EDCA} have both the same energy consumption.
 
@@ -1037,17 +1066,20 @@ between sensor nodes in the network.
 
 We categorize algorithms into model based schemes if they use a prediction
 model to enrich delivered sensor data at a sink or replace data transmission
-altogether. One of the earlier examples of a model driven data gathering
-technique is the well cited work of Deshpande et al.~\cite{deshpande2004model}.
-The authors present \textit{BBQ} (or Barbie-Q) a model query system in which
-user's queries to a sensor network are answered, until some error threshold,
-with a prediction model. Only if the prediction is not accurate enough, actual
-sensed values are transmitted through the network. \textit{BBQ} is a query
-processing engine, capable to process user queries similiar to \ac{SQL}. The
-researchers make a general point in favour of model based schemes to answer
-user queries. The authors argue that besides easing the communication load on
-the network, statistical models can also, i.a. identify faulty sensors and fill
-holes the network by extrapolating missing data. The authors use a timevarying
+altogether. 
+
+\textit{8) BBQ:}
+One of the earlier examples of a model driven data gathering technique is the
+well cited work of Deshpande et al.~\cite{deshpande2004model}. The authors
+present \textit{BBQ} (or Barbie-Q) a model query system in which user's queries
+to a sensor network are answered, until some error threshold, with a prediction
+model. Only if the prediction is not accurate enough, actual sensed values are
+transmitted through the network. \textit{BBQ} is a query processing engine,
+capable to process user queries similiar to \ac{SQL}. The researchers make a
+general point in favour of model based schemes to answer user queries. The
+authors argue that besides easing the communication load on the network,
+statistical models can also, i.a. identify faulty sensors and fill holes the
+network by extrapolating missing data. The authors use a timevarying
 multivariate Guassian model, however they point put that their framework is
 model agnostic. In \textit{BBQ}, a model is constructed (or trained) using
 historical data, therefore some initial sensed values need to be collected in
@@ -1088,19 +1120,19 @@ communication. \textit{Ken} operates using a prediction model which is
 synchronized at the sink and at sensor nodes. Users query the sensor network
 with frequency and error interval arguments, e.g. values from all sensor nodes
 every $ f $ seconds with an error margin of $ \pm\epsilon $. A sensor node
-collects values and checks if the sink node is able to predict the collected
+collects values and checks if the sink is able to predict the collected
 values correctly within $ \pm\epsilon $. If the values lie within the interval,
 the sensor node suppresses its reading. In the other case, the sensor node
-pushes its values down the network to the sink node. The models at the sink
+pushes its values down the network to the sink. The models at the sink
 node use the new values to \textit{resynchronize} its model with the model at
 the sensor nodes. In a multihop \ac{SN}, additional compression based on
 spatial correlation can take place at different hops. To enable compression
 based on spatial correlation, the authors propose a clustering scheme in which
 there are multiple clusters of sensor nodes with a cluster head each that
-communicates with the base station. This reduces communication overhead, as
+communicates with the sink. This reduces communication overhead, as
 sensor readings do not have to be stored in one central place in the network.
 Each cluster head maintains a synchronized prediciton model with its child
-nodes. Additionally, the base station maintains synchronized prediciton models
+nodes. Additionally, the sink maintains synchronized prediciton models
 with the cluster heads. Such a structure is depicted in Fig.~\ref{fig:cluster
 Chu}. To find such clustering groups, the authors, i.a., present a heuristic
 approach, in which sensor nodes are assigned to a cluster head by its data
@@ -1112,7 +1144,7 @@ their approach on two real world datasets with small, fixed amount of sensors
 clustering technique and with an average model, in which predictions are made
 with the average of all sensed values and no clusters are build. The authors
 came to the conclusion, that \textit{Ken} performs better with the clustering
-scheme, when the communication costs to the base station are many times higher
+scheme, when the communication costs to the sink are many times higher
 than to a neighbor. This advantage recedes if there are a lot of outliers which
 the model cannot predict.
 
@@ -1124,48 +1156,51 @@ the model cannot predict.
 \end{figure}
 
 \par
+\textit{10) ASAP:}
 Gedik et al. point out in their work, that \textit{Ken} is uneffective when the
 observed phenomenon changes unpredictably over time~\cite{gedik2007asap}. In
 such cases, the prediction model has to be adapted or reconstructed, which
 introduces high communication overhead if the model is constructed centrally at
-the base station. Additionally, the authors of \textit{Ken} did not take the
+the sink. Additionally, the authors of \textit{Ken} did not take the
 extra energy expenditure of clusterheads/sinknodes have, compared to regular
 sensor nodes, into account. Gedik et al. address these issues in their
 algorithm, \textit{ASAP}. The algorithm organizes sensor nodes into clusters.
 Clusterization is done periodically, i.e. every $ \tau_c $ seconds. This
 enables a rotation of cluster heads, preventing a premature poweroutage of a
-sensor node. The selection of cluster heads is done inside the network. Each
-sensor node computes a probability of it becoming a cluster head, based on a
-user set desired fraction of sensor nodes becoming cluster heads ($ f_c $) and
-the node's relative energy level to neighboring nodes. Nodes which did not
-become cluster heads choose their cluster head by an attraction factor, a
-combination of the hop distance to the cluster head and a weighted data
-similiarity with the readings of the cluster head and the sensor node, $ \alpha
-$. After clusters are constructed, cluster heads further division its clusters
-into subclusters, of size $ \beta $, based on correlations between each sensor
-node in the cluster. Initially, sensed values of \textit{all} sensor nodes in a
-cluster have to be collected at the cluster head. This is repeated every $
-\tau_f $ seconds to update correlations and adapt to changing dynamics in the
-observed phenomenon. The cluster head selects the fraction $ \sigma $ of nodes
-to act as samplers in a subcluster, based on the remaining energy of each
-sensor node. Only the sampler nodes and the cluster head sense the environment
-(with a sampling rate of $ \tau_d $) and communicate their sensed values to the
-base station. Additionally, cluster heads compute, for each subcluster, a data
-mean vector and a covariance matrix which they send to the base station as model
-parameters. The base station receives the sensed values from the sampler nodes
-and predicts the values for the other nodes.
+sensor node. The formation of clusters and the selection of cluster heads is
+done inside the network, without mediaton of the sink. Each sensor node
+computes a probability of it becoming a cluster head, based on a user set
+desired fraction of sensor nodes becoming cluster heads ($ f_c $) and the
+sensor node's relative energy level to neighboring sensor nodes. Sensor nodes
+which did not become cluster heads choose their cluster head by an attraction
+factor, a combination of the hop distance to the cluster head and a weighted
+data similiarity with the readings of the cluster head and the sensor node, $
+\alpha $. After clusters are constructed, cluster heads further division its
+clusters into subclusters, of size $ \beta $, based on correlations between
+each sensor node in the cluster. Initially, sensed values of \textit{all}
+sensor nodes in a cluster have to be collected at the cluster head. This is
+repeated every $ \tau_f $ seconds to update correlations and adapt to changing
+dynamics in the observed phenomenon. The cluster head selects the fraction $
+\sigma $ of sensor nodes to act as samplers in a subcluster, based on the
+remaining energy of each sensor node. Only the sampler nodes and the cluster
+head sense the environment (with a sampling rate of $ \tau_d $) and communicate
+their sensed values to the sink. Additionally, cluster heads compute,
+for each subcluster, a data mean vector and a covariance matrix which they send
+to the sink as model parameters. The sink receives the sensed
+values from the sampler nodes and predicts the values for the other sensor
+nodes.
 
 Experiments were used to test messaging cost, network performance, energy
 consumption and data quality. Centralized Exact and extreme variations of
 \textit{ASAP} were used to compare the algorithm. The variations were a local
 approach, in which predictions happens at the cluster heads and predicted
-values are sent to the base station, and a central approach in which all
-predictions are carried out at the base station and values of all sensor nodes
-for updating the model are also sent to the base station. The authors found
+values are sent to the sink, and a central approach in which all
+predictions are carried out at the sink and values of all sensor nodes
+for updating the model are also sent to the sink. The authors found
 \textit{ASAP} outperfoming the other algorithms in the number of messages sent
-and the per node energy consumption, while alternating, i.a., $ \sigma $. The
-authors also studied the trade-off between the prediction error and network
-lifetime, observing high liftime improvements (90 \% longer lifetime in
+and the per sensor node energy consumption, while alternating, i.a., $ \sigma
+$. The authors also studied the trade-off between the prediction error and
+network lifetime, observing high liftime improvements (90 \% longer lifetime in
 comparison to centralized exact) if user defined absolute error thresholds are
 at around 1.
 
@@ -1177,6 +1212,7 @@ the user, however, the authors suggest a configuration in their paper which
 minimizes overhead.
 \par
 
+\textit{11) Jiang et al.:}
 A similiar paper by Jiang et al. was published in
 2011~\cite{jiang2011prediction}. They make the point, that the computational
 overhead generated by prediction schemes may outweigh the energy savings
@@ -1189,13 +1225,17 @@ while cluster heads have a history of the values from all sensor nodes in their
 cluster. Based on the historical data, an autoregressive model can be trained
 to predict data locally at sensor nodes and at cluster heads. Cluster heads
 issue prediction bans to sensor nodes if a local prediction is less
-energy-efficient than communicating the values to the cluster head. If no ban
-is issued and the predicted value lies in the user specified error bound, the
-sensor node does not send anything and updates its local, historical data with
-the predicted value. Else, the affected sensor node sends sampled data to the
-cluster head and updates the local historical data with the sampled data. The
-authors point out that in applications with data loss, acknowledgement messages
-can be sent from sensor nodes to cluster heads, to counteract message failure.
+energy-efficient than communicating the values to the cluster head, based on
+the predictability of the data. The authors want to prevent sensor nodes
+computing a prediction, if the prediction will not be accurate enough, because
+the sensed data still has to be sent. In such a case, the power used for the
+prediction is wasted. If no ban is issued and the predicted value lies in the
+user specified error bound, the sensor node does not send anything and updates
+its local, historical data with the predicted value. Else, the affected sensor
+node sends sampled data to the cluster head and updates the local historical
+data with the sampled data. The authors point out that in applications with
+data loss, acknowledgement messages can be sent from sensor nodes to cluster
+heads, to counteract message failure.
 % Evaluation
 The authors evaluated their approach on synthetic dataset by variing the ratio
 of transmission energy consumption and prediction energy consumption. They
@@ -1208,6 +1248,7 @@ that their algorithm is not focussed on cluster creation. Algorithms like
 \subsubsection{Adaptive Filtering}
 \label{sec:Adaptive Filtering}
 
+\textit{12) Jiang et al.:}
 The first algorithm we would like to present in this category is a work from
 2004 by Meng et al.~\cite{meng2004event}. Their approach focusses on in-network
 spatial and temporal correlation based message suppression, based on Contour
@@ -1216,25 +1257,27 @@ data points in a diagram are connected with each other based on some
 similiarities. The factor similiarity can be controlled by a step size. The
 authors use this technique to contruct Contour Maps in sensor networks, so that
 not all sensor nodes with similiar readings have to send data. The suppression
-is done locally at every sensor, while sink nodes interpolate suppressed
+is done locally at every sensor, while sinks interpolate suppressed
 readings of sensor nodes. For that, sensor nodes sample their sensor every $
 \tau $ seconds, while $ \tau $ is between $ \tau_{min} $ and $ \tau_{max} $.
-The sampling interval is based on the magnitude of the sensed value so an
-initial randomness factor is given. This is necessary as some nodes will report
-their readings first, while neighboring nodes listen for those readings. A
-sensor node which has heard the values of its neighbors, decides, based on the
-distance of its own data to the average of the neighbors data $ \delta $ if it
-transmits its own data. Additionally, a sensor node may compare sampled values
-to $ m $ previous sampled values and based on the same threshold $ \delta $
-suppress or send its reading. The sink nodes know the geographical location of
-the sensor nodes and know which nodes (silent nodes) surpressed its readings.
-Thereby, the missing values of the silent nodes can be interpolated by
-averaging the readings of nearby sensor nodes. Additional smoothing can be done
-on the data by incorporating the values of neighbors that are more than one hop
-away from a silent node as weighted averages.
+The sampling period is based on the magnitude of the sensed value so an initial
+randomness factor is given. This is necessary as some sensor nodes will report
+their readings first, while neighboring sensor nodes listen for those readings.
+A sensor node which has overheard the values of its neighbors, decides, based
+on the distance of its own data to the average of the neighbors data $ \delta $
+if it transmits its own data. Additionally, a sensor node may compare sampled
+values to $ m $ previous sampled values and based on the same threshold $
+\delta $ suppress or send its reading. Sensor nodes consume some energy while
+overhearing messages sent by neighboring nodes. The sinks know the
+geographical location of the sensor nodes and know which sensor nodes (silent
+nodes) surpressed its readings. Thereby, the missing values of the silent nodes
+can be interpolated by averaging the readings of nearby sensor nodes.
+Additional smoothing can be done on the data by incorporating the values of
+neighbors that are more than one hop away from a silent node as weighted
+averages.
 
 The authors tested, i.a., the accuracy and and energy consumption of the
-approach in a simulated environment, with 528 nodes from which only 92 sent
+approach in a simulated environment, with 528 sensor nodes from which only 92 sent
 readings to the sink in the course of the experiment. The maximum error did not
 exceed 10, i.e. the distance between the value assigned to a silent node by the
 sink and the actual value. With introduction of network lossiness, 17 readings
@@ -1242,7 +1285,7 @@ out of 92 are dropped on the way to the sink. In that case the maximum error
 was 20. Energy savings were compared against a centralized exact scheme on
 transmitting data, listening for neighbors data and receiving data. The
 algorithm achieved energy savings in each category of $ \approx88\% $ over
-centralized exact. 
+centralized exact.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{images/contour-map.jpg}
@@ -1251,27 +1294,34 @@ centralized exact.
 \centering
 \end{figure}
 
+\textit{13) :}
 Another algorithm, which leverages contour mapping to generate maps of
 environmental phenomenons, is a paper by Solis et
 al.~\cite{solis2005efficient}. Similiar to the work of Meng et al., the
-algorithm suppresses the reporting of readings at nodes which are in the same
-isocluster, i.e. there is no isoline between them. An example of isolines in a
-contour map is given in Fig.~\ref{fig:contour map}. The space between isolines
-is dependant on the application. Less space equals a higher data resolution, as
-more potential isolines are between nodes, at the expense of energy, as more
-readings are communicated. Readings are scheduled from the farthest leaf nodes
-(in the case of a tree topology) to the sink node, which makes additional
-energy conservation through shutting down the radio, possible. The authors
+algorithm suppresses the reporting of readings at sensor nodes which are in the
+same isocluster, i.e. there is no isoline between them. An example of isolines
+in a contour map is given in Fig.~\ref{fig:contour map}. The space between
+isolines is dependant on the application. Less space equals a higher data
+resolution, as more potential isolines are between sensor nodes, at the expense
+of energy, as more readings are communicated. The space between isolines is
+user configured and propagated to all sensor nodes. An isoline can move if a
+sensor node senses a reading which differs from a previous reading by the user
+configured space. The sensor node broadcasts the change in isolines to its
+neighbors. Readings are scheduled from the farthest leaf nodes (in the case of
+a tree topology) to the sink. This enables additional energy conservation,
+as sensor nodes go into a sleep mode after sampling their sensors. The authors
 indicate that additional temporal suppression is applicabble, as sensor nodes
-may only report a reading if that reading changed the isocluster. The authors
-evaluated their approach in a simulated environment against multiple other
-approaches, e.g. an aggregation scheme, in which data is aggregated at parent
-nodes into groups and the averages of the groups are sent further down the
-network. The other schemes were a centralized exact approach with and without
-additional temporal suppression. The authors found their approach outperfoming
-the other algorithms in energy savings and accuracy when constructing contour
-maps from sensor readings.
+may only report a reading if that reading changed the isocluster.
 
+The authors evaluated their approach in a simulated environment against
+multiple other approaches, e.g. an aggregation scheme, in which data is
+aggregated at parent nodes into groups and the averages of the groups are sent
+further down the network. The other schemes were a centralized exact approach
+with and without additional temporal suppression. The authors found their
+approach outperfoming the other algorithms in energy savings and accuracy when
+constructing contour maps from sensor readings.
+
+\textit{14) Conch:}
 A paper by Silberstein et al.~\cite{silberstein2006constraint} presents a
 technique, \textit{Conch}, with which redundant reporting can be reduced even
 further compared to the two previous presented schemes. The authors argue that
@@ -1279,26 +1329,27 @@ both algorithms do not leverage the relative differences of sensor nodes
 values, i.e. when two sensor nodes differ significantly in their readings, but
 one reading can always be infered from the other one, no values should be sent.
 In \textit{Conch} a sensor node in a network has a set of sensor nodes from
-which it receives updates (updaters) and a set of nodes to which it sends
-updates to (reporters). A sensor node broadcasts its sensed values to the
-reporters if its new sensed values differs from the old sensed value by some
+which it receives updates (updaters) and a set of sensor nodes to which it
+sends updates to (reporters). A sensor node broadcasts its sensed values to the
+reporters if its new sensed value differs from the old sensed value by some
 margin. When a sensor node receives a value from an updater node, it computes
 the difference to its own sensed value. If no value is received, the sensor
-node assumes no change has taken place. The base station monitors all
+node assumes no change has taken place. The sink monitors all
 differences between sensor nodes (called edges by the authors), so in the
-initialization all reporters send their edges to the base station. Some nodes
-are monitored directly and route their sensed values to the base station. At
-every timestep, which derives from a user set sampling frequency, the base
-station receives updated differences from reporting nodes and sensed values
-from directly monitored nodes. This enables the base station to compute the
-value of every sensor node at any timestep, if every node can be reached from a
-directly monitored node and the corresponding edges. The authors emphasize that
-\textit{Conch} is a monitoring algorithm; routing schemes are still used to
-route a report from a sensor node to the base station efficiently. The
-algorithm is flexible as the authors present ways to build \textit{Conch
-plans}, i.e. monitoring topologies, to focus on minimizing energy consumption
-or increase sensor node and message failure resilience. The authors tested
-their algorithm in different simulated environments against multiple
+initialization all reporters send their edges to the sink. Some sensor
+nodes are monitored directly. The directly monitored sensor nodes route their
+sensed values and their edges to the sink directly. At every timestep,
+which derives from a user set sampling frequency, the sink receives
+updated edges from reporting nodes and sensed values from directly monitored
+sensor nodes. This enables the sink to compute the value of every
+sensor node at any timestep, if every sensor node can be reached from a
+directly monitored sensor node and the corresponding edges. The authors
+emphasize that \textit{Conch} is a monitoring algorithm; routing schemes are
+still used to route a report from a sensor node to the sink
+efficiently. The algorithm is flexible as the authors present ways to build
+\textit{Conch plans}, i.e. monitoring topologies, to focus on minimizing energy
+consumption or increase sensor node and message failure resilience. The authors
+tested their algorithm in different simulated environments against multiple
 algorithms, i.a. the scheme by Meng et al.~\cite{meng2004event}. The authors
 tested the performance of \textit{Conch} on, i.a. \acp{SN} with different
 sensor node densities, predictable increases of the observed value and outlier
@@ -1337,8 +1388,8 @@ of the challanges of data sampling in \acp{SN}.
 Routing schemes define how data is communicated in a network. In a survey from
 2004 on routing protocols, Al-Karaki et al.~\cite{al2004routing} classify
 routing into network protocols and routing criteria. Network protocols define,
-how communication between nodes in a sensor network is structured. With flat
-network routing, all nodes have the same task in the network, mainly sensing
+how communication between sensor nodes in a sensor network is structured. With flat
+network routing, all sensor nodes have the same task in the network, mainly sensing
 and forwarding data. Hierarchical network routing incorporates schemes, in
 which the sensor network is divided into clusters. We presented such a scheme
 in our taxonomy with \textit{ASAP}~\cite{gedik2007asap}. In location based
@@ -1346,7 +1397,7 @@ routing, sensor nodes are typically equiped with a GPS
 module~\cite{xu2001geography} or can infer their own position on based on the
 strength of incoming signals, if a GPS module is too
 expensive~\cite{hu2004localization}. Location based routing is especially
-useful in mobile sensor networks, in which nodes change their position in the
+useful in mobile sensor networks, in which sensor nodes change their position in the
 sensing field frequently and therefore change their
 neighbors~\cite{hu2004localization}.
 
@@ -1354,11 +1405,11 @@ A work py Zou et al.~\cite{zou2004pager} introduces a \textit{stateless},
 (sensor nodes do not have to save past routing paths) location-based routing
 algorithm, \textit{PAGER-M}, for mobile sensor networks. The algorithm uses
 greedy forwarding~\cite{stojmenovic2001loop} to rout sensed data to the next
-node on the shortest path to the base station. However, sensor nodes can
-sometimes be the closest node to the base station in their local topology (but
+sensor node on the shortest path to the sink. However, sensor nodes can
+sometimes be the closest sensor node to the sink in their local topology (but
 still out of range to transmit), even though there exists a shorter path and
 thus routing can fail, e.g. Fig.~\ref{fig:shadow nodes}. To handle such cases,
-the authors define a scheme which idenfies such nodes. Sensor nodes assign cost
+the authors define a scheme which idenfies such sensor nodes. Sensor nodes assign cost
 variables to themselves, based on the cost variables of its neighbors. This
 ensures that every sensor node has a neighbor with a lower cost variable than
 itself, which enables a high-cost-to-low-cost routing if greedy routing fails.
@@ -1381,7 +1432,7 @@ consumption where consistently higher with \textit{GPSR} compared to
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{images/pager-shadow-nodes.pdf}
 \caption{Example of a topology where greedy routing can fail. Sensor node A is
-the closest node to the base station in its local topology~\cite{zou2004pager}.}
+the closest sensor node to the sink in its local topology~\cite{zou2004pager}.}
 \label{fig:shadow nodes}
 \centering
 \end{figure}
@@ -1400,20 +1451,20 @@ Chen et al. present multiple algorithms for mobile agent-based protocols in
 their work~\cite{chen2011itinerary}. The authors expand with their algorithms
 the \textit{LCF} algorithm by Qi et al.~\cite{qi2001optimal}. \textit{LCF}
 calculates an ad-hoc itinerary (application specififed route through sensor
-nodes) by searching for the closest sensor node to a current node. Chen et al.
-expand the algorithm by presenting a scheme to select the first sensor node in
-the itinerary which would minize the energy expenditure of the mobile agent.
-The authors further propose an algorithm to iteratively optimize the next $ k $
-hops of the mobile agent. The authors find in their experiments, in which they
-simulate a large-scale \ac{SN} with 800 sensor nodes, that their algorihtm
-decreases the energy-delay product ($ energy \cdot delay $) by 80\% in the first
-iteration and only marginally in following iterations.
+nodes) by searching for the closest sensor node to a current sensor node. Chen
+et al. expand the algorithm by presenting a scheme to select the first sensor
+node in the itinerary which would minize the energy expenditure of the mobile
+agent. The authors further propose an algorithm to iteratively optimize the
+next $ k $ hops of the mobile agent. The authors find in their experiments, in
+which they simulate a large-scale \ac{SN} with 800 sensor nodes, that their
+algorihtm decreases the energy-delay product ($ energy \cdot delay $) by 80\%
+in the first iteration and only marginally in following iterations.
 
 Singh et al.~\cite{singh2010routing} additionally define single-path and
 multi-path routing. With single-path routing, sensor nodes send their sensed
-values on the shortest path to the base station. With multi-path routing on the
+values on the shortest path to the sink. With multi-path routing on the
 other hand, sensor nodes divide their sensed data and send it with the
-\textit{k} shortest paths to the base station. The authors additionally define
+\textit{k} shortest paths to the sink. The authors additionally define
 different instances of multi-path routing, e.g. disjoint paths and braided
 paths. With disjoint paths each path has unique sensor nodes, while in braided
 paths a primary path is built and additional paths are computed by excluding
@@ -1427,7 +1478,7 @@ more powerful batteries. The rest of the nodes are do not have such equipment
 and only serve as relay nodes. The authors argue that \acp{VSN} are limited in
 bandwidth and energy and are additionally susceptible to transmission errors.
 The algorithm constructs a application specific number of \textit{disjoint}
-paths from a source video sensor node to the sink node. To keep the paths
+paths from a source video sensor node to the sink. To keep the paths
 disjoint, the algorithm may construct routes which have nodes that are further
 away from the sink than the source node. Such cases can occure when the node
 density is low in the \ac{SN} and the path number is high. The authors argue
@@ -1475,7 +1526,7 @@ Sun et al.~\cite{sun2008ri} present a \ac{MAC} protocol which tackles the
 aforementioned problems. With the protocol \textit{RI-MAC} every sensor node
 has a wake up schedule. While awake, a sensor node will broadcast a message
 that it is ready to receive data. A sender node, which is awake and waiting for
-the message, then starts data transmission, which the receiving node
+the message, then starts data transmission, which the receiving sensor node
 acknowledges. The authors argue, that due to the receiver initiated
 transmission, \textit{RI-MAC} handles heavier traffic loads more power
 efficiently, than other \ac{MAC} protocols, such as \textit{B-MAC} and
@@ -1591,7 +1642,7 @@ stored at the buffer and \textit{CSSL} is reset to 0. Additionally, the sink
 stores the prediction models of every sensor node. Initially, all sensor nodes
 send their model parameters to the sink and keep a copy of the send model
 locally. If a sensor node detects an inaccurate prediction at the sink, it
-sends an updated server model to the sink. The authors point out that their
+sends an updated sink model to the sink. The authors point out that their
 algorithm is not suitable for time critical applications, as it detects events
 at a high probability, but not as soon as they occure.
 
@@ -1615,10 +1666,11 @@ adaptive sampling algorihtm. For example, the \ac{USAC} algorithm could be used
 to dynamically adapt the sampling rate of a sensor node based on the dynamics
 of the observed phenomenon. Additionally, the model, which runs at sensor
 nodes, could be shifted to run at a cluster head. The model could then also run
-on the sink node. Similiar to the scheme of Chatterjea et
+on the sink. Similiar to the scheme of Chatterjea et
 al.~\cite{chatterjea2008adaptive}, only the model parameters would be send to
 the sink, if the cluster head detects an incorrect prediction. The difference
-to the scheme of Chatterjea et al. is the additional clustering of the nodes. 
+to the scheme of Chatterjea et al. is the additional clustering of the sensor
+nodes. 
 
 The authors of the \textit{Conch} algorithm point
 out~\cite{silberstein2006constraint}, that their scheme can be used in

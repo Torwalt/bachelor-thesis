@@ -29,14 +29,18 @@
 
 ## Overview TODO
 
-- write the combination of algorithms section
-- add some metrics with which you want to compare all the algorithms
-- make table listing all algorithms of the taxonomy with the comparison metics
-  - e.g. assuptions the algorithms have
-- finish methodology section
-  - explain why you chose the algorithms
-  - describe the metrics and why you chose them
+- add more Visualizations to the work
+  - vizu to describe sensor data gathering (kind of like a big picture)
+  - some vizualizations from the papers (especially the first ones)
+  - maybe find a tool which produces a vizu of paper reference connectivity,
+    i.e which papers reference each other etc.
+- reformulate the "combination of algorithms" section, i.e. we do not present
+  possible future research directions, but present possible combinations which
+  the authors theoretezize
+- finish the general todo stuff
 - rewrite the parts which jonas did not like
-  - add a paragraph where you differentiate your work to the Energy Management
-    in Wireless Sensor Networks with Energy-hungry Sensors
-- classify the subcategories into additional classes based on ...
+  - i.e. make it sound more "scientific writing style"
+- maybe if you have time, add some more algorithms in compressive sampling and
+  adaptive filtering
+- expand the conclusion
+- only use one synonym, i.e. only use base station for example.

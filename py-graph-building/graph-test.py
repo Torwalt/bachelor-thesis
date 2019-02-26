@@ -21,9 +21,19 @@ dot.node('E', 'Compressive Sampling')
 dot.node('F', 'Model Based Schemes')
 dot.node('G', 'Adaptive Filtering')
 
+dot.node('H', 'Backcasting, Jain et al., USAC, EASA')
+dot.node('I', 'CDG, EDCA, STCDG')
+dot.node('J', 'BBQ, Ken, ASAP, Jiang et al.')
+dot.node('K', 'Meng et al., Solis et al., Conch')
+
 dot.edges(['AB', 'AC'])  # top edges
 dot.edges(['BD', 'BE'])  # sampling edges
-dot.edges(['CF', 'CG'])  # sampling edges
+dot.edges(['CF', 'CG'])  # filtering edges
+
+dot.edges(['DH'])  # test edges
+dot.edges(['EI'])  # test edges
+dot.edges(['FJ'])  # test edges
+dot.edges(['GK'])  # test edges
 
 full_path = os.path.join(sink, 'taxonomy')
 
