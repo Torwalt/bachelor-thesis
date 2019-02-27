@@ -21,10 +21,10 @@ dot.node('E', 'Compressive Sampling')
 dot.node('F', 'Model Based Schemes')
 dot.node('G', 'Adaptive Filtering')
 
-dot.node('H', 'Backcasting, Jain et al., USAC, EASA')
+dot.node('H', 'Backcasting, Jain et al., \n USAC, EASA')
 dot.node('I', 'CDG, EDCA, STCDG')
-dot.node('J', 'BBQ, Ken, ASAP, Jiang et al.')
-dot.node('K', 'Meng et al., Solis et al., Conch')
+dot.node('J', 'BBQ, Ken, \n ASAP, Jiang et al.')
+dot.node('K', 'Meng et al., Solis et al., \n Conch, CME')
 
 dot.edges(['AB', 'AC'])  # top edges
 dot.edges(['BD', 'BE'])  # sampling edges
