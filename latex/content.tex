@@ -1,6 +1,7 @@
 %!TEX root = jt-thesis-main.tex
 
 \section*{English Abstract}
+\addcontentsline{toc}{section}{English Abstract}
 \begin{onehalfspace}
     Gathering data from sensor networks entails challenges such as minimizing
     network latency, providing data accuracy, scaling the system, and, if the
@@ -13,22 +14,22 @@
     the challenges of sensor data gathering we present a catalog of sampling
     algorithms for sensor data. We classify the presented sampling algorithms
     and order them into a taxonomy. We first divide sampling algorithms into
-    sampling and filtering algorithms. When then further divide the sampling
+    sampling and filtering algorithms. We then further divide the sampling
     algorithms into adaptive sampling and compressive sampling. Likewise, we
     divide the filtering algorithms into model-based schemes and adaptive
-    filtering algorithms. We provide an overview of 15 sampling algorithms and
-    summarize their assumptions, advantages, limitations and message overhead
-    in a table. Additionally, we present and summarize five algorithms from
-    related areas, i.e., routing and topology control, and two algorithms which
-    combine sampling techniques. We additionally highlight possible
-    combinations of algorithms from the taxonomy. Authors of algorithms from
-    the taxonomy partially mention the combinations.
+    filtering algorithms. We provide a detailed overview of sampling algorithms
+    and summarize their assumptions, advantages, limitations and message
+    overhead. Additionally, we present and summarize algorithms from related
+    areas, i.e., routing and topology control, algorithms which combine
+    sampling techniques. We additionally highlight possible combinations of
+    algorithms proposed by different authors.
 \end{onehalfspace}
 \clearpage
 
 \section*{Deutscher Abstract}
+\addcontentsline{toc}{section}{German Abstract}
 \begin{onehalfspace}
-    Das Sammeln von Daten aus Sensor Netzwerken bringt Herausforderungen mit
+    Das Sammeln von Daten aus Sensornetzwerken bringt Herausforderungen mit
     sich: Geringhaltung der Netzwerk Latenz, Zustellung genauer Daten,
     Skalierung des Netzwerkes und Energieverwaltung der Sensorknoten, wenn es
     sich um ein kabelloses Sensor Netzwerk handelt. Mit steigender Zahl von
@@ -44,14 +45,13 @@
     und Ordnen sie in einer Taxonomie. Wir unterteilen Sampling Algorithmen
     weiter in Adaptive Sampling und Compressive Sampling Algorithmen. Auch
     unterteilen wir die Filtering Algorithmen weiter in Model Based Schemes und
-    Adaptive Filtering Algorithmen. Wir stellen einen Überblick von 15 Sampling
+    Adaptive Filtering Algorithmen. Wir stellen einen Überblick von Sampling
     Algorithms dar und fassen deren Annahmen, Vorteile, Einschränkungen und
-    Message Overhead in einer Tabelle zusammen. Zusätzlich präsentieren wir 5
+    Message Overhead in einer Tabelle zusammen. Zusätzlich präsentieren wir
     Algorithmen von verwandten Bereichen, nämlich Routing und Topology Control,
-    und 2 Algorithmen welche Methoden von verschiedenen Klassen unserer
+    und Algorithmen, welche Methoden von verschiedenen Klassen unserer
     Taxonomie verwenden. Wir zeigen zusätzlich mögliche Kombinationen von
-    Algorithmen aus der Taxonomie auf. Die Kombinationen sind teilweise von
-    Autoren aus der Taxonomie vorgeschlagen.
+    Algorithmen, die von verschiedenen Autoren vorgestellt wurden.
 \end{onehalfspace}
 \clearpage
 
@@ -86,8 +86,8 @@ rault2014energy}. Systems such as TinyDB~\cite{madden2005tinydb},
 ACQUIRE~\cite{sadagopan2003acquire} and COUGAR~\cite{yao2002cougar} introduce
 architectures for query processing in \acp{SN} which consist of algorithms for
 sampling, and routing data requested by a user. Generally, the algorithms
-presented in this thesis are not limited to \acp{SN}. Distributed systems, e.g.
-... exhibit similar challenges to \acp{SN}, namely, a vast amount of data is
+presented in this thesis are not limited to \acp{SN}. Distributed systems,
+exhibit similar challenges to \acp{SN}, namely, a vast amount of data is
 generated in a distributed fashion at high velocities. With increasing numbers
 of such data sources, the sinks which process that data need to scale or the
 mass of data needs to be reduced. One way to reduce the data is to employ
@@ -101,12 +101,11 @@ applications~\cite{abdullah2015real}). Second, the mass of to-be-processed data
 at the sink is reduced. Applications from the areas of \textit{Urban Sensing}
 (e.g. MetroSense~\cite{campbell2006people},
 AnonySense~\cite{cornelius2008anonysense}), in which mobile phones are sensors
-and humans their mobile carriers~\cite{calabrese2015urban, shin2009deamon} or
-from the area of predictive maintenance (e.g. )
-
-In this thesis, we provide an overview of sampling and filtering algorithms for
-sensor data. We focus on \acp{SN}; however, we argue that the techniques
-presented in this thesis can be applied to all kinds of data. 
+and humans their mobile carriers~\cite{calabrese2015urban, shin2009deamon} have
+to be scalable to handle millions of mobile sensors. In this thesis, we provide
+an overview of sampling and filtering algorithms for sensor data. We focus on
+\acp{SN}; however, we argue that the techniques presented in this thesis can be
+applied to all kinds of data. 
 
 % TODO Check if that is ok. Examples for distributed systems, particular not
 % WSNs. Also, improve the second point
@@ -180,7 +179,7 @@ significant communication overhead with additional energy expenditure.
 Techniques on topology control and route pathfinding will be discussed later in
 the thesis.
 \par
-A survey by Alippi et. al~\cite{alippi2009energy} presents a taxonomy of
+A survey by Alippi et al.~\cite{alippi2009energy} presents a taxonomy of
 adaptive sensing strategies. The authors present, i.a. "adaptive sampling" and
 "model based active sensing" algorithms. We extend with our work the area of
 sampling with filtering as both processes can run at a sensor node level.
@@ -358,9 +357,9 @@ term and use this term throughout the thesis.
         sinks which are not aimed at routing sensed data.
 
     \item[Broadcasting]
-        Broadcasting is a form of information transmission and is employed in wireless
-        channels~\cite{lee2013energy}. Broadcasted messages can be received by
-        any receiver which is in range.
+        Broadcasting is a form of information transmission and is employed in
+        wireless channels~\cite{lee2013energy}. Broadcasted messages can be
+        received by any receiver which is in range.
 
     \item[Neighboring Sensor Node]
         Two sensor nodes are neighbors if the broadcasted messages of one
@@ -405,10 +404,11 @@ term and use this term throughout the thesis.
 
     \item[Data collection and data gathering] 
         Data collection is often mentioned in connection with the whole process
-        of acquiring data through sensors in \acp{SN}. A sampling algorithm samples a data stream produced by a sensor sensing a phenomenon.
-        The data is then routed through the network to the destination. The
-        work of Yao et al.~\cite{yao2015edal} contributes, i.a., a technique,
-        for finding the lowest cost path for sent data packages in a \acp{WSN}
+        of acquiring data through sensors in \acp{SN}. A sampling algorithm
+        samples a data stream produced by a sensor sensing a phenomenon. The
+        data is then routed through the network to the destination. The work of
+        Yao et al.~\cite{yao2015edal} contributes, i.a., a technique, for
+        finding the lowest cost path for sent data packages in a \acp{WSN}
         while additionally employing compressive sampling. The authors use data
         collection to define this process. Additionally, a survey by Di
         Francesco et al.~\cite{di2011data} defines the term data collection as
@@ -462,7 +462,7 @@ term and use this term throughout the thesis.
 \end{description}
 \par
 
-\subsection{Algortihm selection criteria}
+\subsection{Algortihm Selection Criteria}
 \label{sec:Algortihm selection criteria}
 
 Many of the algorithms in our taxonomy focus on \acp{WSN}, which are heavily
@@ -520,8 +520,8 @@ set of properties describes each algorithm:
         Rather, we include algorithm traits which make an algorithm stand out
         more in its strengths. However, the presented traits are not distinct,
         as algorithms, especially from the same category, share strengths and
-        weaknesses (e.g., \textit{EDCA} and \textit{STCDG} share many properties, as
-        \textit{STCDG} is an extension of \textit{EDCA}).
+        weaknesses (e.g., \textit{EDCA} and \textit{STCDG} share many
+        properties, as \textit{STCDG} is an extension of \textit{EDCA}).
     \item[Limitations]
         Similar to the advantages, we include limitations of algorithms as the
         authors or authors of other work define them. 
@@ -848,7 +848,8 @@ network. The authors tested \ac{EASA} extensively on data from two deployments.
 
 \begin{enumerate}
     \item A custom, wind-powered deployment for measuring wind speed
-    \item An off-the-shelf solar powered deployment for measuring $ CO_2 $ in a beehive
+    \item An off-the-shelf solar powered deployment for measuring $ CO_2 $ in a
+    beehive
 \end{enumerate}
 
 \ac{EASA} was tested with different saving rates against \ac{ASA} and
@@ -1140,6 +1141,15 @@ voltage, are highly correlated. The authors show that the correlation can be
 leveraged by the model, as voltage is sometimes cheaper to sample than
 temperature. Additionally, spatial and temporal correlations are leveraged by
 the model to reduce the number of sensors queried.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{images/bbq-architecture.png}
+\caption{Architecture of \textit{BBQ}~\cite{deshpande2004model}. A user writes
+probabilistic queries in an \ac{SQL}-like language. The query processor plans
+and executes the optimal query plan.}
+\label{fig:bbq}
+\centering
+\end{figure}
 
 The authors evaluated their system by comparing \textit{BBQ} with
 TinyDB~\cite{madden2005tinydb} and Approximate-Caching on two datasets
@@ -1469,7 +1479,7 @@ singh2010routing} exist already. We will nevertheless show some examples of
 routing and topology control algorithms, as this will grant a better overview
 of the challenges of data sampling in \acp{SN}.
 
-\subsection{Routing}
+\subsection{Routing Schemes}
 \label{sec:Routing}
 
 Routing schemes define how data is communicated in a network. In a survey from

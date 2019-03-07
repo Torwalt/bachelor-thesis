@@ -9,9 +9,11 @@ digraph structs {
 	E [label="Compressive Sampling"]
 	F [label="Model Based Schemes"]
 	G [label="Adaptive Filtering"]
-	H [label="Backcasting, Jain et al., USAC, EASA"]
+	H [label="Backcasting, Jain et al., 
+ USAC, EASA"]
 	I [label="CDG, EDCA, STCDG"]
-	J [label="BBQ, Ken, ASAP, Jiang et al."]
+	J [label="BBQ, Ken, 
+ ASAP, Jiang et al."]
 	K [label="Meng et al., Solis et al., 
  Conch, CME"]
 	A -> B

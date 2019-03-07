@@ -81,12 +81,12 @@
 \newcommand{\vondatum}{DD/MM/YYYY}	%Hier Startdatum eintragen (mm/dd/yyyy)
 \newcommand{\bisdatum}{DD/MM/YYYY}	%Hier Enddatum eintragen (mm/dd/yyyy)
 \newcommand{\berichttitel}
-	{A Catalogue of Sampling Algorithms \linebreak for Sensor Data}
+	{A Catalogue of Sampling Algorithms for Sensor Data}
 % \newcommand{\berichtuntertitel}
 	% {Here comes the subtitle}
 \newcommand{\sture}{Prof. Dr. Volker Markl / Prof. Dr. Rüdiger Zarnekow}%Hier Supervisor1 eintragen
-\newcommand{\betreuer}{Traub, Jonas}%Hier Supervisor2 eintragen
-\newcommand{\abgabedatum}{02/28/2019}		%Hier Abgabedatum eintragen (mm/dd/yyyy)
+\newcommand{\betreuer}{Jonas Traub}%Hier Supervisor2 eintragen
+\newcommand{\abgabedatum}{28.02.2019}		%Hier Abgabedatum eintragen (mm/dd/yyyy)
 
 %Add environment to mark draft sections
 \newcommand{\draftcontent}[2]{
@@ -138,7 +138,9 @@
 
   {\Large\textbf{Bachelor Thesis}}\\
   \vspace{0.7cm}  
-  {\begin{onehalfspace}\Huge\textbf \textsf{\berichttitel} \end{onehalfspace}}
+  {\begin{onehalfspace}\Huge\textbf \textsf{A Catalogue of Sampling Algorithms
+  \linebreak
+	for Sensor Data} \end{onehalfspace}}
   \vspace{0.5cm}
 %   \berichtuntertitel\\
   %{\large \vondatum\ -- \bisdatum}\\
@@ -173,8 +175,8 @@
 \rhead{}
 
 \cfoot{\small \student: \berichttitel}
-\lfoot{\ifthispageodd{}{\thepage}}
-\rfoot{\ifthispageodd{\thepage}{}}
+% \lfoot{\ifthispageodd{}{\thepage}}
+\rfoot{\thepage}
 %\rfoot{\thepage}
 
 \fancyhfoffset{\marginparsep}
@@ -284,6 +286,7 @@ Datum &  & \student
 \mbox{}
 \thispagestyle{empty}
 \clearpage
+
 
 %%%%%%%%%%% content
 \pagenumbering{arabic}
