@@ -1,5 +1,11 @@
 # A Catalogue of Sampling Algorithms for Sensor Data
 
+## Compiled Version
+
+<https://drive.google.com/file/d/1E7HOBt4HsYQrdSpNTzBRjPzJfHmKVleP/view?usp=sharing>
+
+## Published Version
+
 This thesis was published (in adapted/extended form by Dimitrios Giouroukis) in DEBS 2020.
 
 <https://2020.debs.org/accepted-papers/>
@@ -12,10 +18,9 @@ This thesis was published (in adapted/extended form by Dimitrios Giouroukis) in 
 
 The best way to build the document is to use the makefile.
 
-`make all` or just `make` will build the document.
+You will need pdflatex to compile the files.
 
-- If on windows run
-  - `makefile.bat`
+`make all` or just `make` in the `latex` directory will build the document.
 
 ### Clean up before commit
 
